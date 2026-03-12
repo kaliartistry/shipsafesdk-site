@@ -286,11 +286,235 @@ h3 {
   max-width: 600px;
 }
 
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 48px;
+}
+
 .hero-ctas {
   display: flex;
   align-items: center;
   gap: 24px;
   flex-wrap: wrap;
+}
+
+/* Hero Phone Mockup */
+.hero-animation {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.hero-phone {
+  width: 260px;
+  height: 540px;
+  background: #1a1a2e;
+  border-radius: 36px;
+  padding: 10px;
+  box-shadow: 0 25px 80px rgba(0,0,0,0.18), 0 0 0 1px rgba(0,0,0,0.05);
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.hero-animation.animated .hero-phone {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hero-phone-screen {
+  width: 100%;
+  height: 100%;
+  border-radius: 28px;
+  overflow: hidden;
+  position: relative;
+  background: #f8fafc;
+}
+
+.hero-status-bar {
+  height: 36px;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 18px;
+  font-size: 10px;
+  font-weight: 600;
+  color: #1e293b;
+  position: relative;
+  z-index: 10;
+  font-family: 'Inter', sans-serif;
+}
+.hero-sb-time { font-weight: 700; }
+.hero-sb-label { font-weight: 500; font-size: 9px; color: #64748b; }
+.hero-sb-icons { display: flex; gap: 3px; align-items: center; }
+.hero-sb-icons svg { width: 13px; height: 13px; }
+
+.hero-map-area {
+  position: absolute;
+  top: 36px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #eef2f7;
+  overflow: hidden;
+}
+.hero-map-area svg { width: 100%; }
+
+.hero-bottom-card {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  border-radius: 16px 16px 0 0;
+  padding: 14px 16px;
+  box-shadow: 0 -4px 16px rgba(0,0,0,0.08);
+  z-index: 20;
+  transition: background 0.5s ease;
+  font-family: 'Inter', sans-serif;
+}
+
+.hero-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.hero-eta-label {
+  font-size: 9px;
+  font-weight: 600;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.hero-eta-time {
+  font-size: 28px;
+  font-weight: 800;
+  color: #0C2340;
+  line-height: 1;
+  transition: color 0.5s ease;
+}
+.hero-eta-time span {
+  font-size: 12px;
+  font-weight: 600;
+  color: #94a3b8;
+  margin-left: 3px;
+}
+
+.hero-ship-name {
+  font-size: 11px;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.hero-alert-banner {
+  margin-top: 10px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.5s ease;
+}
+
+.hero-alert-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 14px;
+}
+
+.hero-alert-title {
+  font-size: 11px;
+  font-weight: 700;
+  margin-bottom: 1px;
+}
+
+.hero-alert-desc {
+  font-size: 9px;
+  font-weight: 500;
+  opacity: 0.8;
+  line-height: 1.3;
+}
+
+.hero-progress-track {
+  margin-top: 10px;
+  height: 3px;
+  background: #e2e8f0;
+  border-radius: 2px;
+  overflow: hidden;
+}
+.hero-progress-fill {
+  height: 100%;
+  border-radius: 2px;
+  width: 5%;
+  transition: width 0.5s ease, background 0.5s ease;
+}
+
+/* Hero phone alert states */
+.hero-phone-screen.alert-green .hero-alert-banner { background: #f0fdf4; }
+.hero-phone-screen.alert-green .hero-alert-icon { background: #22c55e; color: white; }
+.hero-phone-screen.alert-green .hero-alert-title { color: #15803d; }
+.hero-phone-screen.alert-green .hero-alert-desc { color: #166534; }
+.hero-phone-screen.alert-green .hero-progress-fill { background: #22c55e; }
+
+.hero-phone-screen.alert-yellow .hero-alert-banner { background: #fefce8; }
+.hero-phone-screen.alert-yellow .hero-alert-icon { background: #f59e0b; color: white; }
+.hero-phone-screen.alert-yellow .hero-alert-title { color: #b45309; }
+.hero-phone-screen.alert-yellow .hero-alert-desc { color: #92400e; }
+.hero-phone-screen.alert-yellow .hero-progress-fill { background: #f59e0b; }
+.hero-phone-screen.alert-yellow .hero-eta-time { color: #b45309; }
+
+.hero-phone-screen.alert-orange .hero-alert-banner { background: #fff7ed; }
+.hero-phone-screen.alert-orange .hero-alert-icon { background: #f97316; color: white; }
+.hero-phone-screen.alert-orange .hero-alert-title { color: #c2410c; }
+.hero-phone-screen.alert-orange .hero-alert-desc { color: #9a3412; }
+.hero-phone-screen.alert-orange .hero-progress-fill { background: #f97316; }
+.hero-phone-screen.alert-orange .hero-eta-time { color: #c2410c; }
+
+.hero-phone-screen.alert-red .hero-alert-banner { background: #fef2f2; animation: heroUrgentPulse 0.8s ease-in-out infinite; }
+.hero-phone-screen.alert-red .hero-alert-icon { background: #ef4444; color: white; animation: heroIconPulse 0.6s ease-in-out infinite; }
+.hero-phone-screen.alert-red .hero-alert-title { color: #dc2626; }
+.hero-phone-screen.alert-red .hero-alert-desc { color: #991b1b; }
+.hero-phone-screen.alert-red .hero-progress-fill { background: #ef4444; }
+.hero-phone-screen.alert-red .hero-eta-time { color: #dc2626; }
+
+.hero-phone-screen.alert-safe .hero-bottom-card { background: #0C2340; }
+.hero-phone-screen.alert-safe .hero-eta-label { color: rgba(255,255,255,0.5); }
+.hero-phone-screen.alert-safe .hero-eta-time { color: #00B4D8; }
+.hero-phone-screen.alert-safe .hero-eta-time span { color: rgba(255,255,255,0.4); }
+.hero-phone-screen.alert-safe .hero-ship-name { color: rgba(255,255,255,0.5); }
+.hero-phone-screen.alert-safe .hero-alert-banner { background: rgba(0,180,216,0.15); }
+.hero-phone-screen.alert-safe .hero-alert-icon { background: #00B4D8; color: white; }
+.hero-phone-screen.alert-safe .hero-alert-title { color: #00B4D8; }
+.hero-phone-screen.alert-safe .hero-alert-desc { color: rgba(255,255,255,0.7); }
+.hero-phone-screen.alert-safe .hero-progress-fill { background: #00B4D8; }
+.hero-phone-screen.alert-safe .hero-progress-track { background: rgba(255,255,255,0.1); }
+
+.hero-alert-flash { animation: heroAlertFlash 0.4s ease-out; }
+
+@keyframes heroAlertFlash {
+  0% { transform: scale(0.97); opacity: 0.7; }
+  50% { transform: scale(1.01); }
+  100% { transform: scale(1); opacity: 1; }
+}
+@keyframes heroUrgentPulse {
+  0%, 100% { background: #fef2f2; }
+  50% { background: #fee2e2; }
+}
+@keyframes heroIconPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
 }
 
 .hero-glow {
@@ -675,7 +899,12 @@ h3 {
   /* Hero mobile */
   .hero {
     min-height: auto;
-    padding: 120px 0 80px;
+    padding: 120px 0 60px;
+  }
+
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
   }
 
   .hero h1 {
@@ -689,6 +918,11 @@ h3 {
   .hero-ctas {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .hero-phone {
+    width: 240px;
+    height: 500px;
   }
 
   .hero-glow {

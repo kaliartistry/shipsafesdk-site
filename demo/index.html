@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ShipSafe SDK — Alert Escalation Demo</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: #0C2340;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    overflow: hidden;
+  }
+
+  .scene {
+    position: relative;
+    width: 1280px;
+    height: 720px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 80px;
+  }
+
+  /* Left side — branding */
+  .brand-side {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+    opacity: 0;
+    transform: translateX(-30px);
+    animation: slideInLeft 0.8s ease-out 0.5s forwards;
+  }
+  .brand-logo { height: 40px; }
+  .brand-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: white;
+    line-height: 1.2;
+  }
+  .brand-title span { color: #00B4D8; }
+  .brand-sub {
+    font-size: 16px;
+    color: rgba(255,255,255,0.5);
+    max-width: 320px;
+    line-height: 1.5;
+  }
+
+  .stage-label {
+    margin-top: 16px;
+    padding: 10px 20px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: all 0.5s ease;
+    opacity: 0;
+    animation: fadeIn 0.5s ease-out 2s forwards;
+  }
+
+  /* Phone frame */
+  .phone {
+    width: 300px;
+    height: 620px;
+    background: #1a1a2e;
+    border-radius: 40px;
+    padding: 12px;
+    box-shadow: 0 25px 80px rgba(0,0,0,0.5), 0 0 0 2px rgba(255,255,255,0.08);
+    position: relative;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: slideInUp 0.8s ease-out 0.3s forwards;
+  }
+  .phone-screen {
+    width: 100%;
+    height: 100%;
+    border-radius: 30px;
+    overflow: hidden;
+    position: relative;
+    background: #f8fafc;
+  }
+
+  /* Status bar */
+  .status-bar {
+    height: 44px;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #1e293b;
+    position: relative;
+    z-index: 10;
+  }
+  .status-bar .time { font-weight: 700; }
+  .status-icons { display: flex; gap: 4px; align-items: center; }
+  .status-icons svg { width: 16px; height: 16px; }
+
+  /* Map area */
+  .map-area {
+    position: absolute;
+    top: 44px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #eef2f7;
+    overflow: hidden;
+  }
+  .map-area svg { width: 100%; }
+
+  /* Bottom card */
+  .bottom-card {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: white;
+    border-radius: 20px 20px 0 0;
+    padding: 20px;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.08);
+    z-index: 20;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+
+  .eta-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .eta-time {
+    font-size: 36px;
+    font-weight: 800;
+    color: #0C2340;
+    line-height: 1;
+    transition: color 0.5s ease;
+  }
+  .eta-time span {
+    font-size: 16px;
+    font-weight: 600;
+    color: #94a3b8;
+    margin-left: 4px;
+  }
+
+  .ship-name {
+    font-size: 13px;
+    color: #64748b;
+    font-weight: 500;
+  }
+
+  /* Alert banner */
+  .alert-banner {
+    margin-top: 14px;
+    padding: 14px 16px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .alert-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 18px;
+  }
+  .alert-text { flex: 1; }
+  .alert-title {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+  .alert-desc {
+    font-size: 11px;
+    font-weight: 500;
+    opacity: 0.8;
+    line-height: 1.3;
+  }
+
+  /* Compass bearing bar */
+  .bearing-bar {
+    margin-top: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    background: #f1f5f9;
+    border-radius: 10px;
+    transition: background 0.5s ease;
+  }
+  .bearing-arrow {
+    width: 28px;
+    height: 28px;
+    transition: transform 1s ease;
+  }
+  .bearing-text {
+    font-size: 12px;
+    font-weight: 600;
+    color: #475569;
+  }
+  .bearing-dist {
+    margin-left: auto;
+    font-size: 12px;
+    font-weight: 700;
+    color: #0C2340;
+  }
+
+  /* Progress bar */
+  .progress-track {
+    margin-top: 12px;
+    height: 4px;
+    background: #e2e8f0;
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    border-radius: 2px;
+    width: 5%;
+    transition: width 0.5s ease, background 0.5s ease;
+  }
+
+  /* Alert color schemes */
+  .alert-green .alert-banner { background: #f0fdf4; }
+  .alert-green .alert-icon { background: #22c55e; color: white; }
+  .alert-green .alert-title { color: #15803d; }
+  .alert-green .alert-desc { color: #166534; }
+  .alert-green .progress-fill { background: #22c55e; }
+
+  .alert-yellow .alert-banner { background: #fefce8; }
+  .alert-yellow .alert-icon { background: #f59e0b; color: white; }
+  .alert-yellow .alert-title { color: #b45309; }
+  .alert-yellow .alert-desc { color: #92400e; }
+  .alert-yellow .progress-fill { background: #f59e0b; }
+  .alert-yellow .eta-time { color: #b45309; }
+
+  .alert-orange .alert-banner { background: #fff7ed; }
+  .alert-orange .alert-icon { background: #f97316; color: white; }
+  .alert-orange .alert-title { color: #c2410c; }
+  .alert-orange .alert-desc { color: #9a3412; }
+  .alert-orange .progress-fill { background: #f97316; }
+  .alert-orange .eta-time { color: #c2410c; }
+  .alert-orange .bearing-bar { background: #fff7ed; }
+
+  .alert-red .alert-banner { background: #fef2f2; animation: urgentPulse 0.8s ease-in-out infinite; }
+  .alert-red .alert-icon { background: #ef4444; color: white; animation: iconPulse 0.6s ease-in-out infinite; }
+  .alert-red .alert-title { color: #dc2626; }
+  .alert-red .alert-desc { color: #991b1b; }
+  .alert-red .progress-fill { background: #ef4444; }
+  .alert-red .eta-time { color: #dc2626; }
+  .alert-red .bearing-bar { background: #fef2f2; }
+
+  .alert-safe .bottom-card { background: #0C2340; }
+  .alert-safe .eta-label { color: rgba(255,255,255,0.5); }
+  .alert-safe .eta-time { color: #00B4D8; }
+  .alert-safe .eta-time span { color: rgba(255,255,255,0.4); }
+  .alert-safe .ship-name { color: rgba(255,255,255,0.5); }
+  .alert-safe .alert-banner { background: rgba(0,180,216,0.15); }
+  .alert-safe .alert-icon { background: #00B4D8; color: white; }
+  .alert-safe .alert-title { color: #00B4D8; }
+  .alert-safe .alert-desc { color: rgba(255,255,255,0.7); }
+  .alert-safe .bearing-bar { background: rgba(255,255,255,0.08); }
+  .alert-safe .bearing-text { color: rgba(255,255,255,0.6); }
+  .alert-safe .bearing-dist { color: white; }
+  .alert-safe .progress-fill { background: #00B4D8; }
+  .alert-safe .progress-track { background: rgba(255,255,255,0.1); }
+
+  .flash { animation: alertFlash 0.4s ease-out; }
+
+  @keyframes alertFlash {
+    0% { transform: scale(0.97); opacity: 0.7; }
+    50% { transform: scale(1.01); }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  @keyframes urgentPulse {
+    0%, 100% { background: #fef2f2; }
+    50% { background: #fee2e2; }
+  }
+  @keyframes iconPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+  }
+  @keyframes slideInUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes slideInLeft {
+    to { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes fadeIn {
+    to { opacity: 1; }
+  }
+
+  /* Replay button */
+  .replay-btn {
+    position: absolute;
+    bottom: 30px;
+    right: 40px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: white;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    opacity: 0;
+    transition: all 0.3s ease;
+  }
+  .replay-btn:hover { background: rgba(255,255,255,0.2); }
+  .replay-btn.visible { opacity: 1; }
+</style>
+</head>
+<body>
+
+<div class="scene" id="scene">
+  <!-- Left side branding -->
+  <div class="brand-side">
+    <img src="../assets/logo.png" alt="ShipSafe SDK" class="brand-logo" style="filter: brightness(10);">
+    <div class="brand-title">Escalating<br><span>Smart Alerts</span></div>
+    <div class="brand-sub">Passengers receive the right message at the right time — from gentle nudges to urgent warnings.</div>
+    <div class="stage-label" id="stageLabel">MONITORING</div>
+  </div>
+
+  <!-- Phone mockup -->
+  <div class="phone">
+    <div class="phone-screen" id="phoneScreen">
+      <!-- Status bar -->
+      <div class="status-bar">
+        <span class="time">2:34 PM</span>
+        <span style="font-weight:500; font-size:11px; color:#64748b;">Cruise Line</span>
+        <div class="status-icons">
+          <svg viewBox="0 0 16 16" fill="#1e293b"><rect x="1" y="9" width="3" height="6" rx="1"/><rect x="5.5" y="6" width="3" height="9" rx="1"/><rect x="10" y="3" width="3" height="12" rx="1"/></svg>
+          <svg viewBox="0 0 16 16" fill="#22c55e"><circle cx="8" cy="8" r="4"/></svg>
+        </div>
+      </div>
+
+      <!-- Map -->
+      <div class="map-area">
+        <svg viewBox="0 0 276 290" preserveAspectRatio="xMidYMin meet">
+          <!-- Ocean / water (top strip) -->
+          <rect width="276" height="290" fill="#d4e9f7"/>
+          <path d="M0,12 Q40,8 80,12 Q120,16 160,12 Q200,8 240,12 Q270,16 276,14" stroke="#bbdaee" stroke-width="0.6" fill="none"/>
+          <path d="M0,26 Q35,22 70,26 Q105,30 140,26 Q175,22 210,26 Q245,30 276,27" stroke="#bbdaee" stroke-width="0.6" fill="none"/>
+          <path d="M0,40 Q30,36 60,40 Q90,44 120,40 Q150,36 180,40 Q210,44 240,40 Q270,36 276,39" stroke="#bbdaee" stroke-width="0.6" fill="none"/>
+
+          <!-- Land mass -->
+          <path d="M0,58 Q40,50 90,54 Q138,57 180,52 Q230,48 276,53 L276,290 L0,290 Z" fill="#eef2f7"/>
+          <path d="M0,58 Q40,50 90,54 Q138,57 180,52 Q230,48 276,53" stroke="#c8d6e5" stroke-width="1.2" fill="none"/>
+
+          <!-- Pier / dock (center-top, extending into water) -->
+          <rect x="123" y="34" width="30" height="26" rx="2" fill="#94a3b8" opacity="0.5"/>
+          <rect x="125" y="36" width="5" height="24" rx="1" fill="#7c8da0" opacity="0.4"/>
+          <rect x="146" y="36" width="5" height="24" rx="1" fill="#7c8da0" opacity="0.4"/>
+
+          <!-- Ship icon at pier (center, prominent) -->
+          <g id="shipIcon">
+            <path d="M118,16 Q114,26 120,32 L156,32 Q162,26 158,16 Z" fill="#0C2340" opacity="0.85"/>
+            <rect x="123" y="4" width="30" height="12" rx="2" fill="#0C2340" opacity="0.7"/>
+            <rect x="127" y="-4" width="22" height="8" rx="2" fill="#0C2340" opacity="0.55"/>
+            <rect x="133" y="-10" width="10" height="7" rx="2" fill="#00B4D8" opacity="0.8"/>
+            <!-- Destination pin -->
+            <circle cx="138" cy="24" r="9" fill="#0C2340" opacity="0.06"/>
+            <circle cx="138" cy="24" r="4" fill="#0C2340" opacity="0.12"/>
+          </g>
+
+          <!-- Roads — grid over land -->
+          <rect x="0" y="66" width="276" height="2.5" fill="#dde4ed" rx="1"/>
+          <rect x="0" y="120" width="276" height="2.5" fill="#dde4ed" rx="1"/>
+          <rect x="0" y="174" width="276" height="2.5" fill="#dde4ed" rx="1"/>
+          <rect x="0" y="228" width="276" height="2.5" fill="#dde4ed" rx="1"/>
+          <rect x="46" y="56" width="2.5" height="234" fill="#dde4ed" rx="1"/>
+          <rect x="100" y="56" width="2.5" height="234" fill="#dde4ed" rx="1"/>
+          <rect x="138" y="56" width="2.5" height="234" fill="#dde4ed" rx="1"/>
+          <rect x="186" y="56" width="2.5" height="234" fill="#dde4ed" rx="1"/>
+          <rect x="236" y="56" width="2.5" height="234" fill="#dde4ed" rx="1"/>
+
+          <!-- Buildings row 1 (near coast) -->
+          <rect x="8" y="72" width="32" height="16" rx="2" fill="#d5dce6"/>
+          <rect x="52" y="70" width="20" height="20" rx="2" fill="#c8d3e0"/>
+          <rect x="76" y="72" width="20" height="16" rx="2" fill="#d0d9e5"/>
+          <rect x="106" y="70" width="26" height="18" rx="2" fill="#cbd5e1"/>
+          <rect x="144" y="72" width="18" height="16" rx="2" fill="#d5dce6"/>
+          <rect x="166" y="70" width="16" height="18" rx="2" fill="#c8d3e0"/>
+          <rect x="192" y="72" width="36" height="16" rx="2" fill="#d0d9e5"/>
+          <rect x="242" y="70" width="28" height="18" rx="2" fill="#cbd5e1"/>
+
+          <!-- Buildings row 2 -->
+          <rect x="8" y="126" width="32" height="18" rx="2" fill="#c8d3e0"/>
+          <rect x="52" y="124" width="22" height="22" rx="2" fill="#d5dce6"/>
+          <rect x="78" y="126" width="18" height="18" rx="2" fill="#cbd5e1"/>
+          <rect x="106" y="124" width="28" height="20" rx="2" fill="#d0d9e5"/>
+          <rect x="144" y="126" width="16" height="18" rx="2" fill="#c8d3e0"/>
+          <rect x="166" y="124" width="16" height="20" rx="2" fill="#d5dce6"/>
+          <rect x="192" y="126" width="38" height="18" rx="2" fill="#cbd5e1"/>
+          <rect x="242" y="124" width="28" height="20" rx="2" fill="#d0d9e5"/>
+
+          <!-- Buildings row 3 -->
+          <rect x="8" y="180" width="34" height="20" rx="2" fill="#d0d9e5"/>
+          <rect x="52" y="178" width="20" height="22" rx="2" fill="#cbd5e1"/>
+          <rect x="76" y="180" width="20" height="18" rx="2" fill="#c8d3e0"/>
+          <rect x="106" y="178" width="26" height="22" rx="2" fill="#d5dce6"/>
+          <rect x="144" y="180" width="18" height="18" rx="2" fill="#d0d9e5"/>
+          <rect x="166" y="178" width="16" height="22" rx="2" fill="#cbd5e1"/>
+          <rect x="192" y="180" width="38" height="20" rx="2" fill="#c8d3e0"/>
+          <rect x="242" y="178" width="28" height="22" rx="2" fill="#d5dce6"/>
+
+          <!-- Buildings row 4 -->
+          <rect x="8" y="234" width="32" height="18" rx="2" fill="#cbd5e1"/>
+          <rect x="52" y="232" width="22" height="20" rx="2" fill="#d0d9e5"/>
+          <rect x="78" y="234" width="18" height="16" rx="2" fill="#d5dce6"/>
+          <rect x="106" y="232" width="26" height="20" rx="2" fill="#c8d3e0"/>
+          <rect x="144" y="234" width="18" height="16" rx="2" fill="#cbd5e1"/>
+          <rect x="166" y="232" width="16" height="20" rx="2" fill="#d0d9e5"/>
+          <rect x="192" y="234" width="38" height="18" rx="2" fill="#d5dce6"/>
+          <rect x="242" y="232" width="28" height="18" rx="2" fill="#c8d3e0"/>
+
+          <!-- Parks -->
+          <rect x="52" y="178" width="20" height="22" rx="10" fill="#c5e8c5" opacity="0.5"/>
+          <circle cx="62" cy="189" r="5" fill="#a3d4a3" opacity="0.4"/>
+
+          <!-- Dashed route preview (away + return) -->
+          <path id="routePath" d="M138,60 L138,68 L100,68 L100,122 L47,122 L47,176 L8,176 L8,230 L47,230 L47,176 L100,176 L100,122 L138,122 L138,68 L138,60"
+                stroke="#0077B6" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.3" stroke-dasharray="5 4"/>
+          <!-- Walked highlight (JS-drawn) -->
+          <path id="routeWalked" d="M138,60"
+                stroke="#00B4D8" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.8"/>
+
+          <!-- Walker -->
+          <circle id="walkerGlow" cx="138" cy="60" r="10" fill="#00B4D8" opacity="0.18"/>
+          <circle id="walkerDot" cx="138" cy="60" r="5.5" fill="#00B4D8"/>
+          <circle id="walkerInner" cx="138" cy="60" r="2" fill="white"/>
+        </svg>
+      </div>
+
+      <!-- Bottom info card -->
+      <div class="bottom-card" id="bottomCard">
+        <div class="card-header">
+          <div>
+            <div class="eta-label">WALKING ETA</div>
+            <div class="eta-time" id="etaTime">12:00<span>min</span></div>
+          </div>
+          <div style="text-align:right">
+            <div class="ship-name">MS Ocean Voyager</div>
+            <div class="ship-name" style="font-size:11px; opacity:0.7">Departs 3:00 PM</div>
+          </div>
+        </div>
+
+        <div class="alert-banner" id="alertBanner">
+          <div class="alert-icon" id="alertIcon"></div>
+          <div class="alert-text">
+            <div class="alert-title" id="alertTitle">Monitoring</div>
+            <div class="alert-desc" id="alertDesc">Tracking your walk back to the pier</div>
+          </div>
+        </div>
+
+        <div class="bearing-bar">
+          <svg class="bearing-arrow" id="bearingArrow" viewBox="0 0 28 28">
+            <circle cx="14" cy="14" r="13" fill="none" stroke="#cbd5e1" stroke-width="1.5"/>
+            <path d="M14,6 L17,16 L14,14 L11,16 Z" fill="#0077B6"/>
+          </svg>
+          <span class="bearing-text" id="bearingText">Exploring the port area</span>
+          <span class="bearing-dist" id="bearingDist">0.8 mi</span>
+        </div>
+
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button class="replay-btn" id="replayBtn" onclick="location.reload()">Replay</button>
+</div>
+
+<script>
+// Walker path waypoints — walks away from ship into city, then turns back
+// Format: [x, y] coordinates in SVG space
+// Phase 1 (walking AWAY from ship): pier → coastal road → down avenue → into city
+// Phase 2 (turning BACK at orange): reverse course back to ship
+var awayPath = [
+  [138, 60],   // start at pier/ship
+  [138, 68],   // step onto coastal road
+  [100, 68],   // walk left along coast
+  [100, 122],  // south down avenue
+  [47, 122],   // west along street
+  [47, 176],   // south deeper into city
+  [8, 176],    // west edge
+  [8, 230]     // furthest point from ship (southwest corner)
+];
+
+var returnPath = [
+  [8, 230],    // turn around here!
+  [47, 230],   // head east
+  [47, 176],   // north
+  [100, 176],  // east
+  [100, 122],  // north up avenue
+  [138, 122],  // east to coast road
+  [138, 68],   // north along coast
+  [138, 60]    // arrive back at pier/ship
+];
+
+// Timeline: total 27s. Away phase = 0-17s (green → yellow → early orange). Return = 17-27s (orange turn → red → safe)
+var AWAY_DURATION = 17000;
+var RETURN_DURATION = 10000;
+var START_DELAY = 2000;
+
+function getPathLength(path) {
+  var len = 0;
+  for (var i = 1; i < path.length; i++) {
+    var dx = path[i][0] - path[i-1][0];
+    var dy = path[i][1] - path[i-1][1];
+    len += Math.sqrt(dx*dx + dy*dy);
+  }
+  return len;
+}
+
+function getPointAtFraction(path, frac) {
+  frac = Math.max(0, Math.min(1, frac));
+  var totalLen = getPathLength(path);
+  var targetDist = frac * totalLen;
+  var traveled = 0;
+  for (var i = 1; i < path.length; i++) {
+    var dx = path[i][0] - path[i-1][0];
+    var dy = path[i][1] - path[i-1][1];
+    var segLen = Math.sqrt(dx*dx + dy*dy);
+    if (traveled + segLen >= targetDist) {
+      var segFrac = (targetDist - traveled) / segLen;
+      return [
+        path[i-1][0] + dx * segFrac,
+        path[i-1][1] + dy * segFrac
+      ];
+    }
+    traveled += segLen;
+  }
+  return path[path.length - 1];
+}
+
+// Build SVG path string from waypoints up to a fraction
+function buildPathStr(path, frac) {
+  var totalLen = getPathLength(path);
+  var targetDist = frac * totalLen;
+  var d = 'M' + path[0][0] + ',' + path[0][1];
+  var traveled = 0;
+  for (var i = 1; i < path.length; i++) {
+    var dx = path[i][0] - path[i-1][0];
+    var dy = path[i][1] - path[i-1][1];
+    var segLen = Math.sqrt(dx*dx + dy*dy);
+    if (traveled + segLen >= targetDist) {
+      var segFrac = (targetDist - traveled) / segLen;
+      var px = path[i-1][0] + dx * segFrac;
+      var py = path[i-1][1] + dy * segFrac;
+      d += ' L' + px.toFixed(1) + ',' + py.toFixed(1);
+      break;
+    }
+    d += ' L' + path[i][0] + ',' + path[i][1];
+    traveled += segLen;
+  }
+  return d;
+}
+
+var walkerDot = document.getElementById('walkerDot');
+var walkerGlow = document.getElementById('walkerGlow');
+var walkerInner = document.getElementById('walkerInner');
+var routeWalked = document.getElementById('routeWalked');
+
+var phoneScreen = document.getElementById('phoneScreen');
+var etaTime = document.getElementById('etaTime');
+var alertBanner = document.getElementById('alertBanner');
+var alertIcon = document.getElementById('alertIcon');
+var alertTitle = document.getElementById('alertTitle');
+var alertDesc = document.getElementById('alertDesc');
+var bearingText = document.getElementById('bearingText');
+var bearingDist = document.getElementById('bearingDist');
+var bearingArrow = document.getElementById('bearingArrow');
+var progressFill = document.getElementById('progressFill');
+var stageLabelEl = document.getElementById('stageLabel');
+var replayBtn = document.getElementById('replayBtn');
+
+var stages = [
+  {
+    time: 2000, alertClass: 'alert-green',
+    icon: '✓', title: "You're On Track",
+    desc: 'Plenty of time. Enjoy the port!',
+    bearing: 'Exploring the port area', dist: '0.8 mi',
+    progress: 8, stageLabel: 'GREEN — ON TRACK',
+    stageBg: '#22c55e', stageColor: 'white', arrowRot: 180
+  },
+  {
+    time: 8000, alertClass: 'alert-green',
+    icon: '✓', title: 'On Time',
+    desc: 'Walking at a good pace. 8 minutes to pier.',
+    bearing: 'Continue on Calle Marina', dist: '0.5 mi',
+    progress: 30, stageLabel: 'GREEN — ON TIME',
+    stageBg: '#22c55e', stageColor: 'white', arrowRot: 180
+  },
+  {
+    time: 13000, alertClass: 'alert-yellow',
+    icon: '!', title: 'Heads Up — Pick Up the Pace',
+    desc: "You're cutting it close. Walk a bit faster.",
+    bearing: 'Getting far from the pier', dist: '0.4 mi',
+    progress: 55, stageLabel: 'YELLOW — HEADS UP',
+    stageBg: '#f59e0b', stageColor: 'white', arrowRot: 200
+  },
+  {
+    time: 17000, alertClass: 'alert-orange',
+    icon: '⚠', title: 'Turn Back Now',
+    desc: 'You may miss departure. Head directly to pier.',
+    bearing: 'Turn around — head to pier', dist: '0.3 mi',
+    progress: 65, stageLabel: 'ORANGE — TURN BACK',
+    stageBg: '#f97316', stageColor: 'white', arrowRot: 0
+  },
+  {
+    time: 22000, alertClass: 'alert-red',
+    icon: '⚠', title: 'DEPARTURE IMMINENT',
+    desc: 'Run to pier immediately. Ship leaves in minutes.',
+    bearing: 'PIER — 150m ahead', dist: '500 ft',
+    progress: 85, stageLabel: 'RED — CRITICAL',
+    stageBg: '#ef4444', stageColor: 'white', arrowRot: 0
+  },
+  {
+    time: 27000, alertClass: 'alert-safe',
+    icon: '✓', title: 'You Made It!',
+    desc: 'Welcome back aboard. Have a great voyage.',
+    bearing: "You're at the pier", dist: 'Arrived',
+    progress: 100, stageLabel: 'PROTECTED',
+    stageBg: '#0C2340', stageColor: '#00B4D8', arrowRot: 0
+  }
+];
+
+// Set up stage transitions
+stages.forEach(function(stage) {
+  setTimeout(function() {
+    phoneScreen.className = 'phone-screen ' + stage.alertClass;
+    alertIcon.textContent = stage.icon;
+    alertTitle.textContent = stage.title;
+    alertDesc.textContent = stage.desc;
+    bearingText.textContent = stage.bearing;
+    bearingDist.textContent = stage.dist;
+    progressFill.style.width = stage.progress + '%';
+    bearingArrow.style.transform = 'rotate(' + stage.arrowRot + 'deg)';
+
+    stageLabelEl.textContent = stage.stageLabel;
+    stageLabelEl.style.background = stage.stageBg;
+    stageLabelEl.style.color = stage.stageColor;
+
+    alertBanner.classList.remove('flash');
+    void alertBanner.offsetWidth;
+    alertBanner.classList.add('flash');
+  }, stage.time);
+});
+
+// Animate walker along path
+var animStart = null;
+function animateWalker(now) {
+  if (!animStart) animStart = now;
+  var elapsed = now - animStart;
+
+  var pos;
+  if (elapsed < AWAY_DURATION) {
+    // Walking away from ship
+    var frac = Math.min(elapsed / AWAY_DURATION, 1);
+    // Ease out for natural deceleration
+    var eased = 1 - Math.pow(1 - frac, 2);
+    pos = getPointAtFraction(awayPath, eased);
+
+    // Update walked path — away portion only
+    var walkedD = buildPathStr(awayPath, eased);
+    routeWalked.setAttribute('d', walkedD);
+  } else {
+    // Walking back to ship
+    var returnElapsed = elapsed - AWAY_DURATION;
+    var frac = Math.min(returnElapsed / RETURN_DURATION, 1);
+    // Ease in-out for urgency feel
+    var eased = frac < 0.5 ? 2*frac*frac : 1 - Math.pow(-2*frac+2,2)/2;
+    pos = getPointAtFraction(returnPath, eased);
+
+    // Show full away path + return progress
+    var fullAway = buildPathStr(awayPath, 1);
+    var returnD = buildPathStr(returnPath, eased);
+    // Combine: show return path highlighted
+    routeWalked.setAttribute('d', returnD);
+  }
+
+  walkerDot.setAttribute('cx', pos[0]);
+  walkerDot.setAttribute('cy', pos[1]);
+  walkerGlow.setAttribute('cx', pos[0]);
+  walkerGlow.setAttribute('cy', pos[1]);
+  walkerInner.setAttribute('cx', pos[0]);
+  walkerInner.setAttribute('cy', pos[1]);
+
+  if (elapsed < AWAY_DURATION + RETURN_DURATION) {
+    requestAnimationFrame(animateWalker);
+  }
+}
+
+// Smooth ETA countdown
+function startEtaCountdown() {
+  var etaStart = performance.now();
+  var totalDuration = 27000;
+  var startSecs = 720;
+  function tick(now) {
+    var elapsed = Math.min((now - etaStart) / totalDuration, 1);
+    var secs = Math.round(startSecs * (1 - elapsed));
+    var m = Math.floor(secs / 60);
+    var s = secs % 60;
+    etaTime.innerHTML = m + ':' + (s < 10 ? '0' : '') + s + '<span>min</span>';
+    if (elapsed < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+
+// Hide the walked path initially
+routeWalked.setAttribute('d', 'M140,128');
+
+// Start everything after delay
+setTimeout(function() {
+  requestAnimationFrame(animateWalker);
+  startEtaCountdown();
+}, START_DELAY);
+
+// Replay
+setTimeout(function() { replayBtn.classList.add('visible'); }, 29000);
+</script>
+</body>
+</html>
