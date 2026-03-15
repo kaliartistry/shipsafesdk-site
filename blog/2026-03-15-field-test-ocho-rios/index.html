@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Field Test: ShipSafe SDK vs Google Maps — Head to Head in Ocho Rios | ShipSafe SDK</title>
+  <meta name="description" content="We walked 17 minutes through Ocho Rios, Jamaica in airplane mode, then compared ShipSafe's offline ETA against Google Maps. Here's what happened.">
+  <meta property="og:title" content="Field Test: ShipSafe SDK vs Google Maps — Head to Head in Ocho Rios">
+  <meta property="og:description" content="We walked 17 minutes through Ocho Rios, Jamaica in airplane mode, then compared ShipSafe's offline ETA against Google Maps. Here's what happened.">
+  <meta property="og:image" content="https://shipsafesdk.com/assets/field-test/side_by_side_comparison.png">
+  <meta property="og:url" content="https://shipsafesdk.com/blog/2026-03-15-field-test-ocho-rios/">
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2026-03-15">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Field Test: ShipSafe SDK vs Google Maps — Head to Head in Ocho Rios">
+  <meta name="twitter:description" content="We walked 17 minutes through Ocho Rios, Jamaica in airplane mode, then compared ShipSafe's offline ETA against Google Maps. Here's what happened.">
+  <meta name="twitter:image" content="https://shipsafesdk.com/assets/field-test/side_by_side_comparison.png">
+  <link rel="icon" type="image/png" href="/assets/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css">
+  <style>
+    .article-header {
+      padding: 140px 0 48px;
+      background: linear-gradient(180deg, var(--white) 0%, var(--bg-hero) 100%);
+    }
+    .article-header .container {
+      max-width: 760px;
+    }
+    .article-back {
+      display: inline-block;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--teal);
+      margin-bottom: 24px;
+      transition: color 0.2s;
+    }
+    .article-back:hover {
+      color: var(--teal-dark);
+    }
+    .article-date {
+      font-size: 15px;
+      color: var(--text-muted);
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+    .article-header h1 {
+      font-size: 40px;
+      font-weight: 700;
+      color: var(--navy);
+      line-height: 1.2;
+    }
+    .article-body {
+      padding: 48px 0 88px;
+    }
+    .article-body .container {
+      max-width: 720px;
+    }
+    .article-body p {
+      font-size: 18px;
+      color: var(--text-primary);
+      line-height: 1.8;
+      margin-bottom: 24px;
+    }
+    .article-body h2 {
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--navy);
+      margin: 48px 0 16px;
+      line-height: 1.3;
+    }
+    .article-body h2:first-child {
+      margin-top: 0;
+    }
+    .article-img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      margin: 2rem 0;
+      display: block;
+      box-shadow: var(--shadow-md);
+    }
+    .article-img-caption {
+      font-size: 14px;
+      color: var(--text-muted);
+      text-align: center;
+      margin-top: -1rem;
+      margin-bottom: 2rem;
+    }
+    .article-comparison {
+      background: var(--navy);
+      border-radius: 12px;
+      padding: 32px;
+      margin: 2rem 0;
+      text-align: center;
+    }
+    .article-comparison-stats {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+      margin-bottom: 16px;
+    }
+    .article-comparison-stat {
+      text-align: center;
+    }
+    .article-comparison-label {
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: rgba(255, 255, 255, 0.5);
+      margin-bottom: 4px;
+    }
+    .article-comparison-num {
+      font-size: 48px;
+      font-weight: 800;
+      color: white;
+      line-height: 1;
+    }
+    .article-comparison-num span {
+      font-size: 18px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.4);
+      margin-left: 4px;
+    }
+    .article-comparison-num.teal {
+      color: var(--teal);
+    }
+    .article-comparison-num.teal span {
+      color: rgba(0, 180, 216, 0.5);
+    }
+    .article-comparison-vs {
+      font-size: 16px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.25);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+    .article-comparison-sub {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.4);
+    }
+    .article-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 48px 0;
+    }
+    .article-cta {
+      background: var(--bg-light);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px;
+      text-align: center;
+      margin-top: 48px;
+    }
+    .article-cta p {
+      font-size: 16px;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+    .article-cta a.cta-link {
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--teal);
+      transition: color 0.2s;
+    }
+    .article-cta a.cta-link:hover {
+      color: var(--teal-dark);
+    }
+    .article-bottom-nav {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+    .article-bottom-nav a {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--teal);
+      transition: color 0.2s;
+    }
+    .article-bottom-nav a:hover {
+      color: var(--teal-dark);
+    }
+    @media (max-width: 768px) {
+      .article-header { padding: 120px 0 36px; }
+      .article-header h1 { font-size: 28px; }
+      .article-body p { font-size: 17px; }
+      .article-body h2 { font-size: 22px; margin-top: 36px; }
+      .article-comparison-stats { gap: 16px; }
+      .article-comparison-num { font-size: 36px; }
+      .article-comparison-num span { font-size: 14px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar nav-scrolled" id="navbar">
+    <div class="nav-container">
+      <a href="/" class="nav-logo">
+        <img src="/assets/logo.png" alt="ShipSafe SDK" height="36">
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="/#problem">Problem</a>
+        <a href="/#solution">Solution</a>
+        <a href="/#how-it-works">How It Works</a>
+        <a href="/#pricing">Pricing</a>
+        <a href="/#field-test">Field Test</a>
+        <a href="/blog/">Blog</a>
+      </div>
+      <a href="mailto:kali@shipsafesdk.com?subject=ShipSafe%20SDK%20Demo%20Request" class="btn btn-primary nav-cta">Schedule a Demo</a>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Article Header -->
+  <section class="article-header">
+    <div class="container">
+      <a href="/blog/" class="article-back">&larr; Back to Blog</a>
+      <div class="article-date">March 15, 2026</div>
+      <h1>Field Test: ShipSafe SDK vs Google Maps — Head to Head in Ocho Rios</h1>
+    </div>
+  </section>
+
+  <!-- Article Body -->
+  <section class="article-body">
+    <div class="container">
+
+      <img src="/assets/field-test/hero_dashboard.png" alt="ShipSafe dashboard showing green status, ETA, compass, speed, and walking directions in Ocho Rios" class="article-img">
+
+      <p>Ocho Rios, Jamaica. February 2026. The Caribbean Princess is docked at the East Pier, and we're about to run a test that most navigation apps would fail before it starts.</p>
+
+      <p>The premise is simple: walk away from the cruise ship in airplane mode — no Wi-Fi, no cellular, no roaming — track the walking ETA the entire way, then turn on data and compare against Google Maps.</p>
+
+      <h2>The Setup</h2>
+
+      <p>Standing at the pier, airplane mode goes on. No signal bars. No data connection. Just GPS — which works without internet, the same way it works on a hiking trail in the middle of nowhere.</p>
+
+      <p>The app launches, locks position, and shows 1 minute walking ETA back to the ship. Because we're standing right next to it.</p>
+
+      <img src="/assets/field-test/airplane_mode_proof.png" alt="Phone notification shade showing airplane mode is on, with 73 WhatsApp messages queued and no connectivity" class="article-img">
+      <p class="article-img-caption">Airplane mode confirmed. 73 WhatsApp messages queued — zero connectivity.</p>
+
+      <h2>Walking Out</h2>
+
+      <p>Over the next 17 minutes, the ETA climbs steadily as we walk into Ocho Rios. The Core tier tracks everything a passenger needs: walking ETA, distance remaining, compass direction back to the ship, and current walking speed.</p>
+
+      <img src="/assets/field-test/core_tier_dashboard.png" alt="Core tier dashboard showing ETA, distance, compass direction, and walking speed — airplane mode icon visible in status bar" class="article-img">
+      <p class="article-img-caption">Core tier dashboard. Note the airplane mode icon in the status bar — still completely offline.</p>
+
+      <p>Switch to the Navigator tier and the experience upgrades: turn-by-turn walking directions and nearby essentials — ATMs, restrooms, stores — all working offline. No data roaming charges, no "searching for connection" spinners.</p>
+
+      <img src="/assets/field-test/navigator_turn_by_turn.png" alt="Navigator tier showing turn-by-turn directions with nearby ATMs, restrooms, and stores marked on the map" class="article-img">
+      <p class="article-img-caption">Navigator tier: turn-by-turn directions and nearby essentials, all offline.</p>
+
+      <h2>The Comparison</h2>
+
+      <p>This is the moment that matters. After 17 minutes of walking with zero internet, we turn on data and open Google Maps. Destination: Ocho Rios Cruise Terminal.</p>
+
+      <img src="/assets/field-test/side_by_side_comparison.png" alt="App switcher showing Google Maps at 13 minutes and ShipSafe at 15 minutes side by side" class="article-img">
+
+      <div class="article-comparison">
+        <div class="article-comparison-stats">
+          <div class="article-comparison-stat">
+            <div class="article-comparison-label">Google Maps</div>
+            <div class="article-comparison-num">13<span>min</span></div>
+          </div>
+          <div class="article-comparison-vs">vs</div>
+          <div class="article-comparison-stat">
+            <div class="article-comparison-label">ShipSafe</div>
+            <div class="article-comparison-num teal">15<span>min</span></div>
+          </div>
+        </div>
+        <div class="article-comparison-sub">ShipSafe raw route: 12 min &middot; Pace-adjusted: 15 min &middot; Completely offline</div>
+      </div>
+
+      <p>Google Maps says 13 minutes. ShipSafe says 15 minutes. The raw fastest route calculated by ShipSafe was actually 12 minutes — faster than Google's estimate.</p>
+
+      <p>So why does ShipSafe show 15? Because it measured the tester walking at 4.4 km/h — not the textbook 5.0 km/h that mapping apps typically assume — and added a safety buffer on top of that.</p>
+
+      <p>For cruise passengers, this is exactly the right call. A conservative estimate that gets you back to the pier 3 minutes early is infinitely better than an optimistic one that has you sprinting down the dock as the gangway pulls up. The goal isn't to match Google Maps. The goal is to make sure no passenger misses the ship.</p>
+
+      <img src="/assets/field-test/google_maps_directions.png" alt="Google Maps walking directions showing 13 minutes, 1.0 km to Ocho Rios Cruise Terminal" class="article-img">
+      <p class="article-img-caption">Google Maps result for comparison — requires an active internet connection.</p>
+
+      <h2>Rerouting Without Internet</h2>
+
+      <p>After the comparison, we tested another scenario that cruise passengers face constantly: taking a wrong turn in an unfamiliar port town.</p>
+
+      <p>The tester intentionally missed a turn. Within seconds, the app recalculated a new route — still in airplane mode. No "cannot find route" errors. No spinning wheel waiting for a server response. The new route appeared immediately and the ETA updated to reflect the longer path.</p>
+
+      <img src="/assets/field-test/reroute_overview.png" alt="Zoomed-out map showing the full rerouted path after the tester intentionally missed a turn" class="article-img">
+      <p class="article-img-caption">Full rerouted path after an intentionally missed turn. Calculated offline in seconds.</p>
+
+      <h2>Multi-Route Alternatives</h2>
+
+      <p>The Navigator Plus tier takes it further. Instead of a single route, passengers see multiple options — fastest route versus alternatives that might follow main roads or avoid steep hills. In Ocho Rios, the fastest route came in at 12 minutes while an alternative showed 16 minutes along a different path.</p>
+
+      <img src="/assets/field-test/navigator_plus_multi_route.png" alt="Navigator Plus showing two route options: Fastest at 12 min and Alternative at 16 min" class="article-img">
+      <p class="article-img-caption">Navigator Plus: multiple route options, all calculated offline.</p>
+
+      <h2>The Return</h2>
+
+      <p>Walking back to the pier, the ETA counts down steadily. The app adapts as walking pace changes — slow down to browse a shop window and the estimate adjusts. Pick up the pace and it recalculates. No surprises.</p>
+
+      <p>At the end of the loop: 1 minute, 87 meters. The cruise ship is visible through the port fence. Full test complete.</p>
+
+      <img src="/assets/field-test/arrival_loop_complete.png" alt="ShipSafe showing 1 min and 87 meters remaining, back at the Ocho Rios pier" class="article-img">
+      <p class="article-img-caption">Loop complete. 1 minute, 87 meters from the pier.</p>
+
+      <img src="/assets/field-test/cruise_ship_visible.png" alt="Cruise ship visible through the port fence at Ocho Rios" class="article-img">
+      <p class="article-img-caption">The Caribbean Princess, right where we left her.</p>
+
+      <h2>What This Means for Cruise Lines</h2>
+
+      <p>No internet dependency means no roaming concerns for passengers. This is critical — most cruise passengers either turn off data entirely when abroad or face exorbitant roaming charges. A safety system that requires internet is a safety system that won't work when it's needed most.</p>
+
+      <p>The SDK integrates into the cruise line's existing app. Passengers never download a separate app, never touch a settings screen, never configure anything. Boarding times, ship names, and port data are fed automatically. The system activates when passengers go ashore and watches the clock so they don't have to.</p>
+
+      <p>Proactive alerts escalate as departure approaches — a gentle nudge early, a firm warning when time gets tight, an urgent alarm when the math stops working in the passenger's favor. Three tiers let cruise lines choose the level that fits their app:</p>
+
+      <p><strong>Core</strong> — Offline walking ETAs, pace-adjusted timing, compass bearing, departure alerts.<br>
+      <strong>Navigator</strong> — Everything in Core plus turn-by-turn directions, nearby essentials, self-healing GPS, rerouting.<br>
+      <strong>Navigator Plus</strong> — Everything in Navigator plus multi-route alternatives and route comparison.</p>
+
+      <p>We're heading to <strong>Seatrade Cruise Global</strong> in Miami, April 13&ndash;16. If your cruise line is thinking about passenger return logistics, we'd love to show you the full demo in person.</p>
+
+      <p>Let's talk: <a href="mailto:kali@shipsafesdk.com" style="color: var(--teal); font-weight: 500;">kali@shipsafesdk.com</a></p>
+
+      <hr class="article-divider">
+
+      <div class="article-cta">
+        <p>ShipSafe SDK gives cruise line apps accurate offline walking ETAs and escalating alerts to prevent pier runner incidents.</p>
+        <a href="/" class="cta-link">Learn more about ShipSafe SDK &rarr;</a>
+      </div>
+
+      <div class="article-bottom-nav">
+        <a href="/blog/">&larr; Back to Blog</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <img src="/assets/logo.png" alt="ShipSafe SDK" height="28" class="footer-logo">
+        </div>
+        <div class="footer-contact">
+          <a href="mailto:kali@shipsafesdk.com">kali@shipsafesdk.com</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 ShipSafe SDK. All rights reserved. &nbsp;|&nbsp; shipsafesdk.com</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Hamburger toggle
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+    if (hamburger) {
+      hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        navLinks.classList.toggle('open');
+      });
+    }
+  </script>
+</body>
+</html>
