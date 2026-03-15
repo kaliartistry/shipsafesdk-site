@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog — ShipSafe SDK</title>
+  <meta name="description" content="Insights on cruise passenger safety, pier runner prevention, and the future of cruise technology from the ShipSafe SDK team.">
+  <meta property="og:title" content="ShipSafe SDK Blog">
+  <meta property="og:description" content="Insights on cruise passenger safety, pier runner prevention, and the future of cruise technology.">
+  <meta property="og:image" content="https://shipsafesdk.com/assets/logo.png">
+  <meta property="og:url" content="https://shipsafesdk.com/blog/">
+  <meta property="og:type" content="website">
+  <link rel="icon" type="image/png" href="/assets/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css">
+  <style>
+    .blog-hero {
+      padding: 140px 0 64px;
+      background: linear-gradient(180deg, var(--white) 0%, var(--bg-hero) 100%);
+    }
+    .blog-hero h1 {
+      font-size: 48px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 12px;
+    }
+    .blog-hero p {
+      font-size: 18px;
+      color: var(--text-muted);
+      max-width: 560px;
+    }
+    .blog-grid {
+      padding: 64px 0 88px;
+    }
+    .blog-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 36px;
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+      max-width: 760px;
+    }
+    .blog-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+    .blog-card-date {
+      font-size: 14px;
+      color: var(--text-muted);
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+    .blog-card h2 {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 12px;
+      line-height: 1.3;
+    }
+    .blog-card h2 a {
+      color: inherit;
+      text-decoration: none;
+    }
+    .blog-card h2 a:hover {
+      color: var(--ocean);
+    }
+    .blog-card p {
+      font-size: 16px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+    .blog-card .read-more {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--teal);
+      transition: color 0.2s;
+    }
+    .blog-card .read-more:hover {
+      color: var(--teal-dark);
+    }
+    @media (max-width: 768px) {
+      .blog-hero { padding: 120px 0 48px; }
+      .blog-hero h1 { font-size: 32px; }
+      .blog-card { padding: 24px; }
+      .blog-card h2 { font-size: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar nav-scrolled" id="navbar">
+    <div class="nav-container">
+      <a href="/" class="nav-logo">
+        <img src="/assets/logo.png" alt="ShipSafe SDK" height="36">
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="/#problem">Problem</a>
+        <a href="/#solution">Solution</a>
+        <a href="/#how-it-works">How It Works</a>
+        <a href="/#pricing">Pricing</a>
+        <a href="/blog/">Blog</a>
+      </div>
+      <a href="mailto:kali@shipsafesdk.com?subject=ShipSafe%20SDK%20Demo%20Request" class="btn btn-primary nav-cta">Schedule a Demo</a>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Blog Hero -->
+  <section class="blog-hero">
+    <div class="container">
+      <h1>ShipSafe Blog</h1>
+      <p>Insights on cruise passenger safety and the future of departure technology.</p>
+    </div>
+  </section>
+
+  <!-- Blog Posts -->
+  <section class="blog-grid">
+    <div class="container">
+
+      <!-- Post 1 -->
+      <div class="blog-card">
+        <div class="blog-card-date">March 14, 2026</div>
+        <h2><a href="/blog/2026-03-14-royal-caribbean-countdown-timer/">Royal Caribbean's Countdown Timer Is a Smart Start — Here's What Comes Next</a></h2>
+        <p>Royal Caribbean just rolled out a countdown timer that alerts passengers as all-aboard time approaches. It's a meaningful step — and it signals where the industry is heading next.</p>
+        <a href="/blog/2026-03-14-royal-caribbean-countdown-timer/" class="read-more">Read more &rarr;</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <img src="/assets/logo.png" alt="ShipSafe SDK" height="28" class="footer-logo">
+        </div>
+        <div class="footer-contact">
+          <a href="mailto:kali@shipsafesdk.com">kali@shipsafesdk.com</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 ShipSafe SDK. All rights reserved. &nbsp;|&nbsp; shipsafesdk.com</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Hamburger toggle
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+    if (hamburger) {
+      hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        navLinks.classList.toggle('open');
+      });
+    }
+  </script>
+</body>
+</html>
