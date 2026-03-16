@@ -183,6 +183,18 @@
     .article-bottom-nav a:hover {
       color: var(--teal-dark);
     }
+    .article-video {
+      display: flex;
+      justify-content: center;
+      margin: 0 0 2.5rem;
+    }
+    .article-video video {
+      max-width: 360px;
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    }
     @media (max-width: 768px) {
       .article-header { padding: 120px 0 36px; }
       .article-header h1 { font-size: 28px; }
@@ -191,6 +203,7 @@
       .article-comparison-stats { gap: 16px; }
       .article-comparison-num { font-size: 36px; }
       .article-comparison-num span { font-size: 14px; }
+      .article-video video { max-width: 300px; }
     }
   </style>
 </head>
@@ -231,6 +244,12 @@
   <!-- Article Body -->
   <section class="article-body">
     <div class="container">
+
+      <div class="article-video">
+        <video controls playsinline preload="metadata" poster="/assets/field-test/field-test-poster.jpg">
+          <source src="/assets/field-test/field-test-video.mp4" type="video/mp4">
+        </video>
+      </div>
 
       <img src="/assets/field-test/hero_dashboard.png" alt="ShipSafe dashboard showing green status, ETA, compass, speed, and walking directions in Ocho Rios" class="article-img">
 
