@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Introducing GoTime: Why Cruise Lines Need Excursion-Aware Navigation | ShipSafe SDK</title>
+  <meta name="description" content="Passengers miss booked excursions because they underestimate walking time. GoTime uses the same offline routing pipeline to track ETAs to excursion meeting points.">
+  <meta property="og:title" content="Introducing GoTime: Excursion-Aware Navigation for Cruise Lines">
+  <meta property="og:description" content="Passengers miss booked excursions because they underestimate walking time. GoTime uses the same offline routing pipeline to track ETAs to excursion meeting points.">
+  <meta property="og:image" content="https://shipsafesdk.com/assets/logo.png">
+  <meta property="og:url" content="https://shipsafesdk.com/blog/2026-03-18-introducing-gotime/">
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2026-03-18">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Introducing GoTime: Excursion-Aware Navigation for Cruise Lines">
+  <meta name="twitter:description" content="Passengers miss booked excursions because they underestimate walking time. GoTime uses the same offline routing pipeline to track ETAs to excursion meeting points.">
+  <link rel="icon" type="image/png" href="/assets/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css">
+  <style>
+    .article-header {
+      padding: 140px 0 48px;
+      background: linear-gradient(180deg, var(--white) 0%, var(--bg-hero) 100%);
+    }
+    .article-header .container {
+      max-width: 760px;
+    }
+    .article-back {
+      display: inline-block;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--teal);
+      margin-bottom: 24px;
+      transition: color 0.2s;
+    }
+    .article-back:hover {
+      color: var(--teal-dark);
+    }
+    .article-date {
+      font-size: 15px;
+      color: var(--text-muted);
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+    .article-header h1 {
+      font-size: 40px;
+      font-weight: 700;
+      color: var(--navy);
+      line-height: 1.2;
+    }
+    .article-body {
+      padding: 48px 0 88px;
+    }
+    .article-body .container {
+      max-width: 720px;
+    }
+    .article-body p {
+      font-size: 18px;
+      color: var(--text-primary);
+      line-height: 1.8;
+      margin-bottom: 24px;
+    }
+    .article-body h2 {
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--navy);
+      margin: 48px 0 16px;
+      line-height: 1.3;
+    }
+    .article-body h2:first-child {
+      margin-top: 0;
+    }
+    .article-body strong {
+      color: var(--navy);
+    }
+    .article-body ul {
+      margin: 0 0 24px 24px;
+      font-size: 18px;
+      color: var(--text-primary);
+      line-height: 1.8;
+    }
+    .article-body li {
+      margin-bottom: 8px;
+    }
+    .article-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 48px 0;
+    }
+    .article-callout {
+      background: var(--bg-light);
+      border-left: 4px solid var(--teal);
+      border-radius: 0 8px 8px 0;
+      padding: 24px 28px;
+      margin: 32px 0;
+    }
+    .article-callout p {
+      font-size: 16px;
+      color: var(--text-muted);
+      margin-bottom: 0;
+      font-style: italic;
+    }
+    .article-cta {
+      background: var(--bg-light);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px;
+      text-align: center;
+      margin-top: 48px;
+    }
+    .article-cta p {
+      font-size: 16px;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+    .article-cta a.cta-link {
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--teal);
+      transition: color 0.2s;
+    }
+    .article-cta a.cta-link:hover {
+      color: var(--teal-dark);
+    }
+    .article-bottom-nav {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+    .article-bottom-nav a {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--teal);
+      transition: color 0.2s;
+    }
+    .article-bottom-nav a:hover {
+      color: var(--teal-dark);
+    }
+    @media (max-width: 768px) {
+      .article-header { padding: 120px 0 36px; }
+      .article-header h1 { font-size: 28px; }
+      .article-body p { font-size: 17px; }
+      .article-body h2 { font-size: 22px; margin-top: 36px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar nav-scrolled" id="navbar">
+    <div class="nav-container">
+      <a href="/" class="nav-logo">
+        <img src="/assets/logo.png" alt="ShipSafe SDK" height="36">
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="/#problem">Problem</a>
+        <a href="/#solution">Solution</a>
+        <a href="/#how-it-works">How It Works</a>
+        <a href="/#gotime">GoTime</a>
+        <a href="/#pricing">Pricing</a>
+        <a href="/#field-test">Field Test</a>
+        <a href="/blog/">Blog</a>
+      </div>
+      <a href="mailto:kali@shipsafesdk.com?subject=ShipSafe%20SDK%20Demo%20Request" class="btn btn-primary nav-cta">Schedule a Demo</a>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Article Header -->
+  <header class="article-header">
+    <div class="container">
+      <a href="/blog/" class="article-back">&larr; Back to Blog</a>
+      <div class="article-date">March 18, 2026</div>
+      <h1>Introducing GoTime: Why Cruise Lines Need Excursion-Aware Navigation</h1>
+    </div>
+  </header>
+
+  <!-- Article Body -->
+  <section class="article-body">
+    <div class="container">
+
+      <h2>The Problem Nobody Measures</h2>
+
+      <p>Cruise lines have gotten very good at tracking the obvious cost of pier runners: delayed departures, port overage fees, emergency rebookings. But there's a second category of missed-time incidents that rarely shows up in a fleet P&amp;L: <strong>missed excursions</strong>.</p>
+
+      <p>A passenger books a $150 snorkeling tour. They wander a bit too far from the meeting point, underestimate the walk back, and arrive eight minutes after the tour bus left. What happens next? A refund request, a complaint to guest services, a one-star review mentioning the cruise line by name, and a shore excursion partner who has to deal with an empty seat they could have filled.</p>
+
+      <p>Multiply that across a 4,000-passenger ship visiting five ports, and missed excursions become a real line item. The problem is that no one has ever given passengers the tools to prevent it.</p>
+
+      <h2>Why Straight-Line Distance Lies</h2>
+
+      <p>Cruise apps today show a map pin for the meeting point. The passenger looks at the screen, sees a pin that appears to be "a few blocks away," and decides they have plenty of time. But port towns aren't Manhattan grids. That pin that looks 500 meters away might require a 15-minute walk through winding streets, pedestrian detours, and one-way roads.</p>
+
+      <div class="article-callout">
+        <p>A meeting point that looks "5 minutes away" on a map pin could be 15 minutes of actual walking through port streets. Passengers make bad decisions based on bad data.</p>
+      </div>
+
+      <p>This is the same problem ShipSafe already solves for pier-return navigation. Our offline routing graphs map actual walkable roads in every port — not straight lines, not driving routes, but pedestrian paths. The infrastructure was already there. The question was whether to extend it to excursions.</p>
+
+      <h2>How GoTime Works</h2>
+
+      <p>GoTime extends ShipSafe SDK's pier-return tracking to monitor walking ETAs to excursion meeting points. When a passenger has booked excursions, the SDK tracks their walking distance to each meeting point alongside their distance to the pier. Each excursion progresses through a clear state machine:</p>
+
+      <ul>
+        <li><strong>On Track</strong> — Plenty of time. The passenger sees a green status with their walking ETA and the excursion departure countdown.</li>
+        <li><strong>Leave Soon</strong> — Amber alert. Walking ETA is approaching the departure window. Time to start heading over.</li>
+        <li><strong>It's Go Time</strong> — Red alert. The passenger must leave now to make it. Walking ETA equals or exceeds the time remaining.</li>
+        <li><strong>You Made It</strong> — Arrived at the meeting point. Enjoy the tour.</li>
+      </ul>
+
+      <p>The alerts are mathematically precise. GoTime calculates margin as the time remaining minus the walking ETA, and only escalates when the margin crosses a threshold. No arbitrary timers. No "you're 1 mile from your excursion" messages that mean nothing. Just: <strong>you need to leave now, or you'll miss it.</strong></p>
+
+      <h2>Intelligent Alert Priority</h2>
+
+      <p>Here's the nuance that makes GoTime more than a simple timer: it knows when to shut up.</p>
+
+      <p>If a passenger is in pier-return RED or ORANGE status — meaning they're at risk of missing the ship itself — excursion alerts are suppressed entirely. The ship departure is always the highest priority. A missed excursion is a $150 refund. A missed ship is a $8,000+ incident.</p>
+
+      <p>But if the passenger is in pier YELLOW (heads up, you should start thinking about heading back) and an excursion is in GO TIME status, the excursion alert takes priority. Why? Because the excursion has a hard, imminent deadline. The pier yellow alert is a heads-up, not an emergency. GoTime is smart enough to know the difference.</p>
+
+      <h2>Same Pipeline, New Dimension</h2>
+
+      <p>GoTime doesn't require a separate system, a new SDK integration, or additional data downloads. It uses the exact same offline routing graphs that power pier-return navigation. The same A* routing engine. The same pace-adjusted ETA calculations. The same self-healing GPS.</p>
+
+      <p>The native binary that computes walking routes doesn't know or care whether it's routing a passenger to a pier or to a tour bus meeting point. It receives coordinates, computes the route, and returns an ETA. GoTime simply calls this pipeline once per active destination.</p>
+
+      <p>For cruise lines already running ShipSafe SDK, enabling GoTime means feeding excursion booking data into the SDK. No new infrastructure. No additional battery drain beyond what the existing tracking session already uses. One integration, two revenue-protecting capabilities.</p>
+
+      <hr class="article-divider">
+
+      <h2>Available Now in Navigator Plus</h2>
+
+      <p>GoTime is included in the Navigator Plus tier at no additional cost. Same $12,000/ship/month price, now with excursion-aware navigation alongside multi-route alternatives, route comparison, and the full offline routing experience.</p>
+
+      <p>We built GoTime because the infrastructure was already there and the problem was obvious. Passengers shouldn't need to guess whether they have time to make their excursion. And cruise lines shouldn't have to absorb the cost when they guess wrong.</p>
+
+      <div class="article-cta">
+        <p>Want to see GoTime in action? We'll walk you through the excursion tracking pipeline and show you exactly how it works in your passenger app.</p>
+        <a href="mailto:kali@shipsafesdk.com?subject=GoTime%20Demo%20Request" class="cta-link">Schedule a GoTime Demo &rarr;</a>
+      </div>
+
+      <div class="article-bottom-nav">
+        <a href="/blog/">&larr; All posts</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <img src="/assets/logo.png" alt="ShipSafe SDK" height="28" class="footer-logo">
+        </div>
+        <div class="footer-contact">
+          <a href="mailto:kali@shipsafesdk.com">kali@shipsafesdk.com</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 ShipSafe SDK. All rights reserved. &nbsp;|&nbsp; shipsafesdk.com</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+    if (hamburger) {
+      hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        navLinks.classList.toggle('open');
+      });
+    }
+  </script>
+</body>
+</html>
