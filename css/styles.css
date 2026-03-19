@@ -31,6 +31,11 @@ html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+body {
+  overflow-x: hidden;
 }
 
 body {
@@ -191,6 +196,7 @@ h3 {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  width: 100%;
 }
 
 .nav-logo img {
@@ -261,6 +267,7 @@ h3 {
   background: linear-gradient(180deg, var(--white) 0%, var(--bg-hero) 100%);
   position: relative;
   overflow: hidden;
+  overflow-x: clip;
   padding-top: 80px;
 }
 
@@ -540,6 +547,22 @@ h3 {
 
 .stats-grid .stat-card:last-child:nth-child(4n + 1) {
   grid-column: 2 / 4;
+}
+
+/* 5-card stats: center 5th on 2-col tablet */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .stats-grid .stat-card:last-child:nth-child(4n + 1) {
+    grid-column: 1 / -1;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+}
+
+/* 5-card stats: full width on mobile */
+@media (max-width: 768px) {
+  .stats-grid .stat-card:last-child:nth-child(4n + 1) {
+    grid-column: auto;
+  }
 }
 
 .stat-card {
@@ -1218,8 +1241,21 @@ h3 {
     font-size: 44px;
   }
 
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
   .section-title {
     font-size: 32px;
+  }
+
+  .nav-links {
+    gap: 20px;
+  }
+
+  .nav-links a {
+    font-size: 14px;
   }
 
   .stats-grid {
@@ -1291,6 +1327,7 @@ h3 {
     gap: 24px;
     box-shadow: var(--shadow-lg);
     transition: right 0.3s ease;
+    z-index: 1001;
   }
 
   .nav-links.open {
@@ -1308,6 +1345,7 @@ h3 {
 
   .hamburger {
     display: flex;
+    z-index: 1002;
   }
 
   /* Hero mobile */
@@ -1343,7 +1381,7 @@ h3 {
     width: 300px;
     height: 300px;
     top: 10%;
-    right: -20%;
+    right: 0;
   }
 
   /* Grids to single column */
