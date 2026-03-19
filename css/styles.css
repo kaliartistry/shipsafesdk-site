@@ -778,6 +778,88 @@ h3 {
   vertical-align: middle;
 }
 
+/* Navigator Plus — GoTime highlight */
+.pricing-gotime {
+  border: 2px solid var(--ocean);
+  background: linear-gradient(180deg, #f0f9ff 0%, var(--white) 40%);
+  position: relative;
+}
+
+.pricing-gotime-badge {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, var(--ocean), var(--teal));
+  color: var(--white);
+  font-size: 13px;
+  font-weight: 700;
+  padding: 6px 20px;
+  border-radius: 100px;
+  white-space: nowrap;
+  letter-spacing: 0.3px;
+}
+
+.pricing-gotime-block {
+  background: rgba(0, 119, 182, 0.06);
+  border: 1px solid rgba(0, 119, 182, 0.15);
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 24px;
+}
+
+.pricing-gotime-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ocean);
+  margin-bottom: 12px;
+}
+
+.pricing-gotime-label svg {
+  flex-shrink: 0;
+  stroke: var(--teal);
+}
+
+.pricing-gotime-features {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pricing-gotime-features li {
+  font-size: 14px;
+  color: var(--text-primary);
+  padding-left: 24px;
+  position: relative;
+  line-height: 1.4;
+}
+
+.pricing-gotime-features li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 3px;
+  width: 16px;
+  height: 16px;
+  background: var(--teal);
+  border-radius: 50%;
+  opacity: 0.15;
+}
+
+.pricing-gotime-features li::after {
+  content: '\2713';
+  position: absolute;
+  left: 3px;
+  top: 1px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--teal);
+}
+
 .pricing-note {
   text-align: center;
   font-size: 15px;
