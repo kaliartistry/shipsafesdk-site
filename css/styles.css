@@ -868,6 +868,18 @@ h3 {
   font-style: italic;
 }
 
+.plans-cta {
+  text-align: center;
+  margin-top: 48px;
+}
+
+.plans-cta .pricing-note {
+  margin-bottom: 24px;
+  font-style: normal;
+  font-size: 17px;
+  color: var(--text-secondary);
+}
+
 /* ============================================
    GoTime
    ============================================ */
