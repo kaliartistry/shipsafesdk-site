@@ -79,13 +79,13 @@
   };
 
   const SCENARIO = [
-    { simTime: '2:15 PM', pos:  0, eta: 10, buffer: 35, state: 'good', pill: 'Monitoring',  icon: 'monitor', route: 'Enjoying Ocho Rios',          dist: '400 m to ship', pace: 'Pace idle' },
-    { simTime: '2:25 PM', pos:  0, eta: 10, buffer: 25, state: 'good', pill: 'On Track',    icon: 'check',   route: 'Still 25 min until departure', dist: '400 m to ship', pace: 'Pace idle' },
-    { simTime: '2:35 PM', pos: 12, eta:  9, buffer: 16, state: 'good', pill: 'On Track',    icon: 'check',   route: 'Head east on Main Street',     dist: '360 m to ship', pace: 'Pace 4.2 km/h' },
-    { simTime: '2:42 PM', pos: 30, eta:  7, buffer: 11, state: 'warn', pill: 'Leave Soon',  icon: 'clock',   route: 'Keep moving along Main St',    dist: '280 m to ship', pace: 'Pace 4.5 km/h' },
-    { simTime: '2:48 PM', pos: 55, eta:  5, buffer:  7, state: 'warn', pill: 'Leave Soon',  icon: 'clock',   route: 'Turn left onto DaCosta Dr',    dist: '180 m to ship', pace: 'Pace 4.8 km/h' },
-    { simTime: '2:54 PM', pos: 85, eta:  2, buffer:  4, state: 'bad',  pill: 'Go Now',      icon: 'warn',    route: 'Pier in sight — final approach', dist: '60 m to ship',  pace: 'Pace 5.4 km/h' },
-    { simTime: '2:58 PM', pos: 99, eta: 0,  buffer:  2, state: 'good', pill: 'Arriving',    icon: 'anchor',  route: 'Welcome back aboard',          dist: 'At the pier',   pace: 'Boarding now' }
+    { simTime: '2:00 PM', pos:  0, eta: 15, buffer: 45, state: 'good', pill: 'Monitoring', icon: 'monitor', route: 'Enjoying Ocho Rios',             dist: '1.2 km to ship', pace: 'Pace idle' },
+    { simTime: '2:20 PM', pos:  0, eta: 15, buffer: 25, state: 'good', pill: 'On Track',   icon: 'check',   route: 'Heads-up: 25 min to departure',  dist: '1.2 km to ship', pace: 'Pace idle' },
+    { simTime: '2:32 PM', pos:  8, eta: 14, buffer: 14, state: 'good', pill: 'On Track',   icon: 'check',   route: 'Head to Main Street',            dist: '1.1 km to ship', pace: 'Pace 4.2 km/h' },
+    { simTime: '2:38 PM', pos: 25, eta: 11, buffer: 11, state: 'warn', pill: 'Leave Soon', icon: 'clock',   route: 'Head north on Main St',          dist: '870 m to ship',  pace: 'Pace 4.5 km/h' },
+    { simTime: '2:46 PM', pos: 55, eta:  7, buffer:  7, state: 'warn', pill: 'Leave Soon', icon: 'clock',   route: 'Pass the Yacht Harbour Marina',  dist: '530 m to ship',  pace: 'Pace 4.8 km/h' },
+    { simTime: '2:54 PM', pos: 82, eta:  3, buffer:  3, state: 'bad',  pill: 'Go Now',     icon: 'warn',    route: 'Final approach to Pier 3',       dist: '210 m to ship',  pace: 'Pace 5.4 km/h' },
+    { simTime: '2:59 PM', pos: 99, eta:  0, buffer:  1, state: 'good', pill: 'Arriving',   icon: 'anchor',  route: 'Just in time — welcome aboard',  dist: 'At the pier',    pace: 'Boarding now' }
   ];
 
   const heroWalker = document.getElementById('heroWalker');

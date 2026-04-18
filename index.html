@@ -152,32 +152,32 @@
                     <stop offset="1" stop-color="var(--halo-color, #2dd4bf)" stop-opacity="0"/>
                   </radialGradient>
                 </defs>
-                <!-- pier pin at Reynolds Pier (approx. lat 18.4107, lng -77.1115) -->
-                <g transform="translate(100 40)">
-                  <circle r="22" fill="#ff5c3a" fill-opacity=".18">
-                    <animate attributeName="r" values="16;26;16" dur="2.4s" repeatCount="indefinite"/>
+                <!-- pier pin at the ship-dock tip of Ocho Rios Cruise Pier -->
+                <g transform="translate(105 55)">
+                  <circle r="24" fill="#ff5c3a" fill-opacity=".18">
+                    <animate attributeName="r" values="18;28;18" dur="2.4s" repeatCount="indefinite"/>
                     <animate attributeName="fill-opacity" values=".32;.06;.32" dur="2.4s" repeatCount="indefinite"/>
                   </circle>
-                  <circle r="10" fill="#ff5c3a"/>
-                  <circle r="3.5" fill="#fff"/>
+                  <circle r="11" fill="#ff5c3a"/>
+                  <circle r="4" fill="#fff"/>
                 </g>
-                <!-- route: Island Village → Main St → DaCosta Dr → pier -->
+                <!-- route: Margaritaville → local road east → north on Main St → pier approach → along pier → ship dock -->
                 <path id="heroRouteFull"
-                      d="M90 290 L100 265 L140 255 L150 200 L125 140 L110 80 L100 40"
-                      stroke="#2a527a" stroke-width="5" fill="none"
-                      stroke-dasharray="6 6" stroke-linecap="round" stroke-linejoin="round"/>
+                      d="M175 390 L215 410 L250 410 L250 300 L230 230 L205 175 L160 120 L105 55"
+                      stroke="#2a527a" stroke-width="5.5" fill="none"
+                      stroke-dasharray="7 6" stroke-linecap="round" stroke-linejoin="round"/>
                 <path id="heroRouteWalked"
-                      d="M90 290 L100 265 L140 255 L150 200 L125 140 L110 80 L100 40"
-                      stroke="url(#routeGrad)" stroke-width="6" fill="none"
+                      d="M175 390 L215 410 L250 410 L250 300 L230 230 L205 175 L160 120 L105 55"
+                      stroke="url(#routeGrad)" stroke-width="6.5" fill="none"
                       pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1"
                       stroke-linecap="round" stroke-linejoin="round"/>
-                <!-- walker at Island Village to start -->
-                <g id="heroWalker" transform="translate(90 290)">
-                  <circle r="22" fill="url(#walkerPulse)">
-                    <animate attributeName="r" values="16;26;16" dur="1.8s" repeatCount="indefinite"/>
+                <!-- walker at Margaritaville -->
+                <g id="heroWalker" transform="translate(175 390)">
+                  <circle r="24" fill="url(#walkerPulse)">
+                    <animate attributeName="r" values="18;28;18" dur="1.8s" repeatCount="indefinite"/>
                   </circle>
-                  <circle r="10" fill="#2dd4bf" stroke="#0a1b33" stroke-width="2.4"/>
-                  <circle r="3.5" fill="#fff"/>
+                  <circle r="11" fill="#2dd4bf" stroke="#0a1b33" stroke-width="2.5"/>
+                  <circle r="4" fill="#fff"/>
                 </g>
               </svg>
               <a class="map-credit" href="https://www.mapbox.com/about/maps/" target="_blank" rel="noopener">© Mapbox</a>
