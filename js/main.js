@@ -69,6 +69,24 @@
     { min:  1, pill: 'Arriving',   state: 'good', pct: 99, route: 'Welcome back aboard',       dist: '40 m',   pace: 'Pace 4.9 km/h' }
   ];
 
+  /* Hero map walker — drives the animated dot + revealed route */
+  const heroWalker = document.getElementById('heroWalker');
+  const heroRouteFull = document.getElementById('heroRouteFull');
+  const heroRouteWalked = document.getElementById('heroRouteWalked');
+  let pathTotalLen = 0;
+  if (heroRouteFull && typeof heroRouteFull.getTotalLength === 'function') {
+    try { pathTotalLen = heroRouteFull.getTotalLength(); } catch { pathTotalLen = 0; }
+  }
+  const updateWalker = (pct) => {
+    if (!heroWalker || !heroRouteFull || !pathTotalLen) return;
+    const clamped = Math.max(0, Math.min(100, pct));
+    const pt = heroRouteFull.getPointAtLength((clamped / 100) * pathTotalLen);
+    heroWalker.setAttribute('transform', `translate(${pt.x.toFixed(1)} ${pt.y.toFixed(1)})`);
+    if (heroRouteWalked) {
+      heroRouteWalked.style.strokeDashoffset = String(1 - clamped / 100);
+    }
+  };
+
   let idx = 0, secondsTick = 0;
   const setEta = (s) => {
     if (!etaValue) return;
@@ -82,6 +100,7 @@
     etaRouteName.textContent = s.route;
     etaRouteDist.textContent = s.dist;
     etaPace.textContent = s.pace;
+    updateWalker(s.pct);
   };
   const tickClock = () => {
     if (!etaClock) return;

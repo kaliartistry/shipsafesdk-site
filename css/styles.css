@@ -319,8 +319,11 @@ p  { color: var(--ink-dim); }
   overflow: hidden;
   color: #eaf1ff;
   font-size: 13px;
+  display: flex;
+  flex-direction: column;
 }
 .phone-statusbar {
+  flex: 0 0 auto;
   display: flex; justify-content: space-between; align-items: center;
   padding: 14px 28px 0;
   font-size: 12px;
@@ -332,13 +335,14 @@ p  { color: var(--ink-dim); }
   font-size: 11px;
   opacity: .9;
 }
-.phone-header {
-  padding: 38px 22px 18px;
+.phone-appbar {
+  flex: 0 0 auto;
+  padding: 24px 22px 8px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-.phone-title { font-size: 18px; font-weight: 650; letter-spacing: -0.01em; }
+.phone-title { font-size: 17px; font-weight: 650; letter-spacing: -0.01em; }
 .phone-pill {
   font-family: var(--font-mono);
   font-size: 10px;
@@ -349,6 +353,7 @@ p  { color: var(--ink-dim); }
   background: rgba(132, 204, 22, .15);
   color: #a3e635;
   border: 1px solid rgba(132, 204, 22, .3);
+  transition: background .35s ease, color .35s ease, border-color .35s ease;
 }
 .phone-pill.warn {
   background: rgba(250, 204, 21, .15);
@@ -361,61 +366,91 @@ p  { color: var(--ink-dim); }
   border-color: rgba(239, 68, 68, .35);
 }
 
-.eta-card {
-  margin: 8px 22px 18px;
-  padding: 22px;
-  background: linear-gradient(160deg, rgba(255,255,255,.04), rgba(255,255,255,.01));
-  border: 1px solid rgba(255,255,255,.08);
-  border-radius: 22px;
-  position: relative;
+.phone-map {
+  flex: 1 1 auto;
+  min-height: 180px;
+  margin: 8px 20px 14px;
+  border-radius: 18px;
   overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, .05);
+  position: relative;
+  background: #081421;
 }
-.eta-card::before {
-  content: "";
+.phone-map svg {
+  width: 100%; height: 100%;
+  display: block;
+}
+.phone-map .map-tag {
   position: absolute;
-  inset: 0;
-  background: radial-gradient(120% 80% at 100% 0%, rgba(45, 212, 191, .18), transparent 60%);
-  pointer-events: none;
-}
-.eta-label {
+  bottom: 8px; left: 8px;
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 9px;
   letter-spacing: .18em;
   text-transform: uppercase;
-  color: #a9bbda;
-  margin-bottom: 10px;
+  color: rgba(169, 187, 218, .55);
+  padding: 3px 7px;
+  border-radius: 4px;
+  background: rgba(5, 12, 23, .7);
+  border: 1px solid rgba(31, 71, 132, .4);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
 }
-.eta-value {
+#heroWalker { transition: transform .9s cubic-bezier(.33, 0, .2, 1); }
+#heroRouteWalked { transition: stroke-dashoffset .9s cubic-bezier(.33, 0, .2, 1); }
+
+.phone-map-summary {
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 0 22px;
+  margin-bottom: 12px;
+  gap: 14px;
+}
+.eta-mini { display: flex; flex-direction: column; gap: 6px; }
+.eta-mini-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: #a9bbda;
+}
+.eta-mini-val {
   font-family: var(--font-display);
-  font-size: 58px;
+  font-size: 42px;
+  line-height: 1;
   font-weight: 600;
   letter-spacing: -0.04em;
-  line-height: 1;
-  display: flex;
+  color: #eaf1ff;
+  display: inline-flex;
   align-items: baseline;
-  gap: 6px;
+  gap: 4px;
 }
-.eta-value .unit {
-  font-size: 20px;
+.eta-mini-val small {
+  font-size: 15px;
   color: #a9bbda;
   font-weight: 500;
-  letter-spacing: 0;
 }
-.eta-ship {
-  margin-top: 18px;
+.eta-mini-ship {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-top: 14px;
-  border-top: 1px solid rgba(255,255,255,.06);
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  text-align: right;
 }
-.eta-ship .name { font-size: 13px; font-weight: 600; }
-.eta-ship .departs { font-size: 11px; color: #a9bbda; font-family: var(--font-mono); letter-spacing: .04em; }
+.eta-mini-ship .name { font-size: 12px; font-weight: 600; color: #eaf1ff; }
+.eta-mini-ship small {
+  font-size: 10px;
+  color: #a9bbda;
+  font-family: var(--font-mono);
+  letter-spacing: .05em;
+}
 
 .progress-track {
-  margin: 22px 22px 0;
-  height: 6px;
-  background: rgba(255,255,255,.06);
+  flex: 0 0 auto;
+  margin: 0 22px;
+  height: 5px;
+  background: rgba(255, 255, 255, .06);
   border-radius: 999px;
   position: relative;
   overflow: hidden;
@@ -430,32 +465,33 @@ p  { color: var(--ink-dim); }
 }
 
 .phone-route {
-  margin: 22px 22px 0;
-  padding: 14px 16px;
-  background: rgba(255,255,255,.03);
-  border: 1px solid rgba(255,255,255,.06);
-  border-radius: 14px;
+  flex: 0 0 auto;
+  margin: 14px 22px 0;
+  padding: 12px 14px;
+  background: rgba(255, 255, 255, .03);
+  border: 1px solid rgba(255, 255, 255, .06);
+  border-radius: 12px;
   display: flex;
-  gap: 14px;
+  gap: 12px;
   align-items: center;
-  font-size: 12px;
+  font-size: 11px;
   color: #a9bbda;
 }
 .phone-route svg { flex-shrink: 0; }
-.phone-route .step-name { color: #eaf1ff; font-weight: 550; font-size: 13px; display: block; }
+.phone-route .step-name { color: #eaf1ff; font-weight: 550; font-size: 12.5px; display: block; }
 
 .phone-footer {
-  position: absolute;
-  bottom: 14px;
-  left: 22px; right: 22px;
+  flex: 0 0 auto;
+  padding: 12px 22px 14px;
   display: flex;
   gap: 10px;
-  font-size: 11px;
+  font-size: 10px;
   color: #a9bbda;
   font-family: var(--font-mono);
   letter-spacing: .08em;
   justify-content: space-between;
   text-transform: uppercase;
+  margin-top: auto;
 }
 
 /* Floating SDK chips */

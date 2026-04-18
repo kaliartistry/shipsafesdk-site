@@ -131,21 +131,102 @@
               <span id="etaClock">2:34</span>
               <span class="icons">5G ● ●●●</span>
             </div>
-            <div class="phone-header">
+            <div class="phone-appbar">
               <div class="phone-title">ShipSafe</div>
               <div class="phone-pill" id="etaPill">Monitoring</div>
             </div>
-            <div class="eta-card">
-              <div class="eta-label">Walking ETA</div>
-              <div class="eta-value"><span id="etaMinutes">12</span><span class="unit">min</span></div>
-              <div class="eta-ship">
-                <div>
-                  <div class="name">MS Ocean Voyager</div>
-                  <div class="departs">DEPARTS 3:00 PM</div>
-                </div>
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color:#2dd4bf;">
-                  <path d="M3 16l2-6h14l2 6M5 10V6a2 2 0 012-2h10a2 2 0 012 2v4M3 16l1 4h16l1-4M7 10v-4M17 10v-4"/>
-                </svg>
+            <div class="phone-map">
+              <svg viewBox="0 0 240 260" preserveAspectRatio="xMidYMid slice">
+                <defs>
+                  <linearGradient id="routeGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stop-color="#2dd4bf"/>
+                    <stop offset="1" stop-color="#84cc16"/>
+                  </linearGradient>
+                  <radialGradient id="walkerPulse">
+                    <stop offset="0" stop-color="#2dd4bf" stop-opacity=".6"/>
+                    <stop offset="1" stop-color="#2dd4bf" stop-opacity="0"/>
+                  </radialGradient>
+                </defs>
+                <rect width="240" height="260" fill="#081421"/>
+                <path d="M168 260 L168 215 L200 205 L240 200 L240 260 Z" fill="#050c17"/>
+                <g stroke="#143254" stroke-width="7" stroke-linecap="round">
+                  <path d="M40 -4 L40 264"/>
+                  <path d="M130 -4 L130 264"/>
+                  <path d="M185 -4 L185 206"/>
+                  <path d="M-4 70 L244 70"/>
+                  <path d="M-4 140 L244 140"/>
+                  <path d="M-4 205 L216 205"/>
+                </g>
+                <g stroke="#1a3b65" stroke-width="1.2" opacity=".6">
+                  <path d="M75 -4 L75 264"/>
+                  <path d="M160 -4 L160 140"/>
+                  <path d="M-4 35 L244 35"/>
+                  <path d="M-4 105 L244 105"/>
+                  <path d="M-4 175 L244 175"/>
+                  <path d="M-4 235 L185 235"/>
+                </g>
+                <g fill="#0e2137">
+                  <rect x="8" y="8" width="24" height="54" rx="2"/>
+                  <rect x="48" y="12" width="22" height="50" rx="2"/>
+                  <rect x="82" y="10" width="42" height="54" rx="2"/>
+                  <rect x="138" y="12" width="40" height="52" rx="2"/>
+                  <rect x="192" y="10" width="40" height="52" rx="2"/>
+                  <rect x="8" y="78" width="24" height="56" rx="2"/>
+                  <rect x="48" y="80" width="22" height="52" rx="2"/>
+                  <rect x="82" y="78" width="42" height="56" rx="2"/>
+                  <rect x="138" y="80" width="40" height="54" rx="2"/>
+                  <rect x="192" y="82" width="40" height="52" rx="2"/>
+                  <rect x="8" y="148" width="24" height="52" rx="2"/>
+                  <rect x="48" y="150" width="22" height="48" rx="2"/>
+                  <rect x="82" y="148" width="42" height="54" rx="2"/>
+                  <rect x="138" y="150" width="40" height="52" rx="2"/>
+                  <rect x="192" y="150" width="40" height="50" rx="2"/>
+                  <rect x="8" y="214" width="24" height="38" rx="2"/>
+                  <rect x="48" y="216" width="22" height="36" rx="2"/>
+                  <rect x="82" y="214" width="42" height="38" rx="2"/>
+                  <rect x="138" y="216" width="42" height="34" rx="2"/>
+                </g>
+                <g transform="translate(190 212)">
+                  <path d="M0 26 L40 26 L48 34 L-8 34 Z" fill="#1a3a6b"/>
+                  <rect x="4" y="14" width="32" height="12" rx="1" fill="#224a87"/>
+                  <rect x="10" y="6" width="20" height="8" rx="1" fill="#2a5ba3"/>
+                  <rect x="16" y="0" width="8" height="6" rx="1" fill="#2dd4bf"/>
+                </g>
+                <path id="heroRouteFull"
+                      d="M40 18 L40 70 L130 70 L130 140 L185 140 L185 205 L215 205 L215 248"
+                      stroke="#2a527a" stroke-width="3" fill="none"
+                      stroke-dasharray="4 4" stroke-linecap="round" stroke-linejoin="round"/>
+                <path id="heroRouteWalked"
+                      d="M40 18 L40 70 L130 70 L130 140 L185 140 L185 205 L215 205 L215 248"
+                      stroke="url(#routeGrad)" stroke-width="3.5" fill="none"
+                      pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="0.82"
+                      stroke-linecap="round" stroke-linejoin="round"/>
+                <g transform="translate(215 248)">
+                  <circle r="13" fill="#ff5c3a" fill-opacity=".18">
+                    <animate attributeName="r" values="10;16;10" dur="2.2s" repeatCount="indefinite"/>
+                    <animate attributeName="fill-opacity" values=".3;.05;.3" dur="2.2s" repeatCount="indefinite"/>
+                  </circle>
+                  <circle r="6" fill="#ff5c3a"/>
+                  <circle r="2" fill="#fff"/>
+                </g>
+                <g id="heroWalker" transform="translate(40 18)">
+                  <circle r="11" fill="url(#walkerPulse)">
+                    <animate attributeName="r" values="8;14;8" dur="1.8s" repeatCount="indefinite"/>
+                  </circle>
+                  <circle r="5.5" fill="#2dd4bf" stroke="#0a1b33" stroke-width="1.5"/>
+                  <circle r="2" fill="#fff"/>
+                </g>
+              </svg>
+              <span class="map-tag">Simulated</span>
+            </div>
+            <div class="phone-map-summary">
+              <div class="eta-mini">
+                <span class="eta-mini-label">Walking ETA</span>
+                <span class="eta-mini-val"><span id="etaMinutes">12</span><small>min</small></span>
+              </div>
+              <div class="eta-mini-ship">
+                <span class="name">MS Ocean Voyager</span>
+                <small>DEPARTS 3:00 PM</small>
               </div>
             </div>
             <div class="progress-track"><div class="progress-fill" id="etaProgress"></div></div>
