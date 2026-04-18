@@ -49,9 +49,19 @@
   }, { threshold: 0.12 });
   $$('.reveal').forEach((el) => io.observe(el));
 
-  /* ========== Hero ETA animation ========== */
+  /* ========== Hero scenario: Ocho Rios pier-runner ==========
+     Real setting: passenger at Island Village, ship departs Turtle Bay
+     Pier at 3:00 PM. Alert state is driven by BUFFER = (departure time
+     − simulated time) − walking ETA. Walker position is decoupled from
+     pill state — in states 1–2 the walker lingers at Island Village
+     while buffer shrinks, so the product's "nudge before you lose track
+     of time" value prop actually lands visually. Each state plays for
+     ~2.8s; full loop ≈ 20s. */
+  const phoneScreen = $('.phone-screen');
   const etaValue = $('#etaMinutes');
   const etaPill = $('#etaPill');
+  const etaPillLabel = $('#etaPillLabel');
+  const etaPillIcon = $('#etaPillIcon');
   const etaProgress = $('#etaProgress');
   const etaClock = $('#etaClock');
   const etaRouteName = $('#etaRouteName');
@@ -59,17 +69,25 @@
   const etaPace = $('#etaPace');
   const etaUpdated = $('#etaUpdated');
 
-  const SCRIPT = [
-    { min: 18, pill: 'Monitoring', state: 'good', pct: 18, route: 'Continue on Main St',       dist: '1.3 km', pace: 'Pace 4.2 km/h' },
-    { min: 15, pill: 'On Track',   state: 'good', pct: 32, route: 'Turn right onto Harbor Rd', dist: '980 m',  pace: 'Pace 4.4 km/h' },
-    { min: 12, pill: 'On Track',   state: 'good', pct: 48, route: 'Continue on Harbor Rd',     dist: '720 m',  pace: 'Pace 4.5 km/h' },
-    { min:  9, pill: 'Leave Soon', state: 'warn', pct: 66, route: 'Stay left at fork',         dist: '540 m',  pace: 'Pace 4.6 km/h' },
-    { min:  6, pill: 'Leave Soon', state: 'warn', pct: 78, route: 'Cross pedestrian bridge',   dist: '380 m',  pace: 'Pace 4.7 km/h' },
-    { min:  3, pill: 'Go Now',     state: 'bad',  pct: 92, route: 'Pier 3 — final approach',   dist: '180 m',  pace: 'Pace 5.1 km/h' },
-    { min:  1, pill: 'Arriving',   state: 'good', pct: 99, route: 'Welcome back aboard',       dist: '40 m',   pace: 'Pace 4.9 km/h' }
+  // Icon set — each state gets a distinct glyph so meaning doesn't rely on color alone (WCAG 1.4.1)
+  const ICONS = {
+    monitor: '<circle cx="12" cy="12" r="2"/><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/>',
+    check:   '<path d="M5 13l4 4L19 7"/>',
+    clock:   '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+    warn:    '<path d="M12 3l10 18H2L12 3z"/><path d="M12 10v5M12 18.5v.01"/>',
+    anchor:  '<circle cx="12" cy="6" r="2"/><path d="M12 8v12M6 12h12M5 17a8 8 0 0014 0"/>'
+  };
+
+  const SCENARIO = [
+    { simTime: '2:15 PM', pos:  0, eta: 10, buffer: 35, state: 'good', pill: 'Monitoring',  icon: 'monitor', route: 'Enjoying Ocho Rios',          dist: '400 m to ship', pace: 'Pace idle' },
+    { simTime: '2:25 PM', pos:  0, eta: 10, buffer: 25, state: 'good', pill: 'On Track',    icon: 'check',   route: 'Still 25 min until departure', dist: '400 m to ship', pace: 'Pace idle' },
+    { simTime: '2:35 PM', pos: 12, eta:  9, buffer: 16, state: 'good', pill: 'On Track',    icon: 'check',   route: 'Head east on Main Street',     dist: '360 m to ship', pace: 'Pace 4.2 km/h' },
+    { simTime: '2:42 PM', pos: 30, eta:  7, buffer: 11, state: 'warn', pill: 'Leave Soon',  icon: 'clock',   route: 'Keep moving along Main St',    dist: '280 m to ship', pace: 'Pace 4.5 km/h' },
+    { simTime: '2:48 PM', pos: 55, eta:  5, buffer:  7, state: 'warn', pill: 'Leave Soon',  icon: 'clock',   route: 'Turn left onto DaCosta Dr',    dist: '180 m to ship', pace: 'Pace 4.8 km/h' },
+    { simTime: '2:54 PM', pos: 85, eta:  2, buffer:  4, state: 'bad',  pill: 'Go Now',      icon: 'warn',    route: 'Pier in sight — final approach', dist: '60 m to ship',  pace: 'Pace 5.4 km/h' },
+    { simTime: '2:58 PM', pos: 99, eta: 0,  buffer:  2, state: 'good', pill: 'Arriving',    icon: 'anchor',  route: 'Welcome back aboard',          dist: 'At the pier',   pace: 'Boarding now' }
   ];
 
-  /* Hero map walker — drives the animated dot + revealed route */
   const heroWalker = document.getElementById('heroWalker');
   const heroRouteFull = document.getElementById('heroRouteFull');
   const heroRouteWalked = document.getElementById('heroRouteWalked');
@@ -88,32 +106,29 @@
   };
 
   let idx = 0, secondsTick = 0;
-  const setEta = (s) => {
+  const setState = (s) => {
     if (!etaValue) return;
-    etaValue.textContent = s.min;
-    etaPill.textContent = s.pill;
+    etaValue.textContent = s.eta === 0 ? '<1' : s.eta;
+    if (etaPillLabel) etaPillLabel.textContent = s.pill;
+    if (etaPillIcon) etaPillIcon.innerHTML = ICONS[s.icon] || ICONS.monitor;
     etaPill.className = 'phone-pill ' + (s.state === 'warn' ? 'warn' : s.state === 'bad' ? 'bad' : '');
-    etaProgress.style.width = s.pct + '%';
+    if (phoneScreen) phoneScreen.dataset.alert = s.state;
+    etaProgress.style.width = s.pos + '%';
     if (s.state === 'warn')      etaProgress.style.background = 'linear-gradient(90deg, #facc15, #ff5c3a)';
     else if (s.state === 'bad')  etaProgress.style.background = 'linear-gradient(90deg, #ff5c3a, #ef4444)';
     else                         etaProgress.style.background = 'linear-gradient(90deg, #2dd4bf, #84cc16)';
     etaRouteName.textContent = s.route;
     etaRouteDist.textContent = s.dist;
     etaPace.textContent = s.pace;
-    updateWalker(s.pct);
+    if (etaClock) etaClock.textContent = s.simTime;
+    updateWalker(s.pos);
   };
-  const tickClock = () => {
-    if (!etaClock) return;
-    const d = new Date();
-    etaClock.textContent = d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-  };
-  tickClock();
-  setInterval(tickClock, 30_000);
+
   if (etaValue) {
-    setEta(SCRIPT[0]);
+    setState(SCENARIO[0]);
     setInterval(() => {
-      idx = (idx + 1) % SCRIPT.length;
-      setEta(SCRIPT[idx]);
+      idx = (idx + 1) % SCENARIO.length;
+      setState(SCENARIO[idx]);
       secondsTick = 0;
     }, 2800);
     setInterval(() => {

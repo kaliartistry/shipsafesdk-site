@@ -353,8 +353,12 @@ p  { color: var(--ink-dim); }
   background: rgba(132, 204, 22, .15);
   color: #a3e635;
   border: 1px solid rgba(132, 204, 22, .3);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   transition: background .35s ease, color .35s ease, border-color .35s ease;
 }
+.phone-pill svg { flex-shrink: 0; width: 11px; height: 11px; }
 .phone-pill.warn {
   background: rgba(250, 204, 21, .15);
   color: #facc15;
@@ -366,6 +370,10 @@ p  { color: var(--ink-dim); }
   border-color: rgba(239, 68, 68, .35);
 }
 
+.phone-screen { --halo-color: #2dd4bf; }
+.phone-screen[data-alert="warn"] { --halo-color: #facc15; }
+.phone-screen[data-alert="bad"]  { --halo-color: #ff5c3a; }
+
 .phone-map {
   flex: 1 1 auto;
   min-height: 180px;
@@ -376,25 +384,45 @@ p  { color: var(--ink-dim); }
   position: relative;
   background: #081421;
 }
-.phone-map svg {
-  width: 100%; height: 100%;
-  display: block;
-}
-.phone-map .map-tag {
+.phone-map-base {
   position: absolute;
-  bottom: 8px; left: 8px;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+.phone-map-overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+}
+.map-credit {
+  position: absolute;
+  bottom: 6px;
   font-family: var(--font-mono);
-  font-size: 9px;
-  letter-spacing: .18em;
-  text-transform: uppercase;
+  font-size: 8px;
+  letter-spacing: .06em;
   color: rgba(169, 187, 218, .55);
-  padding: 3px 7px;
+  padding: 2px 6px;
   border-radius: 4px;
-  background: rgba(5, 12, 23, .7);
+  background: rgba(5, 12, 23, .55);
   border: 1px solid rgba(31, 71, 132, .4);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
+  text-decoration: none;
+  transition: color .15s;
 }
+.map-credit:first-of-type { left: 6px; }
+.map-credit.right { right: 6px; }
+.map-credit:hover { color: var(--ink); }
+
 #heroWalker { transition: transform .9s cubic-bezier(.33, 0, .2, 1); }
 #heroRouteWalked { transition: stroke-dashoffset .9s cubic-bezier(.33, 0, .2, 1); }
 
