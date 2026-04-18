@@ -78,14 +78,20 @@
     anchor:  '<circle cx="12" cy="6" r="2"/><path d="M12 8v12M6 12h12M5 17a8 8 0 0014 0"/>'
   };
 
+  /* SCENARIO: walker wanders AWAY from the ship in states 1–3 (exploring the
+     shopping district), reaches the farthest point at state 3 where the alert
+     fires LEAVE SOON. The alert is the trigger for the direction change — the
+     walker then retraces through Margaritaville and heads up Main Street to
+     the pier. pos values index the combined path (wander loop + main route);
+     the loop retraces itself between pos ≈18% and ≈35%. */
   const SCENARIO = [
-    { simTime: '2:00 PM', pos:  0, eta: 15, buffer: 45, state: 'good', pill: 'Monitoring', icon: 'monitor', route: 'Enjoying Ocho Rios',             dist: '1.2 km to ship', pace: 'Pace idle' },
-    { simTime: '2:20 PM', pos:  0, eta: 15, buffer: 25, state: 'good', pill: 'On Track',   icon: 'check',   route: 'Heads-up: 25 min to departure',  dist: '1.2 km to ship', pace: 'Pace idle' },
-    { simTime: '2:32 PM', pos:  8, eta: 14, buffer: 14, state: 'good', pill: 'On Track',   icon: 'check',   route: 'Head to Main Street',            dist: '1.1 km to ship', pace: 'Pace 4.2 km/h' },
-    { simTime: '2:38 PM', pos: 25, eta: 11, buffer: 11, state: 'warn', pill: 'Leave Soon', icon: 'clock',   route: 'Head north on Main St',          dist: '870 m to ship',  pace: 'Pace 4.5 km/h' },
-    { simTime: '2:46 PM', pos: 55, eta:  7, buffer:  7, state: 'warn', pill: 'Leave Soon', icon: 'clock',   route: 'Pass the Yacht Harbour Marina',  dist: '530 m to ship',  pace: 'Pace 4.8 km/h' },
-    { simTime: '2:54 PM', pos: 82, eta:  3, buffer:  3, state: 'bad',  pill: 'Go Now',     icon: 'warn',    route: 'Final approach to Pier 3',       dist: '210 m to ship',  pace: 'Pace 5.4 km/h' },
-    { simTime: '2:59 PM', pos: 99, eta:  0, buffer:  1, state: 'good', pill: 'Arriving',   icon: 'anchor',  route: 'Just in time — welcome aboard',  dist: 'At the pier',    pace: 'Boarding now' }
+    { simTime: '2:00 PM', pos:  0, eta: 15, buffer: 45, state: 'good', pill: 'Monitoring', icon: 'monitor', route: 'Exploring Ocho Rios',           dist: '1.2 km to ship', pace: 'Pace idle' },
+    { simTime: '2:20 PM', pos: 12, eta: 17, buffer: 23, state: 'good', pill: 'On Track',   icon: 'check',   route: 'Browsing the shops',            dist: '1.4 km to ship', pace: 'Pace 3.6 km/h' },
+    { simTime: '2:32 PM', pos: 18, eta: 20, buffer:  8, state: 'warn', pill: 'Leave Soon', icon: 'clock',   route: 'Start heading back now',        dist: '1.5 km to ship', pace: 'Pace idle' },
+    { simTime: '2:40 PM', pos: 38, eta: 15, buffer:  5, state: 'warn', pill: 'Leave Soon', icon: 'clock',   route: 'Head north on Main Street',     dist: '1.1 km to ship', pace: 'Pace 4.8 km/h' },
+    { simTime: '2:48 PM', pos: 62, eta: 10, buffer:  2, state: 'bad',  pill: 'Go Now',     icon: 'warn',    route: 'Keep your pace — ship ahead',   dist: '740 m to ship',  pace: 'Pace 5.3 km/h' },
+    { simTime: '2:55 PM', pos: 88, eta:  3, buffer:  2, state: 'bad',  pill: 'Go Now',     icon: 'warn',    route: 'Final approach to Pier 3',      dist: '260 m to ship',  pace: 'Pace 5.6 km/h' },
+    { simTime: '2:59 PM', pos: 99, eta:  0, buffer:  1, state: 'good', pill: 'Arriving',   icon: 'anchor',  route: 'Just in time — welcome aboard', dist: 'At the pier',    pace: 'Boarding now' }
   ];
 
   const heroWalker = document.getElementById('heroWalker');
@@ -95,14 +101,40 @@
   if (heroRouteFull && typeof heroRouteFull.getTotalLength === 'function') {
     try { pathTotalLen = heroRouteFull.getTotalLength(); } catch { pathTotalLen = 0; }
   }
-  const updateWalker = (pct) => {
-    if (!heroWalker || !heroRouteFull || !pathTotalLen) return;
-    const clamped = Math.max(0, Math.min(100, pct));
-    const pt = heroRouteFull.getPointAtLength((clamped / 100) * pathTotalLen);
+
+  /* Frame-by-frame animation along the SVG path — CSS transitions would
+     straight-line between waypoints, cutting through buildings when the walker
+     retraces. Sampling getPointAtLength per tick makes the walker actually
+     follow the path's shape including the reversal. */
+  let walkerCurrentPos = 0;
+  let walkerAnimFrame = null;
+  const applyWalkerAt = (pos) => {
+    if (!pathTotalLen) return;
+    const len = (pos / 100) * pathTotalLen;
+    const pt = heroRouteFull.getPointAtLength(len);
     heroWalker.setAttribute('transform', `translate(${pt.x.toFixed(1)} ${pt.y.toFixed(1)})`);
-    if (heroRouteWalked) {
-      heroRouteWalked.style.strokeDashoffset = String(1 - clamped / 100);
-    }
+    if (heroRouteWalked) heroRouteWalked.style.strokeDashoffset = String(1 - pos / 100);
+  };
+  const updateWalker = (targetPct, duration = 1200) => {
+    if (!heroWalker || !heroRouteFull || !pathTotalLen) return;
+    if (walkerAnimFrame) cancelAnimationFrame(walkerAnimFrame);
+    const startPos = walkerCurrentPos;
+    const endPos = Math.max(0, Math.min(100, targetPct));
+    if (startPos === endPos) { applyWalkerAt(endPos); return; }
+    const t0 = performance.now();
+    const tick = (now) => {
+      const t = Math.min(1, (now - t0) / duration);
+      const eased = t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+      const pos = startPos + (endPos - startPos) * eased;
+      applyWalkerAt(pos);
+      if (t < 1) {
+        walkerAnimFrame = requestAnimationFrame(tick);
+      } else {
+        walkerAnimFrame = null;
+        walkerCurrentPos = endPos;
+      }
+    };
+    walkerAnimFrame = requestAnimationFrame(tick);
   };
 
   let idx = 0, secondsTick = 0;

@@ -423,8 +423,10 @@ p  { color: var(--ink-dim); }
 .map-credit.right { right: 6px; }
 .map-credit:hover { color: var(--ink); }
 
-#heroWalker { transition: transform .9s cubic-bezier(.33, 0, .2, 1); }
-#heroRouteWalked { transition: stroke-dashoffset .9s cubic-bezier(.33, 0, .2, 1); }
+/* walker + stroke-reveal are driven by requestAnimationFrame in js/main.js
+   (sampling getPointAtLength each tick so the walker follows the path's
+   shape through the wander-loop reversal — CSS transitions would straight-
+   line between waypoints and cut through buildings). */
 
 .phone-map-summary {
   flex: 0 0 auto;

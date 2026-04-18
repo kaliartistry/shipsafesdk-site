@@ -161,13 +161,15 @@
                   <circle r="11" fill="#ff5c3a"/>
                   <circle r="4" fill="#fff"/>
                 </g>
-                <!-- route: Margaritaville → local road east → north on Main St → pier approach → along pier → ship dock -->
+                <!-- Combined walker path: wander out (Margaritaville → shopping district apex) + retrace +
+                     return route (Main St → pier). Walker traverses the whole thing; the wander loop
+                     retraces itself so the visible line only reads once. -->
                 <path id="heroRouteFull"
-                      d="M175 390 L215 410 L250 410 L250 300 L230 230 L205 175 L160 120 L105 55"
+                      d="M175 390 L220 435 L280 465 L220 435 L175 390 L215 410 L250 410 L250 300 L230 230 L205 175 L160 120 L105 55"
                       stroke="#2a527a" stroke-width="5.5" fill="none"
                       stroke-dasharray="7 6" stroke-linecap="round" stroke-linejoin="round"/>
                 <path id="heroRouteWalked"
-                      d="M175 390 L215 410 L250 410 L250 300 L230 230 L205 175 L160 120 L105 55"
+                      d="M175 390 L220 435 L280 465 L220 435 L175 390 L215 410 L250 410 L250 300 L230 230 L205 175 L160 120 L105 55"
                       stroke="url(#routeGrad)" stroke-width="6.5" fill="none"
                       pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1"
                       stroke-linecap="round" stroke-linejoin="round"/>
