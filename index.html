@@ -405,9 +405,13 @@
 
       <div class="field-hero reveal">
         <div class="field-hero-banner">
-          <div class="field-hero-img">
+          <button class="field-hero-img zoomable" type="button" data-zoom-src="assets/field-test/side_by_side_comparison.png" data-zoom-caption="Google Maps (13 min, requires internet) vs ShipSafe (15 min, completely offline). Ocho Rios, Jamaica · Feb 2026." aria-label="Enlarge comparison screenshot">
             <img src="assets/field-test/side_by_side_comparison.png" alt="Side-by-side: Google Maps shows 13 min, ShipSafe shows 15 min — completely offline" loading="lazy">
-          </div>
+            <span class="zoom-hint">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg>
+              Enlarge
+            </span>
+          </button>
           <div class="field-verdict">
             <div class="side">
               <div class="label">Google Maps</div>
@@ -592,6 +596,19 @@
       </div>
     </div>
   </footer>
+
+  <!-- ============ LIGHTBOX ============ -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-hidden="true" tabindex="-1">
+    <div class="lightbox-backdrop" data-lightbox-close></div>
+    <button class="lightbox-close" type="button" data-lightbox-close aria-label="Close">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      <span>Close · Esc</span>
+    </button>
+    <figure class="lightbox-figure">
+      <img id="lightboxImg" alt="">
+      <figcaption id="lightboxCaption"></figcaption>
+    </figure>
+  </div>
 
   <script src="js/main.js"></script>
 </body>
