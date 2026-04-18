@@ -20,11 +20,12 @@
   <meta name="keywords" content="cruise ship SDK, pier runner prevention, passenger safety, walking ETA, cruise line technology, excursion navigation, maritime safety, cruise departure alerts, offline navigation, GoTime excursion tracking">
   <meta property="og:site_name" content="ShipSafe SDK">
   <meta property="og:locale" content="en_US">
+  <meta name="theme-color" content="#06101f">
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
   <link rel="icon" type="image/png" href="assets/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;560;580;620&family=Inter:wght@400;450;500;550;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
   <script type="application/ld+json">
   {
@@ -65,180 +66,154 @@
 </head>
 <body>
 
-  <!-- Navbar -->
-  <nav class="navbar" id="navbar">
-    <div class="nav-container">
-      <a href="#" class="nav-logo">
-        <img src="assets/logo.png" alt="ShipSafe SDK" height="36">
+  <!-- ============ NAV ============ -->
+  <header class="nav" id="navbar">
+    <div class="container nav-inner">
+      <a class="brand" href="#top">
+        <img src="assets/logo.png" alt="ShipSafe SDK">
+        <span>ShipSafe</span><span class="sdk-tag">SDK</span>
       </a>
-      <div class="nav-links" id="navLinks">
+      <nav class="nav-links" id="navLinks">
         <a href="#problem">Problem</a>
         <a href="#solution">Solution</a>
         <a href="#how-it-works">How It Works</a>
         <a href="#gotime">GoTime</a>
-        <a href="#plans">Plans</a>
         <a href="#field-test">Field Test</a>
+        <a href="#plans">Plans</a>
         <a href="/blog/">Blog</a>
-      </div>
-      <a href="mailto:kali@shipsafesdk.com?subject=ShipSafe%20SDK%20Demo%20Request" class="btn btn-primary nav-cta">Schedule a Demo</a>
+      </nav>
+      <a class="btn accent nav-cta" href="mailto:kali@shipsafesdk.com?subject=ShipSafe%20SDK%20Demo%20Request">
+        Schedule a Demo <span class="arrow">→</span>
+      </a>
       <button class="hamburger" id="hamburger" aria-label="Toggle menu">
-        <span></span>
-        <span></span>
-        <span></span>
+        <span></span><span></span><span></span>
       </button>
     </div>
-  </nav>
+  </header>
 
-  <!-- Hero -->
-  <section class="hero" id="hero">
-    <div class="container hero-grid">
-      <div class="hero-content">
-        <h1 data-animate>Eliminate Pier Runners.<br>Protect Every Departure.</h1>
-        <p class="hero-sub" data-animate>ShipSafe SDK gives your passenger app the intelligence to bring every guest back to the ship on time — and to every excursion meeting point along the way. Offline, accurate, automatic.</p>
-        <div class="hero-ctas" data-animate>
-          <a href="mailto:kali@shipsafesdk.com?subject=ShipSafe%20SDK%20Demo%20Request" class="btn btn-primary btn-lg">Schedule a Demo</a>
+  <!-- ============ HERO ============ -->
+  <section class="hero" id="top">
+    <div class="hero-bg" aria-hidden="true"><div class="grid"></div></div>
+    <div class="container hero-inner">
+      <div class="hero-copy reveal">
+        <div class="eyebrow">Passenger Safety SDK · Patent Pending</div>
+        <h1 style="margin-top:18px;">
+          Eliminate <span class="accent-word">Pier Runners.</span><br>
+          Protect Every <span class="gradient-word">Departure.</span>
+        </h1>
+        <p class="hero-sub">
+          ShipSafe SDK gives your passenger app the intelligence to bring every guest back to the ship on time — and to every excursion meeting point along the way. Offline, accurate, automatic.
+        </p>
+        <div class="hero-cta">
+          <a class="btn accent lg" href="mailto:kali@shipsafesdk.com?subject=ShipSafe%20SDK%20Demo%20Request">
+            Schedule a Demo <span class="arrow">→</span>
+          </a>
+          <a class="btn ghost lg" href="#how-it-works">See how it works</a>
+        </div>
+        <div class="hero-meta">
+          <span class="dot"></span>
+          <span>Live field-tested · Ocho Rios, Jamaica · Feb 2026</span>
+          <span style="color:var(--border-strong)">·</span>
+          <span class="mono">iOS &nbsp;·&nbsp; Android</span>
         </div>
       </div>
-      <div class="hero-animation" id="heroAnimation">
-        <div class="hero-phone">
-          <div class="hero-phone-screen" id="heroPhoneScreen">
-            <!-- Status bar -->
-            <div class="hero-status-bar">
-              <span class="hero-sb-time">2:34 PM</span>
-              <span class="hero-sb-label">Cruise Line</span>
-              <div class="hero-sb-icons">
-                <svg viewBox="0 0 16 16" fill="#1e293b"><rect x="1" y="9" width="3" height="6" rx="1"/><rect x="5.5" y="6" width="3" height="9" rx="1"/><rect x="10" y="3" width="3" height="12" rx="1"/></svg>
-                <svg viewBox="0 0 16 16" fill="#22c55e"><circle cx="8" cy="8" r="4"/></svg>
-              </div>
+
+      <div class="hero-device reveal">
+        <div class="hero-chip c1">
+          <span class="dot"></span>Offline routing: active
+        </div>
+        <div class="hero-chip c2">
+          ShipSafe.track(<span style="color:var(--accent)">ship.id</span>)
+        </div>
+        <div class="phone" aria-hidden="true">
+          <div class="phone-screen">
+            <div class="phone-statusbar">
+              <span id="etaClock">2:34</span>
+              <span class="icons">5G ● ●●●</span>
             </div>
-            <!-- Map -->
-            <div class="hero-map-area">
-              <svg viewBox="0 0 276 290" preserveAspectRatio="xMidYMin meet">
-                <rect width="276" height="290" fill="#d4e9f7"/>
-                <path d="M0,12 Q40,8 80,12 Q120,16 160,12 Q200,8 240,12 Q270,16 276,14" stroke="#bbdaee" stroke-width="0.6" fill="none"/>
-                <path d="M0,26 Q35,22 70,26 Q105,30 140,26 Q175,22 210,26 Q245,30 276,27" stroke="#bbdaee" stroke-width="0.6" fill="none"/>
-                <path d="M0,40 Q30,36 60,40 Q90,44 120,40 Q150,36 180,40 Q210,44 240,40 Q270,36 276,39" stroke="#bbdaee" stroke-width="0.6" fill="none"/>
-                <path d="M0,58 Q40,50 90,54 Q138,57 180,52 Q230,48 276,53 L276,290 L0,290 Z" fill="#eef2f7"/>
-                <path d="M0,58 Q40,50 90,54 Q138,57 180,52 Q230,48 276,53" stroke="#c8d6e5" stroke-width="1.2" fill="none"/>
-                <rect x="123" y="34" width="30" height="26" rx="2" fill="#94a3b8" opacity="0.5"/>
-                <rect x="125" y="36" width="5" height="24" rx="1" fill="#7c8da0" opacity="0.4"/>
-                <rect x="146" y="36" width="5" height="24" rx="1" fill="#7c8da0" opacity="0.4"/>
-                <g id="heroShip">
-                  <path d="M118,16 Q114,26 120,32 L156,32 Q162,26 158,16 Z" fill="#0C2340" opacity="0.85"/>
-                  <rect x="123" y="4" width="30" height="12" rx="2" fill="#0C2340" opacity="0.7"/>
-                  <rect x="127" y="-4" width="22" height="8" rx="2" fill="#0C2340" opacity="0.55"/>
-                  <rect x="133" y="-10" width="10" height="7" rx="2" fill="#00B4D8" opacity="0.8"/>
-                  <circle cx="138" cy="24" r="9" fill="#0C2340" opacity="0.06"/>
-                  <circle cx="138" cy="24" r="4" fill="#0C2340" opacity="0.12"/>
-                </g>
-                <rect x="0" y="66" width="276" height="2.5" fill="#dde4ed" rx="1"/>
-                <rect x="0" y="120" width="276" height="2.5" fill="#dde4ed" rx="1"/>
-                <rect x="0" y="174" width="276" height="2.5" fill="#dde4ed" rx="1"/>
-                <rect x="0" y="228" width="276" height="2.5" fill="#dde4ed" rx="1"/>
-                <rect x="46" y="56" width="2.5" height="234" fill="#dde4ed" rx="1"/>
-                <rect x="100" y="56" width="2.5" height="234" fill="#dde4ed" rx="1"/>
-                <rect x="138" y="56" width="2.5" height="234" fill="#dde4ed" rx="1"/>
-                <rect x="186" y="56" width="2.5" height="234" fill="#dde4ed" rx="1"/>
-                <rect x="236" y="56" width="2.5" height="234" fill="#dde4ed" rx="1"/>
-                <rect x="8" y="72" width="32" height="16" rx="2" fill="#d5dce6"/>
-                <rect x="52" y="70" width="20" height="20" rx="2" fill="#c8d3e0"/>
-                <rect x="76" y="72" width="20" height="16" rx="2" fill="#d0d9e5"/>
-                <rect x="106" y="70" width="26" height="18" rx="2" fill="#cbd5e1"/>
-                <rect x="144" y="72" width="18" height="16" rx="2" fill="#d5dce6"/>
-                <rect x="166" y="70" width="16" height="18" rx="2" fill="#c8d3e0"/>
-                <rect x="192" y="72" width="36" height="16" rx="2" fill="#d0d9e5"/>
-                <rect x="242" y="70" width="28" height="18" rx="2" fill="#cbd5e1"/>
-                <rect x="8" y="126" width="32" height="18" rx="2" fill="#c8d3e0"/>
-                <rect x="52" y="124" width="22" height="22" rx="2" fill="#d5dce6"/>
-                <rect x="78" y="126" width="18" height="18" rx="2" fill="#cbd5e1"/>
-                <rect x="106" y="124" width="28" height="20" rx="2" fill="#d0d9e5"/>
-                <rect x="144" y="126" width="16" height="18" rx="2" fill="#c8d3e0"/>
-                <rect x="166" y="124" width="16" height="20" rx="2" fill="#d5dce6"/>
-                <rect x="192" y="126" width="38" height="18" rx="2" fill="#cbd5e1"/>
-                <rect x="242" y="124" width="28" height="20" rx="2" fill="#d0d9e5"/>
-                <rect x="8" y="180" width="34" height="20" rx="2" fill="#d0d9e5"/>
-                <rect x="52" y="178" width="20" height="22" rx="2" fill="#cbd5e1"/>
-                <rect x="76" y="180" width="20" height="18" rx="2" fill="#c8d3e0"/>
-                <rect x="106" y="178" width="26" height="22" rx="2" fill="#d5dce6"/>
-                <rect x="144" y="180" width="18" height="18" rx="2" fill="#d0d9e5"/>
-                <rect x="166" y="178" width="16" height="22" rx="2" fill="#cbd5e1"/>
-                <rect x="192" y="180" width="38" height="20" rx="2" fill="#c8d3e0"/>
-                <rect x="242" y="178" width="28" height="22" rx="2" fill="#d5dce6"/>
-                <rect x="8" y="234" width="32" height="18" rx="2" fill="#cbd5e1"/>
-                <rect x="52" y="232" width="22" height="20" rx="2" fill="#d0d9e5"/>
-                <rect x="78" y="234" width="18" height="16" rx="2" fill="#d5dce6"/>
-                <rect x="106" y="232" width="26" height="20" rx="2" fill="#c8d3e0"/>
-                <rect x="144" y="234" width="18" height="16" rx="2" fill="#cbd5e1"/>
-                <rect x="166" y="232" width="16" height="20" rx="2" fill="#d0d9e5"/>
-                <rect x="192" y="234" width="38" height="18" rx="2" fill="#d5dce6"/>
-                <rect x="242" y="232" width="28" height="18" rx="2" fill="#c8d3e0"/>
-                <path id="heroRoutePath" d="M138,60 L138,68 L100,68 L100,122 L47,122 L47,176 L8,176 L8,230 L47,230 L47,176 L100,176 L100,122 L138,122 L138,68 L138,60"
-                      stroke="#0077B6" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.3" stroke-dasharray="5 4"/>
-                <path id="heroRouteWalked" d="M138,60"
-                      stroke="#00B4D8" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.8"/>
-                <circle id="heroWalkerGlow" cx="138" cy="60" r="10" fill="#00B4D8" opacity="0.18"/>
-                <circle id="heroWalkerDot" cx="138" cy="60" r="5.5" fill="#00B4D8"/>
-                <circle id="heroWalkerInner" cx="138" cy="60" r="2" fill="white"/>
-              </svg>
+            <div class="phone-header">
+              <div class="phone-title">ShipSafe</div>
+              <div class="phone-pill" id="etaPill">Monitoring</div>
             </div>
-            <!-- Bottom card -->
-            <div class="hero-bottom-card" id="heroBottomCard">
-              <div class="hero-card-header">
+            <div class="eta-card">
+              <div class="eta-label">Walking ETA</div>
+              <div class="eta-value"><span id="etaMinutes">12</span><span class="unit">min</span></div>
+              <div class="eta-ship">
                 <div>
-                  <div class="hero-eta-label">WALKING ETA</div>
-                  <div class="hero-eta-time" id="heroEtaTime">12:00<span>min</span></div>
+                  <div class="name">MS Ocean Voyager</div>
+                  <div class="departs">DEPARTS 3:00 PM</div>
                 </div>
-                <div style="text-align:right">
-                  <div class="hero-ship-name">MS Ocean Voyager</div>
-                  <div class="hero-ship-name" style="font-size:9px; opacity:0.7">Departs 3:00 PM</div>
-                </div>
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color:#2dd4bf;">
+                  <path d="M3 16l2-6h14l2 6M5 10V6a2 2 0 012-2h10a2 2 0 012 2v4M3 16l1 4h16l1-4M7 10v-4M17 10v-4"/>
+                </svg>
               </div>
-              <div class="hero-alert-banner" id="heroAlertBanner">
-                <div class="hero-alert-icon" id="heroAlertIcon"></div>
-                <div class="hero-alert-text">
-                  <div class="hero-alert-title" id="heroAlertTitle">Monitoring</div>
-                  <div class="hero-alert-desc" id="heroAlertDesc">Tracking your walk back to the pier</div>
-                </div>
+            </div>
+            <div class="progress-track"><div class="progress-fill" id="etaProgress"></div></div>
+            <div class="phone-route">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M12 2l6 6M12 2l-6 6"/></svg>
+              <div>
+                <span class="step-name" id="etaRouteName">Continue on Harbor Rd</span>
+                <span id="etaRouteDist">720 m</span>
               </div>
-              <div class="hero-progress-track">
-                <div class="hero-progress-fill" id="heroProgressFill"></div>
-              </div>
+            </div>
+            <div class="phone-footer">
+              <span id="etaPace">Pace 4.5 km/h</span>
+              <span id="etaUpdated">Live</span>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="hero-glow"></div>
   </section>
 
-  <!-- Problem -->
+  <!-- ============ TRUST STRIP ============ -->
+  <section class="trust">
+    <div class="container trust-inner">
+      <div class="trust-label">Built for cruise lines</div>
+      <div class="trust-items">
+        <span>Works Offline</span>
+        <span>Drop-in iOS &amp; Android</span>
+        <span>Patent Pending</span>
+        <span>Growing Port Coverage</span>
+        <span>Zero Per-Port Config</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PROBLEM ============ -->
   <section class="section" id="problem">
     <div class="container">
-      <h2 class="section-title" data-animate>The Pier Runner Problem Is Costing You Millions</h2>
-      <p class="section-subtitle" data-animate>Every delayed departure triggers a cascade of costs — and the problem is growing as cruise lines expand into more ports with longer shore excursion windows.</p>
-      <div class="stats-grid">
-        <div class="stat-card" data-animate>
-          <div class="stat-number">$8,000+</div>
+      <div class="section-head reveal">
+        <div>
+          <div class="eyebrow">The Problem</div>
+          <h2 style="margin-top:18px;">The pier runner problem is costing you millions.</h2>
+        </div>
+        <p>Every delayed departure triggers a cascade of costs — and the problem is growing as cruise lines expand into more ports with longer shore excursion windows.</p>
+      </div>
+
+      <div class="stats reveal">
+        <div class="stat-card">
+          <div class="stat-num" data-target="8000" data-prefix="$" data-suffix="+">$0</div>
           <div class="stat-label">Per Delayed Departure</div>
           <p class="stat-desc">Fuel surcharges, port overage fees, and downstream schedule disruptions that compound across your itinerary.</p>
         </div>
-        <div class="stat-card" data-animate>
-          <div class="stat-number">100%</div>
+        <div class="stat-card">
+          <div class="stat-num" data-target="100" data-suffix="%">0%</div>
           <div class="stat-label">Liability Exposure</div>
           <p class="stat-desc">Stranded passengers require emergency coordination, rebooking, and create duty-of-care obligations in foreign ports.</p>
         </div>
-        <div class="stat-card" data-animate>
-          <div class="stat-number">1 Video</div>
+        <div class="stat-card">
+          <div class="stat-num" data-target="1" data-suffix=" Video">0</div>
           <div class="stat-label">Reputation Risk</div>
           <p class="stat-desc">One viral clip of a passenger sprinting down the pier changes the narrative for your entire brand.</p>
         </div>
-        <div class="stat-card" data-animate>
-          <div class="stat-number">0</div>
+        <div class="stat-card">
+          <div class="stat-num" data-target="0">0</div>
           <div class="stat-label">Existing Solutions</div>
           <p class="stat-desc">Current apps show map pins, not walking ETAs. Passengers have no idea if they can make it back in time.</p>
         </div>
-        <div class="stat-card" data-animate>
-          <div class="stat-number">$150+</div>
+        <div class="stat-card">
+          <div class="stat-num" data-target="150" data-prefix="$" data-suffix="+">$0</div>
           <div class="stat-label">Per Missed Excursion</div>
           <p class="stat-desc">Average refund request when a passenger misses a booked shore excursion — plus the partner complaint, rebooking cost, and lost upsell opportunity.</p>
         </div>
@@ -246,98 +221,56 @@
     </div>
   </section>
 
-  <!-- Solution -->
-  <section class="section section-alt" id="solution">
+  <!-- ============ SOLUTION ============ -->
+  <section class="section" id="solution" style="padding-top:0;">
     <div class="container">
-      <h2 class="section-title" data-animate>What ShipSafe SDK Delivers <span class="patent-badge">Patent Pending</span></h2>
-      <p class="section-subtitle" data-animate>A drop-in SDK that turns your existing passenger app into a safety system for departures and excursions — no new app required.</p>
-      <div class="features-grid">
-        <div class="feature-card" data-animate>
+      <div class="section-head reveal">
+        <div>
+          <div class="eyebrow">The Solution</div>
+          <h2 style="margin-top:18px;">What ShipSafe SDK delivers <span class="badge-pill" style="vertical-align:middle;">Patent Pending</span></h2>
+        </div>
+        <p>A drop-in SDK that turns your existing passenger app into a safety system for departures and excursions — no new app required.</p>
+      </div>
+
+      <div class="features reveal">
+        <div class="feature">
           <div class="feature-icon">
-            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="24" cy="24" r="20"/>
-              <polyline points="24,12 24,24 32,28"/>
-              <line x1="12" y1="40" x2="16" y2="36"/>
-              <line x1="36" y1="40" x2="32" y2="36"/>
-            </svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><polyline points="12,6 12,12 16,14"/></svg>
           </div>
           <h3>Accurate Offline Walking ETAs</h3>
           <p>Works in every port, even without cell signal. Passengers always know exactly how long it takes to walk back to the ship.</p>
         </div>
-        <div class="feature-card" data-animate>
+        <div class="feature">
           <div class="feature-icon">
-            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M24 6C24 6 30 12 30 20C30 23.3 28.2 26 24 26C19.8 26 18 23.3 18 20C18 12 24 6 24 6Z"/>
-              <line x1="24" y1="26" x2="24" y2="42"/>
-              <path d="M18 34H30"/>
-              <path d="M10 14C8 16 6 20 6 20"/>
-              <path d="M38 14C40 16 42 20 42 20"/>
-              <path d="M12 8C10 9 8 12 8 12"/>
-              <path d="M36 8C38 9 40 12 40 12"/>
-            </svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2a6 6 0 016 6v4l2 3H4l2-3V8a6 6 0 016-6zM9 18a3 3 0 006 0"/></svg>
           </div>
           <h3>Escalating Smart Alerts</h3>
           <p>Gentle reminders that intensify as departure approaches. From a friendly nudge to an urgent alarm — passengers never miss the ship.</p>
         </div>
-        <div class="feature-card" data-animate>
+        <div class="feature">
           <div class="feature-icon">
-            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="24" cy="24" r="4"/>
-              <path d="M24 4V10"/>
-              <path d="M24 38V44"/>
-              <path d="M4 24H10"/>
-              <path d="M38 24H44"/>
-              <path d="M10 10L14 14"/>
-              <path d="M34 34L38 38"/>
-              <path d="M38 10L34 14"/>
-              <path d="M14 34L10 38"/>
-              <circle cx="24" cy="24" r="14" stroke-dasharray="4 4"/>
-            </svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="8" stroke-dasharray="3 3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>
           </div>
           <h3>Self-Healing GPS</h3>
           <p>Handles GPS drift, urban canyons, and signal loss automatically. Reliable positioning in the real-world conditions ports throw at you.</p>
         </div>
-        <div class="feature-card" data-animate>
+        <div class="feature">
           <div class="feature-icon">
-            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="8" y="12" width="32" height="28" rx="2"/>
-              <path d="M8 20H40"/>
-              <path d="M16 4V12"/>
-              <path d="M32 4V12"/>
-              <polyline points="18,30 22,34 30,26"/>
-            </svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18M8 3v3M16 3v3"/><polyline points="9,15 11,17 15,13"/></svg>
           </div>
           <h3>Black-Box Integration</h3>
           <p>Drop-in SDK for iOS and Android. Your engineering team integrates once — it runs silently, maintenance-free, voyage after voyage.</p>
         </div>
-        <div class="feature-card" data-animate>
+        <div class="feature">
           <div class="feature-icon">
-            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="16" cy="16" r="4"/>
-              <circle cx="36" cy="14" r="4"/>
-              <circle cx="26" cy="36" r="4"/>
-              <path d="M20 16L32 14"/>
-              <path d="M18 20L24 32"/>
-              <path d="M34 18L28 32"/>
-              <path d="M12 38L6 42"/>
-              <circle cx="4" cy="44" r="2"/>
-            </svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="10" r="3"/><path d="M12 2a8 8 0 00-8 8c0 6 8 12 8 12s8-6 8-12a8 8 0 00-8-8z"/></svg>
           </div>
           <h3>GoTime Excursion Tracking</h3>
           <p>Track walking ETAs to excursion meeting points, not just the pier. Passengers get escalating alerts when it's time to leave for their tour — same trusted pipeline, multiple destinations.</p>
         </div>
-        <div class="feature-card" data-animate>
+        <div class="feature">
           <div class="feature-icon">
-            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M24 4L24 12"/>
-              <path d="M24 12C24 12 16 16 16 24C16 28 20 32 24 32C28 32 32 28 32 24C32 16 24 12 24 12Z"/>
-              <circle cx="24" cy="24" r="2" fill="currentColor"/>
-              <path d="M10 40L16 36"/>
-              <path d="M38 40L32 36"/>
-              <path d="M8 28H14"/>
-              <path d="M34 28H40"/>
-              <line x1="24" y1="38" x2="24" y2="44"/>
-            </svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20l6-16 4 10 2-4 4 10"/></svg>
           </div>
           <h3>Nearby Port Essentials</h3>
           <p>Surface the closest ATMs, restrooms, pharmacies, and Wi-Fi hotspots. Passengers feel confident exploring — and spend more time (and money) ashore.</p>
@@ -346,29 +279,35 @@
     </div>
   </section>
 
-  <!-- How It Works -->
-  <section class="section" id="how-it-works">
+  <!-- ============ HOW IT WORKS ============ -->
+  <section class="section" id="how-it-works" style="padding-top:0;">
     <div class="container">
-      <h2 class="section-title" data-animate>Four Steps to Safer Departures</h2>
-      <p class="section-subtitle" data-animate>From integration to insights — ShipSafe SDK works behind the scenes so your team can focus on the guest experience.</p>
-      <div class="steps-grid">
-        <div class="step-card" data-animate>
-          <div class="step-number">01</div>
+      <div class="section-head reveal">
+        <div>
+          <div class="eyebrow">How It Works</div>
+          <h2 style="margin-top:18px;">Four steps to safer departures.</h2>
+        </div>
+        <p>From integration to insights — ShipSafe SDK works behind the scenes so your team can focus on the guest experience.</p>
+      </div>
+
+      <div class="steps reveal">
+        <div class="step">
+          <div class="step-num">01 · INTEGRATE</div>
           <h3>Integrate</h3>
           <p>Add ShipSafe SDK to your existing passenger app. One dependency, minimal code, no new infrastructure required.</p>
         </div>
-        <div class="step-card" data-animate>
-          <div class="step-number">02</div>
+        <div class="step">
+          <div class="step-num">02 · ACTIVATE</div>
           <h3>Activate</h3>
           <p>The SDK activates automatically when passengers go ashore. It tracks return-to-ship ETAs and walking ETAs to excursion meeting points. Zero configuration per port.</p>
         </div>
-        <div class="step-card" data-animate>
-          <div class="step-number">03</div>
+        <div class="step">
+          <div class="step-num">03 · PROTECT</div>
           <h3>Protect</h3>
           <p>Passengers receive timely, escalating guidance back to the pier and to their excursion meeting points. The right message at the right time — no missed ships, no missed tours.</p>
         </div>
-        <div class="step-card" data-animate>
-          <div class="step-number">04</div>
+        <div class="step">
+          <div class="step-num">04 · REPORT</div>
           <h3>Report</h3>
           <p>Post-voyage analytics show passenger return patterns, close calls prevented, and clear ROI metrics for your fleet.</p>
         </div>
@@ -376,282 +315,280 @@
     </div>
   </section>
 
-  <!-- GoTime -->
-  <section class="section section-alt" id="gotime">
-    <div class="container">
-      <div class="gotime-header" data-animate>
-        <span class="gotime-label">Navigator Plus</span>
-        <h2 class="section-title">Introducing GoTime:<br>Excursion-Aware Navigation</h2>
-        <p class="section-subtitle">Passengers miss booked excursions because they underestimate walking time. GoTime tells them exactly when to leave — using the same offline routing pipeline that gets them back to the ship.</p>
-      </div>
-      <div class="gotime-grid">
-        <div class="gotime-features">
-          <div class="gotime-feature" data-animate>
-            <div class="gotime-feature-icon">
-              <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="3"/>
-                <circle cx="28" cy="10" r="3"/>
-                <circle cx="20" cy="28" r="3"/>
-                <path d="M15 13L25 11"/>
-                <path d="M14 15L18 25"/>
-                <path d="M26 13L22 25"/>
-              </svg>
-            </div>
+  <!-- ============ GOTIME ============ -->
+  <section class="section gotime" id="gotime">
+    <div class="container gotime-inner">
+      <div class="reveal">
+        <div class="eyebrow">Navigator Plus</div>
+        <h2 style="margin-top:18px;">GoTime: excursion-aware navigation.</h2>
+        <p style="margin-top:18px; font-size:17px;">Passengers miss booked excursions because they underestimate walking time. GoTime tells them exactly when to leave — using the same offline routing pipeline that gets them back to the ship.</p>
+
+        <div class="feature-list">
+          <div class="item">
+            <div class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="10" r="3"/><path d="M12 2a8 8 0 00-8 8c0 6 8 12 8 12s8-6 8-12a8 8 0 00-8-8z"/></svg></div>
             <div>
               <h3>Multi-Destination Tracking</h3>
               <p>Track walking ETAs to multiple excursion meeting points simultaneously, alongside the pier. One SDK, every destination.</p>
             </div>
           </div>
-          <div class="gotime-feature" data-animate>
-            <div class="gotime-feature-icon">
-              <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M20 6V14"/>
-                <path d="M14 10L20 14L26 10"/>
-                <rect x="8" y="18" width="24" height="16" rx="3"/>
-                <path d="M14 24H26"/>
-                <path d="M14 28H22"/>
-              </svg>
-            </div>
+          <div class="item">
+            <div class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a6 6 0 016 6v4l2 3H4l2-3V8a6 6 0 016-6z"/></svg></div>
             <div>
               <h3>Smart State Alerts</h3>
               <p>Progresses from "on track" to "leave soon" to "it's go time" — escalating only when the passenger genuinely needs to start walking.</p>
             </div>
           </div>
-          <div class="gotime-feature" data-animate>
-            <div class="gotime-feature-icon">
-              <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M20 4L24 12H36L26 18L30 28L20 22L10 28L14 18L4 12H16Z"/>
-              </svg>
-            </div>
+          <div class="item">
+            <div class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 7h7l-5.5 4 2 7L12 16l-6.5 4 2-7L2 9h7z"/></svg></div>
             <div>
               <h3>Intelligent Alert Priority</h3>
               <p>Pier safety always wins. If a passenger needs to get back to the ship, pier alerts suppress excursion notifications automatically.</p>
             </div>
           </div>
-          <div class="gotime-feature" data-animate>
-            <div class="gotime-feature-icon">
-              <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M20 4V12"/>
-                <circle cx="20" cy="20" r="14"/>
-                <path d="M14 20H20L24 16"/>
-                <path d="M10 36L14 32"/>
-                <path d="M30 36L26 32"/>
-              </svg>
-            </div>
+          <div class="item">
+            <div class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
             <div>
               <h3>Revenue Protection</h3>
               <p>Every missed excursion is a refund request, a partner complaint, and a lost upsell opportunity. GoTime protects your ancillary revenue.</p>
             </div>
           </div>
         </div>
-        <div class="gotime-visual" data-animate>
-          <div class="gotime-phone">
-            <div class="gotime-phone-screen">
-              <div class="gotime-screen-header">
-                <span class="gotime-screen-time">2:15 PM</span>
-                <span class="gotime-screen-label">Excursion Tracking</span>
-              </div>
-              <div class="gotime-status-card gotime-card-green">
-                <div class="gotime-card-bar"></div>
-                <div class="gotime-card-content">
-                  <div class="gotime-card-top">
-                    <span class="gotime-card-badge gotime-badge-green">ON TRACK</span>
-                    <span class="gotime-card-eta">12 min</span>
-                  </div>
-                  <div class="gotime-card-title">Return to Ship</div>
-                  <div class="gotime-card-detail">MS Ocean Voyager &middot; Departs 3:00 PM</div>
-                </div>
-              </div>
-              <div class="gotime-status-card gotime-card-amber">
-                <div class="gotime-card-bar"></div>
-                <div class="gotime-card-content">
-                  <div class="gotime-card-top">
-                    <span class="gotime-card-badge gotime-badge-amber">LEAVE SOON</span>
-                    <span class="gotime-card-eta">8 min</span>
-                  </div>
-                  <div class="gotime-card-title">Island Food Tour</div>
-                  <div class="gotime-card-detail">Harbor Square &middot; Departs 2:30 PM</div>
-                </div>
-              </div>
-              <div class="gotime-status-card gotime-card-green">
-                <div class="gotime-card-bar"></div>
-                <div class="gotime-card-content">
-                  <div class="gotime-card-top">
-                    <span class="gotime-card-badge gotime-badge-green">ON TRACK</span>
-                    <span class="gotime-card-eta">22 min</span>
-                  </div>
-                  <div class="gotime-card-title">Snorkeling Adventure</div>
-                  <div class="gotime-card-detail">Beach Pier &middot; Departs 3:45 PM</div>
-                </div>
-              </div>
-              <div class="gotime-screen-footer">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6"/><path d="M8 5V8L10 10"/></svg>
-                <span>Updated 3s ago</span>
-              </div>
+      </div>
+
+      <div class="gotime-demo reveal">
+        <div class="gotime-demo-head">
+          <span class="time mono">2:15 PM</span>
+          <span class="title">Excursion Tracking</span>
+        </div>
+        <div class="dest pier">
+          <div>
+            <div class="status">On Track</div>
+            <div class="dest-name">Return to Ship</div>
+            <div class="dest-meta">MS Ocean Voyager · Departs 3:00 PM</div>
+          </div>
+          <div class="eta-min">12 <span style="color:var(--ink-mute);font-size:12px;font-weight:500;">min</span></div>
+        </div>
+        <div class="dest warn">
+          <div>
+            <div class="status">Leave Soon</div>
+            <div class="dest-name">Island Food Tour</div>
+            <div class="dest-meta">Harbor Square · Departs 2:30 PM</div>
+          </div>
+          <div class="eta-min">8 <span style="color:var(--ink-mute);font-size:12px;font-weight:500;">min</span></div>
+        </div>
+        <div class="dest pier">
+          <div>
+            <div class="status">On Track</div>
+            <div class="dest-name">Snorkeling Adventure</div>
+            <div class="dest-meta">Beach Pier · Departs 3:45 PM</div>
+          </div>
+          <div class="eta-min">22 <span style="color:var(--ink-mute);font-size:12px;font-weight:500;">min</span></div>
+        </div>
+        <div class="gotime-demo-foot">
+          <span>3 destinations tracked</span>
+          <span id="gotimeUpdated">Updated 3s ago</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FIELD TEST ============ -->
+  <section class="section" id="field-test">
+    <div class="container">
+      <div class="section-head reveal">
+        <div>
+          <div class="eyebrow">Field Test</div>
+          <h2 style="margin-top:18px;">Tested head-to-head against Google Maps.</h2>
+        </div>
+        <p>Ocho Rios, Jamaica — live field test, February 2026. Seventeen minutes of walking in airplane mode.</p>
+      </div>
+
+      <div class="field-hero reveal">
+        <div class="field-hero-banner">
+          <div class="field-hero-img">
+            <img src="assets/field-test/side_by_side_comparison.png" alt="Side-by-side: Google Maps shows 13 min, ShipSafe shows 15 min — completely offline" loading="lazy">
+          </div>
+          <div class="field-verdict">
+            <div class="side">
+              <div class="label">Google Maps</div>
+              <div class="val">13<span style="font-size:20px; color:var(--ink-dim); margin-left:4px;">min</span></div>
+              <div class="sub">Requires internet</div>
+            </div>
+            <div class="vs mono">VS</div>
+            <div class="side win">
+              <div class="label">ShipSafe</div>
+              <div class="val">15<span style="font-size:20px; color:var(--ink-dim); margin-left:4px;">min</span></div>
+              <div class="sub">Completely offline</div>
             </div>
           </div>
         </div>
+        <div class="field-note">
+          The raw fastest route was 12 minutes. ShipSafe measured the tester's walking pace at 4.4&nbsp;km/h and added a safety buffer — because a conservative estimate that gets passengers back 3 minutes early is infinitely better than an optimistic one that leaves them at the pier.
+        </div>
+      </div>
+
+      <div class="field-feature-row reveal">
+        <div class="field-feature">
+          <div class="phone-bezel">
+            <img src="assets/field-test/airplane_mode_proof.png" alt="Airplane mode active with 73 WhatsApp messages queued" loading="lazy">
+          </div>
+          <div class="cap"><strong>Works in Airplane Mode.</strong>17 minutes of walking, zero connectivity. GPS works without internet — ShipSafe leverages this to deliver accurate ETAs, turn-by-turn directions, and nearby essentials with no data roaming required.</div>
+        </div>
+        <div class="field-feature">
+          <div class="phone-bezel">
+            <img src="assets/field-test/reroute_overview.png" alt="Rerouted path after intentionally missed turn" loading="lazy">
+          </div>
+          <div class="cap"><strong>Reroutes Without Internet.</strong>The tester intentionally missed a turn. The app recalculated a new route in seconds — still in airplane mode. No "cannot find route" errors, no waiting for a server.</div>
+        </div>
+        <div class="field-feature">
+          <div class="phone-bezel">
+            <img src="assets/field-test/hero_dashboard.png" alt="ShipSafe dashboard showing green status, ETA, compass, speed, directions" loading="lazy">
+          </div>
+          <div class="cap"><strong>Adapts to Your Pace.</strong>ShipSafe measures actual walking speed and adjusts the ETA in real time. A leisurely shopper gets a realistic estimate, not an optimistic one.</div>
+        </div>
+      </div>
+
+      <div class="field-thumbs reveal">
+        <div class="field-thumb">
+          <div class="phone-bezel">
+            <img src="assets/field-test/navigator_turn_by_turn.png" alt="Navigator tier with turn-by-turn directions" loading="lazy">
+          </div>
+          <div class="cap">Turn-by-turn navigation</div>
+        </div>
+        <div class="field-thumb">
+          <div class="phone-bezel">
+            <img src="assets/field-test/navigator_plus_multi_route.png" alt="Multi-route alternatives" loading="lazy">
+          </div>
+          <div class="cap">Multi-route alternatives</div>
+        </div>
+        <div class="field-thumb">
+          <div class="phone-bezel">
+            <img src="assets/field-test/cruise_ship_visible.png" alt="Cruise ship visible through fence at Ocho Rios port" loading="lazy">
+          </div>
+          <div class="cap">Real-world port context</div>
+        </div>
+        <div class="field-thumb">
+          <div class="phone-bezel">
+            <img src="assets/field-test/arrival_loop_complete.png" alt="Back at pier showing 1 min and 87 meters remaining" loading="lazy">
+          </div>
+          <div class="cap">Full loop complete</div>
+        </div>
+      </div>
+
+      <div style="text-align:center; margin-top:40px;" class="reveal">
+        <a class="btn ghost lg" href="/blog/2026-03-15-field-test-ocho-rios/">
+          Read the Full Field Test <span class="arrow">→</span>
+        </a>
       </div>
     </div>
   </section>
 
-  <!-- Field Test Results -->
-  <section class="section section-dark" id="field-test">
+  <!-- ============ PLANS ============ -->
+  <section class="section" id="plans">
     <div class="container">
-      <h2 class="section-title" data-animate>Tested Head-to-Head Against Google Maps</h2>
-      <p class="section-subtitle" data-animate>Ocho Rios, Jamaica — Live field test, February 2026</p>
-
-      <!-- Hero comparison -->
-      <div class="ft-hero" data-animate>
-        <div class="ft-hero-img">
-          <img src="assets/field-test/side_by_side_comparison.png" alt="Side-by-side: Google Maps shows 13 min, ShipSafe shows 15 min — completely offline">
-        </div>
-        <div class="ft-hero-stats">
-          <div class="ft-stat">
-            <div class="ft-stat-label">Google Maps</div>
-            <div class="ft-stat-number">13<span>min</span></div>
-            <div class="ft-stat-note">Requires internet</div>
-          </div>
-          <div class="ft-stat-vs">vs</div>
-          <div class="ft-stat ft-stat-highlight">
-            <div class="ft-stat-label">ShipSafe</div>
-            <div class="ft-stat-number">15<span>min</span></div>
-            <div class="ft-stat-note">Completely offline</div>
-          </div>
-        </div>
-        <p class="ft-hero-explain">The raw fastest route was 12 minutes. ShipSafe measured the tester's walking pace at 4.4 km/h and added a safety buffer — because a conservative estimate that gets passengers back 3 minutes early is infinitely better than an optimistic one that leaves them at the pier.</p>
+      <div class="section-head center reveal">
+        <div class="eyebrow">Plans</div>
+        <h2>Plans built for your fleet.</h2>
+        <p>Three tiers designed for different operational needs. Every plan includes offline routing, escalating alerts, and growing port coverage.</p>
       </div>
 
-      <!-- Three proof cards -->
-      <div class="ft-cards">
-        <div class="ft-card" data-animate>
-          <div class="ft-card-img">
-            <img src="assets/field-test/airplane_mode_proof.png" alt="Phone notification shade showing airplane mode is on with 73 WhatsApp messages queued">
-          </div>
-          <h3>Works in Airplane Mode</h3>
-          <p>17 minutes of walking with zero connectivity. GPS works without internet — ShipSafe leverages this to deliver accurate ETAs, turn-by-turn directions, and nearby essentials with no data roaming required.</p>
+      <div class="plans reveal">
+        <div class="plan">
+          <div class="plan-name">Core</div>
+          <div class="plan-desc">Departure Safety Essentials</div>
+          <ul>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg><span>Accurate offline walking ETAs</span></li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg><span>Departure alert notifications</span></li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg><span>Bearing to ship (compass direction)</span></li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg><span>Pace-adjusted timing</span></li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg><span>Growing port coverage</span></li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg><span>Standard support</span></li>
+          </ul>
+          <a class="btn ghost" href="mailto:kali@shipsafesdk.com?subject=ShipSafe%20SDK%20Demo%20Request">Schedule a Demo</a>
         </div>
-        <div class="ft-card" data-animate>
-          <div class="ft-card-img">
-            <img src="assets/field-test/reroute_overview.png" alt="Zoomed-out map showing full rerouted path after intentionally missed turn">
-          </div>
-          <h3>Reroutes Without Internet</h3>
-          <p>The tester intentionally missed a turn. The app recalculated a new route in seconds — still in airplane mode. No "cannot find route" errors, no waiting for a server.</p>
-        </div>
-        <div class="ft-card" data-animate>
-          <div class="ft-card-img">
-            <img src="assets/field-test/hero_dashboard.png" alt="ShipSafe dashboard showing green status, ETA, compass, speed, and directions">
-          </div>
-          <h3>Adapts to Your Pace</h3>
-          <p>ShipSafe measures actual walking speed and adjusts the ETA in real time. A leisurely shopper gets a realistic estimate, not an optimistic one.</p>
-        </div>
-      </div>
 
-      <!-- Gallery -->
-      <div class="ft-gallery" data-animate>
-        <div class="ft-gallery-item">
-          <img src="assets/field-test/navigator_turn_by_turn.png" alt="Navigator tier with turn-by-turn directions, nearby ATMs, restrooms, and stores">
-          <span>Turn-by-turn navigation</span>
+        <div class="plan featured">
+          <div class="plan-tag">Recommended</div>
+          <div class="plan-name">Navigator</div>
+          <div class="plan-desc">Full Turn-By-Turn SDK</div>
+          <ul>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg><span>Everything in Core</span></li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg><span>Offline turn-by-turn walking routes</span></li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg><span>Escalating smart alerts</span></li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg><span>Self-healing GPS tracking</span></li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg><span>Route-aware ETA</span></li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg><span>Priority support</span></li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg><span>Wrong-way detection alerts</span></li>
+          </ul>
+          <a class="btn accent" href="mailto:kali@shipsafesdk.com?subject=ShipSafe%20SDK%20Demo%20Request">Schedule a Demo</a>
         </div>
-        <div class="ft-gallery-item">
-          <img src="assets/field-test/navigator_plus_multi_route.png" alt="Multi-route view showing Fastest 12 min vs Alternative 16 min">
-          <span>Multi-route alternatives</span>
-        </div>
-        <div class="ft-gallery-item">
-          <img src="assets/field-test/cruise_ship_visible.png" alt="Cruise ship visible through fence at Ocho Rios port">
-          <span>Real-world port context</span>
-        </div>
-        <div class="ft-gallery-item">
-          <img src="assets/field-test/arrival_loop_complete.png" alt="Back at pier showing 1 min and 87 meters remaining">
-          <span>Full loop complete</span>
+
+        <div class="plan">
+          <div class="plan-name">Navigator Plus</div>
+          <div class="plan-desc">Includes GoTime</div>
+          <ul>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg><span>Everything in Navigator</span></li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg><span>Multi-route alternatives (2&ndash;3 options)</span></li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg><span>Route comparison (fastest vs scenic vs main roads)</span></li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg><span>Route preference selection</span></li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg><span>Corridor navigation guidance</span></li>
+            <li class="group-head">GoTime Excursion Tracking</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg><span>Multi-destination walking ETAs</span></li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg><span>Excursion departure alerts</span></li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg><span>Turn-by-turn to meeting points</span></li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg><span>Ashore engagement analytics</span></li>
+          </ul>
+          <a class="btn ghost" href="mailto:kali@shipsafesdk.com?subject=ShipSafe%20SDK%20Demo%20Request">Schedule a Demo</a>
         </div>
       </div>
 
-      <div class="ft-cta" data-animate>
-        <a href="/blog/2026-03-15-field-test-ocho-rios/" class="btn btn-primary btn-lg">Read the Full Field Test</a>
-      </div>
+      <p class="plans-foot reveal">
+        Pricing is tailored to your fleet size, passenger volume, and operational needs. <a href="mailto:kali@shipsafesdk.com?subject=ShipSafe%20SDK%20Custom%20Quote%20Request">Get a custom quote →</a>
+      </p>
     </div>
   </section>
 
-  <!-- Plans -->
-  <section class="section section-alt" id="plans">
-    <div class="container">
-      <h2 class="section-title" data-animate>Plans Built for Your Fleet</h2>
-      <p class="section-subtitle" data-animate>Three tiers designed for different operational needs. Every plan includes offline routing, escalating alerts, and growing port coverage.</p>
-      <div class="pricing-grid">
-        <div class="pricing-card" data-animate>
-          <div class="pricing-tier">Core</div>
-          <ul class="pricing-features">
-            <li>Accurate offline walking ETAs</li>
-            <li>Departure alert notifications</li>
-            <li>Bearing to ship (compass direction)</li>
-            <li>Pace-adjusted timing</li>
-            <li>Growing port coverage</li>
-            <li>Standard support</li>
-          </ul>
-          <a href="mailto:kali@shipsafesdk.com?subject=ShipSafe%20SDK%20Demo%20Request" class="btn btn-outline">Schedule a Demo</a>
-        </div>
-        <div class="pricing-card pricing-featured" data-animate>
-          <div class="pricing-badge">Recommended</div>
-          <div class="pricing-tier">Navigator</div>
-          <ul class="pricing-features">
-            <li>Everything in Core</li>
-            <li>Offline turn-by-turn walking routes</li>
-            <li>Escalating smart alerts</li>
-            <li>Self-healing GPS tracking</li>
-            <li>Route-aware ETA</li>
-            <li>Priority support</li>
-            <li>Wrong-way detection alerts</li>
-          </ul>
-          <a href="mailto:kali@shipsafesdk.com?subject=ShipSafe%20SDK%20Demo%20Request" class="btn btn-primary">Schedule a Demo</a>
-        </div>
-        <div class="pricing-card pricing-gotime" data-animate>
-          <div class="pricing-gotime-badge">Includes GoTime</div>
-          <div class="pricing-tier">Navigator Plus</div>
-          <ul class="pricing-features">
-            <li>Everything in Navigator</li>
-            <li>Multi-route alternatives (2&ndash;3 options)</li>
-            <li>Route comparison (fastest vs scenic vs main roads)</li>
-            <li>Route preference selection</li>
-            <li>Corridor navigation guidance</li>
-          </ul>
-          <div class="pricing-gotime-block">
-            <div class="pricing-gotime-label">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="5" r="2"/><circle cx="12" cy="4.5" r="2"/><circle cx="8.5" cy="12" r="2"/><path d="M7 5.5L10 4.8"/><path d="M6 7L7.5 10"/><path d="M11 6.5L9.5 10"/></svg>
-              GoTime Excursion Tracking
-            </div>
-            <ul class="pricing-gotime-features">
-              <li>Multi-destination walking ETAs</li>
-              <li>Excursion departure alerts</li>
-              <li>Turn-by-turn to meeting points</li>
-              <li>Ashore engagement analytics</li>
-            </ul>
-          </div>
-          <a href="mailto:kali@shipsafesdk.com?subject=ShipSafe%20SDK%20Demo%20Request" class="btn btn-outline">Schedule a Demo</a>
-        </div>
-      </div>
-      <div class="plans-cta" data-animate>
-        <p class="pricing-note">Pricing is tailored to your fleet size, passenger volume, and operational needs.</p>
-        <a href="mailto:kali@shipsafesdk.com?subject=ShipSafe%20SDK%20Custom%20Quote%20Request" class="btn btn-primary btn-lg">Get a Custom Quote</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
+  <!-- ============ FOOTER ============ -->
   <footer class="footer">
     <div class="container">
-      <div class="footer-content">
+      <div class="footer-inner">
         <div class="footer-brand">
-          <img src="assets/logo.png" alt="ShipSafe SDK" height="28" class="footer-logo">
+          <a class="brand" href="#top">
+            <img src="assets/logo.png" alt="ShipSafe SDK">
+            <span>ShipSafe</span><span class="sdk-tag">SDK</span>
+          </a>
+          <p>Passenger safety infrastructure for cruise lines. Offline, accurate, automatic.</p>
         </div>
-        <div class="footer-contact">
-          <a href="mailto:kali@shipsafesdk.com">kali@shipsafesdk.com</a>
+        <div>
+          <h4>Product</h4>
+          <ul>
+            <li><a href="#problem">Problem</a></li>
+            <li><a href="#solution">Solution</a></li>
+            <li><a href="#how-it-works">How It Works</a></li>
+            <li><a href="#gotime">GoTime</a></li>
+            <li><a href="#plans">Plans</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="#field-test">Field Test</a></li>
+            <li><a href="/blog/">Blog</a></li>
+            <li><a href="/blog/2026-03-15-field-test-ocho-rios/">Ocho Rios Report</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="mailto:kali@shipsafesdk.com">kali@shipsafesdk.com</a></li>
+            <li><a href="mailto:kali@shipsafesdk.com?subject=ShipSafe%20SDK%20Demo%20Request">Schedule a Demo</a></li>
+            <li><a href="mailto:kali@shipsafesdk.com?subject=ShipSafe%20SDK%20Custom%20Quote%20Request">Custom Quote</a></li>
+          </ul>
         </div>
       </div>
       <div class="footer-bottom">
-        <p>&copy; 2026 ShipSafe SDK. All rights reserved. &nbsp;|&nbsp; shipsafesdk.com</p>
-        <p class="footer-founder">Founded by <a href="mailto:kali@shipsafesdk.com">Kali McCarthy</a></p>
-        <p class="footer-patent">ShipSafe SDK is protected by multiple pending U.S. patent applications.</p>
+        <span>© 2026 ShipSafe SDK. All rights reserved. &nbsp;|&nbsp; Founded by <a href="mailto:kali@shipsafesdk.com" style="color:var(--ink-dim); text-decoration:underline; text-underline-offset:3px;">Kali McCarthy</a></span>
+        <span class="mono" style="font-size:11px;">Protected by multiple pending U.S. patent applications.</span>
       </div>
     </div>
   </footer>

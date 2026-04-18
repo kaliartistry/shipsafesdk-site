@@ -1,231 +1,168 @@
-document.addEventListener('DOMContentLoaded', function () {
-  // Scroll animations with IntersectionObserver
-  var animatedEls = document.querySelectorAll('[data-animate]');
-  if ('IntersectionObserver' in window) {
-    var observer = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.15 });
-    animatedEls.forEach(function (el) { observer.observe(el); });
-  } else {
-    animatedEls.forEach(function (el) { el.classList.add('visible'); });
-  }
+/* ShipSafe SDK — interactivity */
+(() => {
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 
-  // Navbar scroll effect
-  var navbar = document.getElementById('navbar');
-  var ticking = false;
-  window.addEventListener('scroll', function () {
-    if (!ticking) {
-      requestAnimationFrame(function () {
-        if (window.scrollY > 50) {
-          navbar.classList.add('nav-scrolled');
-        } else {
-          navbar.classList.remove('nav-scrolled');
-        }
-        ticking = false;
-      });
-      ticking = true;
-    }
-  });
+  /* ========== Nav shadow on scroll ========== */
+  const nav = $('.nav');
+  const onScroll = () => nav && nav.classList.toggle('scrolled', window.scrollY > 8);
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
 
-  // Mobile menu toggle
-  var hamburger = document.getElementById('hamburger');
-  var navLinks = document.getElementById('navLinks');
-  hamburger.addEventListener('click', function () {
-    navLinks.classList.toggle('open');
-    hamburger.classList.toggle('active');
-  });
-  navLinks.querySelectorAll('a').forEach(function (link) {
-    link.addEventListener('click', function () {
-      navLinks.classList.remove('open');
-      hamburger.classList.remove('active');
+  /* ========== Hamburger / mobile nav ========== */
+  const hamburger = $('#hamburger');
+  const navLinks = $('#navLinks');
+  if (hamburger && navLinks) {
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+      hamburger.classList.toggle('active');
     });
-  });
-
-  // Hero phone mockup animation
-  var heroAnim = document.getElementById('heroAnimation');
-  if (heroAnim && 'IntersectionObserver' in window) {
-    var heroObserver = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          heroAnim.classList.add('animated');
-          startHeroPhoneAnimation();
-          heroObserver.unobserve(heroAnim);
-        }
+    navLinks.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        hamburger.classList.remove('active');
       });
-    }, { threshold: 0.3 });
-    heroObserver.observe(heroAnim);
+    });
   }
 
-  // Smooth scroll for anchor links
-  document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+  /* ========== Smooth scroll for anchor links ========== */
+  $$('a[href^="#"]').forEach((a) => {
     a.addEventListener('click', function (e) {
-      var target = document.querySelector(this.getAttribute('href'));
+      const href = this.getAttribute('href');
+      if (href === '#' || href.length < 2) return;
+      const target = document.querySelector(href);
       if (target) {
         e.preventDefault();
         target.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     });
   });
-});
 
-// ========================================
-// Hero phone animation — walker + alerts
-// ========================================
-function startHeroPhoneAnimation() {
-  var awayPath = [
-    [138, 60], [138, 68], [100, 68], [100, 122],
-    [47, 122], [47, 176], [8, 176], [8, 230]
-  ];
-  var returnPath = [
-    [8, 230], [47, 230], [47, 176], [100, 176],
-    [100, 122], [138, 122], [138, 68], [138, 60]
-  ];
-
-  var AWAY_DURATION = 17000;
-  var RETURN_DURATION = 10000;
-  var START_DELAY = 800;
-
-  var walkerDot = document.getElementById('heroWalkerDot');
-  var walkerGlow = document.getElementById('heroWalkerGlow');
-  var walkerInner = document.getElementById('heroWalkerInner');
-  var routeWalked = document.getElementById('heroRouteWalked');
-  var phoneScreen = document.getElementById('heroPhoneScreen');
-  var etaTime = document.getElementById('heroEtaTime');
-  var alertBanner = document.getElementById('heroAlertBanner');
-  var alertIcon = document.getElementById('heroAlertIcon');
-  var alertTitle = document.getElementById('heroAlertTitle');
-  var alertDesc = document.getElementById('heroAlertDesc');
-  var progressFill = document.getElementById('heroProgressFill');
-
-  if (!walkerDot) return;
-
-  var stages = [
-    { time: 800, alertClass: 'alert-green', icon: '\u2713', title: "You're On Track", desc: 'Plenty of time. Enjoy the port!', progress: 8 },
-    { time: 6000, alertClass: 'alert-green', icon: '\u2713', title: 'On Time', desc: 'Walking at a good pace.', progress: 30 },
-    { time: 11000, alertClass: 'alert-yellow', icon: '!', title: 'Heads Up', desc: "You're cutting it close.", progress: 55 },
-    { time: 15000, alertClass: 'alert-orange', icon: '\u26A0', title: 'Turn Back Now', desc: 'Head directly to pier.', progress: 65 },
-    { time: 20000, alertClass: 'alert-red', icon: '\u26A0', title: 'DEPARTURE IMMINENT', desc: 'Run to pier immediately.', progress: 85 },
-    { time: 25000, alertClass: 'alert-safe', icon: '\u2713', title: 'You Made It!', desc: 'Welcome back aboard.', progress: 100 }
-  ];
-
-  function getPathLength(path) {
-    var len = 0;
-    for (var i = 1; i < path.length; i++) {
-      var dx = path[i][0] - path[i-1][0];
-      var dy = path[i][1] - path[i-1][1];
-      len += Math.sqrt(dx*dx + dy*dy);
-    }
-    return len;
-  }
-
-  function getPointAtFraction(path, frac) {
-    frac = Math.max(0, Math.min(1, frac));
-    var totalLen = getPathLength(path);
-    var targetDist = frac * totalLen;
-    var traveled = 0;
-    for (var i = 1; i < path.length; i++) {
-      var dx = path[i][0] - path[i-1][0];
-      var dy = path[i][1] - path[i-1][1];
-      var segLen = Math.sqrt(dx*dx + dy*dy);
-      if (traveled + segLen >= targetDist) {
-        var segFrac = (targetDist - traveled) / segLen;
-        return [path[i-1][0] + dx * segFrac, path[i-1][1] + dy * segFrac];
+  /* ========== Reveal on scroll ========== */
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        io.unobserve(e.target);
       }
-      traveled += segLen;
-    }
-    return path[path.length - 1];
+    });
+  }, { threshold: 0.12 });
+  $$('.reveal').forEach((el) => io.observe(el));
+
+  /* ========== Hero ETA animation ========== */
+  const etaValue = $('#etaMinutes');
+  const etaPill = $('#etaPill');
+  const etaProgress = $('#etaProgress');
+  const etaClock = $('#etaClock');
+  const etaRouteName = $('#etaRouteName');
+  const etaRouteDist = $('#etaRouteDist');
+  const etaPace = $('#etaPace');
+  const etaUpdated = $('#etaUpdated');
+
+  const SCRIPT = [
+    { min: 18, pill: 'Monitoring', state: 'good', pct: 18, route: 'Continue on Main St',       dist: '1.3 km', pace: 'Pace 4.2 km/h' },
+    { min: 15, pill: 'On Track',   state: 'good', pct: 32, route: 'Turn right onto Harbor Rd', dist: '980 m',  pace: 'Pace 4.4 km/h' },
+    { min: 12, pill: 'On Track',   state: 'good', pct: 48, route: 'Continue on Harbor Rd',     dist: '720 m',  pace: 'Pace 4.5 km/h' },
+    { min:  9, pill: 'Leave Soon', state: 'warn', pct: 66, route: 'Stay left at fork',         dist: '540 m',  pace: 'Pace 4.6 km/h' },
+    { min:  6, pill: 'Leave Soon', state: 'warn', pct: 78, route: 'Cross pedestrian bridge',   dist: '380 m',  pace: 'Pace 4.7 km/h' },
+    { min:  3, pill: 'Go Now',     state: 'bad',  pct: 92, route: 'Pier 3 — final approach',   dist: '180 m',  pace: 'Pace 5.1 km/h' },
+    { min:  1, pill: 'Arriving',   state: 'good', pct: 99, route: 'Welcome back aboard',       dist: '40 m',   pace: 'Pace 4.9 km/h' }
+  ];
+
+  let idx = 0, secondsTick = 0;
+  const setEta = (s) => {
+    if (!etaValue) return;
+    etaValue.textContent = s.min;
+    etaPill.textContent = s.pill;
+    etaPill.className = 'phone-pill ' + (s.state === 'warn' ? 'warn' : s.state === 'bad' ? 'bad' : '');
+    etaProgress.style.width = s.pct + '%';
+    if (s.state === 'warn')      etaProgress.style.background = 'linear-gradient(90deg, #facc15, #ff5c3a)';
+    else if (s.state === 'bad')  etaProgress.style.background = 'linear-gradient(90deg, #ff5c3a, #ef4444)';
+    else                         etaProgress.style.background = 'linear-gradient(90deg, #2dd4bf, #84cc16)';
+    etaRouteName.textContent = s.route;
+    etaRouteDist.textContent = s.dist;
+    etaPace.textContent = s.pace;
+  };
+  const tickClock = () => {
+    if (!etaClock) return;
+    const d = new Date();
+    etaClock.textContent = d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  };
+  tickClock();
+  setInterval(tickClock, 30_000);
+  if (etaValue) {
+    setEta(SCRIPT[0]);
+    setInterval(() => {
+      idx = (idx + 1) % SCRIPT.length;
+      setEta(SCRIPT[idx]);
+      secondsTick = 0;
+    }, 2800);
+    setInterval(() => {
+      secondsTick++;
+      if (etaUpdated) etaUpdated.textContent = `Updated ${secondsTick}s ago`;
+    }, 1000);
   }
 
-  function buildPathStr(path, frac) {
-    var totalLen = getPathLength(path);
-    var targetDist = frac * totalLen;
-    var d = 'M' + path[0][0] + ',' + path[0][1];
-    var traveled = 0;
-    for (var i = 1; i < path.length; i++) {
-      var dx = path[i][0] - path[i-1][0];
-      var dy = path[i][1] - path[i-1][1];
-      var segLen = Math.sqrt(dx*dx + dy*dy);
-      if (traveled + segLen >= targetDist) {
-        var segFrac = (targetDist - traveled) / segLen;
-        var px = path[i-1][0] + dx * segFrac;
-        var py = path[i-1][1] + dy * segFrac;
-        d += ' L' + px.toFixed(1) + ',' + py.toFixed(1);
-        break;
+  /* ========== GoTime demo flip ========== */
+  const GOTIME = [
+    { name: 'Return to Ship',       meta: 'MS Ocean Voyager · Departs 3:00 PM', min: 12, status: 'On Track',    cls: 'pier' },
+    { name: 'Island Food Tour',     meta: 'Harbor Square · Departs 2:30 PM',    min:  8, status: 'Leave Soon',  cls: 'warn' },
+    { name: 'Snorkeling Adventure', meta: 'Beach Pier · Departs 3:45 PM',       min: 22, status: 'On Track',    cls: 'pier' }
+  ];
+  const GOTIME_ALT = [
+    { name: 'Return to Ship',       meta: 'MS Ocean Voyager · Departs 3:00 PM', min: 10, status: 'On Track',    cls: 'pier' },
+    { name: 'Island Food Tour',     meta: 'Harbor Square · Departs 2:30 PM',    min:  3, status: "It's Go Time", cls: 'go'   },
+    { name: 'Snorkeling Adventure', meta: 'Beach Pier · Departs 3:45 PM',       min: 20, status: 'On Track',    cls: 'pier' }
+  ];
+  const goNodes = $$('.gotime-demo .dest');
+  let goFlip = false;
+  const renderGo = (arr) => {
+    goNodes.forEach((node, i) => {
+      const d = arr[i]; if (!d) return;
+      node.className = 'dest ' + d.cls;
+      node.querySelector('.dest-name').textContent = d.name;
+      node.querySelector('.dest-meta').textContent = d.meta;
+      node.querySelector('.status').textContent = d.status;
+      node.querySelector('.eta-min').innerHTML = `${d.min} <span style="color:var(--ink-mute);font-size:12px;font-weight:500;">min</span>`;
+    });
+  };
+  if (goNodes.length) {
+    renderGo(GOTIME);
+    setInterval(() => {
+      goFlip = !goFlip;
+      renderGo(goFlip ? GOTIME_ALT : GOTIME);
+    }, 3200);
+    let goSec = 0;
+    setInterval(() => {
+      goSec = (goSec + 1) % 10;
+      const up = $('#gotimeUpdated');
+      if (up) up.textContent = `Updated ${goSec + 1}s ago`;
+    }, 1000);
+  }
+
+  /* ========== Animated stat counters ========== */
+  const animNum = (el) => {
+    const target = parseFloat(el.dataset.target);
+    const prefix = el.dataset.prefix || '';
+    const suffix = el.dataset.suffix || '';
+    const dur = 1400;
+    const start = performance.now();
+    const step = (t) => {
+      const p = Math.min(1, (t - start) / dur);
+      const eased = 1 - Math.pow(1 - p, 3);
+      const v = Math.round(target * eased);
+      el.textContent = prefix + v.toLocaleString() + suffix;
+      if (p < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  };
+  const numIo = new IntersectionObserver((ents) => {
+    ents.forEach((e) => {
+      if (e.isIntersecting) {
+        animNum(e.target);
+        numIo.unobserve(e.target);
       }
-      d += ' L' + path[i][0] + ',' + path[i][1];
-      traveled += segLen;
-    }
-    return d;
-  }
-
-  // Stage transitions
-  stages.forEach(function(stage) {
-    setTimeout(function() {
-      phoneScreen.className = 'hero-phone-screen ' + stage.alertClass;
-      alertIcon.textContent = stage.icon;
-      alertTitle.textContent = stage.title;
-      alertDesc.textContent = stage.desc;
-      progressFill.style.width = stage.progress + '%';
-      alertBanner.classList.remove('hero-alert-flash');
-      void alertBanner.offsetWidth;
-      alertBanner.classList.add('hero-alert-flash');
-    }, stage.time);
-  });
-
-  // ETA countdown
-  function startEtaCountdown() {
-    var etaStart = performance.now();
-    var totalDuration = 25000;
-    var startSecs = 720;
-    function tick(now) {
-      var elapsed = Math.min((now - etaStart) / totalDuration, 1);
-      var secs = Math.round(startSecs * (1 - elapsed));
-      var m = Math.floor(secs / 60);
-      var s = secs % 60;
-      etaTime.innerHTML = m + ':' + (s < 10 ? '0' : '') + s + '<span>min</span>';
-      if (elapsed < 1) requestAnimationFrame(tick);
-    }
-    requestAnimationFrame(tick);
-  }
-
-  // Walker animation
-  var animStart = null;
-  function animateWalker(now) {
-    if (!animStart) animStart = now;
-    var elapsed = now - animStart;
-    var pos;
-    if (elapsed < AWAY_DURATION) {
-      var frac = Math.min(elapsed / AWAY_DURATION, 1);
-      var eased = 1 - Math.pow(1 - frac, 2);
-      pos = getPointAtFraction(awayPath, eased);
-      routeWalked.setAttribute('d', buildPathStr(awayPath, eased));
-    } else {
-      var returnElapsed = elapsed - AWAY_DURATION;
-      var frac = Math.min(returnElapsed / RETURN_DURATION, 1);
-      var eased = frac < 0.5 ? 2*frac*frac : 1 - Math.pow(-2*frac+2,2)/2;
-      pos = getPointAtFraction(returnPath, eased);
-      routeWalked.setAttribute('d', buildPathStr(returnPath, eased));
-    }
-    walkerDot.setAttribute('cx', pos[0]);
-    walkerDot.setAttribute('cy', pos[1]);
-    walkerGlow.setAttribute('cx', pos[0]);
-    walkerGlow.setAttribute('cy', pos[1]);
-    walkerInner.setAttribute('cx', pos[0]);
-    walkerInner.setAttribute('cy', pos[1]);
-    if (elapsed < AWAY_DURATION + RETURN_DURATION) {
-      requestAnimationFrame(animateWalker);
-    }
-  }
-
-  routeWalked.setAttribute('d', 'M138,60');
-
-  setTimeout(function() {
-    requestAnimationFrame(animateWalker);
-    startEtaCountdown();
-  }, START_DELAY);
-}
+    });
+  }, { threshold: 0.5 });
+  $$('[data-target]').forEach((el) => numIo.observe(el));
+})();
