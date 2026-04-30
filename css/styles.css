@@ -1178,6 +1178,144 @@ body.lightbox-open { overflow: hidden; }
   letter-spacing: .04em;
 }
 
+/* ========== Field stats hero (Budapest) ========== */
+.field-stats-hero {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  padding: 32px;
+}
+.field-stat {
+  padding: 22px 20px 20px;
+  background: color-mix(in oklab, var(--bg) 35%, transparent);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  position: relative;
+  overflow: hidden;
+}
+.field-stat::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 36px; height: 2px;
+  background: var(--accent);
+}
+.field-stat-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  margin-bottom: 12px;
+}
+.field-stat-num {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 3vw, 40px);
+  font-weight: 580;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: var(--ink);
+  margin-bottom: 12px;
+}
+.field-stat-num .unit {
+  font-size: 0.55em;
+  color: var(--ink-dim);
+  margin-left: 4px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+.field-stat-sub {
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--ink-dim);
+}
+@media (max-width: 900px) {
+  .field-stats-hero { grid-template-columns: repeat(2, 1fr); padding: 22px; gap: 12px; }
+}
+@media (max-width: 480px) {
+  .field-stats-hero { grid-template-columns: 1fr; }
+}
+
+/* ========== Previous field test card ========== */
+.prev-field-test {
+  margin-top: 56px;
+}
+.prev-field-test-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  margin-bottom: 14px;
+}
+.prev-field-test-card {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 24px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  transition: border-color .25s ease, transform .25s ease, background .25s ease;
+  color: inherit;
+}
+.prev-field-test-card:hover {
+  border-color: var(--border-strong);
+  background: var(--bg-card-hover);
+  transform: translateY(-2px);
+}
+.prev-field-test-img {
+  aspect-ratio: 4/3;
+  background: #000;
+  overflow: hidden;
+  border-right: 1px solid var(--border);
+}
+.prev-field-test-img img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transition: transform .35s ease;
+}
+.prev-field-test-card:hover .prev-field-test-img img { transform: scale(1.04); }
+.prev-field-test-body {
+  padding: 24px 28px 24px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+}
+.prev-field-test-meta {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+.prev-field-test-body h3 {
+  font-size: clamp(18px, 1.6vw, 22px);
+  line-height: 1.25;
+  margin: 0;
+  color: var(--ink);
+}
+.prev-field-test-body p {
+  font-size: 14.5px;
+  color: var(--ink-dim);
+  line-height: 1.6;
+  margin: 0;
+}
+.prev-field-test-link {
+  font-size: 14px;
+  font-weight: 550;
+  color: var(--accent);
+  margin-top: 4px;
+}
+@media (max-width: 720px) {
+  .prev-field-test-card { grid-template-columns: 1fr; gap: 0; }
+  .prev-field-test-img { border-right: 0; border-bottom: 1px solid var(--border); aspect-ratio: 16/9; }
+  .prev-field-test-body { padding: 22px; }
+}
+
 /* ========== Plans ========== */
 .plans {
   display: grid;

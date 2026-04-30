@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://shipsafesdk.com/</loc>
-    <lastmod>2026-04-03</lastmod>
+    <lastmod>2026-04-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -14,9 +14,15 @@
   </url>
   <url>
     <loc>https://shipsafesdk.com/blog/</loc>
-    <lastmod>2026-04-03</lastmod>
+    <lastmod>2026-04-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://shipsafesdk.com/blog/2026-04-29-field-test-budapest/</loc>
+    <lastmod>2026-04-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.95</priority>
   </url>
   <url>
     <loc>https://shipsafesdk.com/blog/2026-03-20-shipsafe-at-seatrade/</loc>
@@ -34,7 +40,7 @@
     <loc>https://shipsafesdk.com/blog/2026-03-15-field-test-ocho-rios/</loc>
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://shipsafesdk.com/blog/2026-03-14-royal-caribbean-countdown-timer/</loc>

@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Budapest Field Test: Offline Walking ETAs in a City We'd Never Set Foot In | ShipSafe SDK</title>
+  <meta name="description" content="A first-time walk through Budapest in airplane mode — to St. Stephen's Basilica and back to the pier. 5-meter arrival precision, ~96% ETA accuracy, zero connectivity used.">
+  <meta property="og:title" content="Budapest Field Test: Offline Walking ETAs in a City We'd Never Set Foot In">
+  <meta property="og:description" content="A first-time walk through Budapest in airplane mode — to St. Stephen's Basilica and back to the pier. 5-meter arrival precision, ~96% ETA accuracy, zero connectivity used.">
+  <meta property="og:image" content="https://shipsafesdk.com/assets/field-test/budapest_og_basilica.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="ShipSafe walking route through Budapest closing in on St. Stephen's Basilica, 5 minutes from the GoTime meeting point.">
+  <meta property="og:url" content="https://shipsafesdk.com/blog/2026-04-29-field-test-budapest/">
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2026-04-29">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Budapest Field Test: Offline Walking ETAs in a City We'd Never Set Foot In">
+  <meta name="twitter:description" content="A first-time walk through Budapest in airplane mode — to St. Stephen's Basilica and back to the pier. 5-meter arrival precision, ~96% ETA accuracy, zero connectivity used.">
+  <meta name="twitter:image" content="https://shipsafesdk.com/assets/field-test/budapest_og_basilica.png">
+  <meta name="twitter:image:alt" content="ShipSafe walking route through Budapest closing in on St. Stephen's Basilica, 5 minutes from the GoTime meeting point.">
+  <link rel="canonical" href="https://shipsafesdk.com/blog/2026-04-29-field-test-budapest/">
+  <meta property="og:site_name" content="ShipSafe SDK">
+  <meta name="author" content="Kali McCarthy">
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="icon" type="image/png" href="/assets/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;560;580;620&family=Inter:wght@400;450;500;550;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css">
+  <style>
+    .article-header {
+      padding: 140px 0 48px;
+      background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg-elev) 100%);
+    }
+    .article-header .container {
+      max-width: 760px;
+    }
+    .article-back {
+      display: inline-block;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--teal);
+      margin-bottom: 24px;
+      transition: color 0.2s;
+    }
+    .article-back:hover {
+      color: var(--teal-2);
+    }
+    .article-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+    .article-date {
+      font-size: 15px;
+      color: var(--ink-dim);
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+    .article-header h1 {
+      font-size: 40px;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.2;
+    }
+    .article-header .deck {
+      margin-top: 18px;
+      font-size: 18px;
+      color: var(--ink-dim);
+      line-height: 1.55;
+      max-width: 60ch;
+    }
+    .article-body {
+      padding: 48px 0 88px;
+    }
+    .article-body .container {
+      max-width: 720px;
+    }
+    .article-body p {
+      font-size: 18px;
+      color: var(--ink);
+      line-height: 1.8;
+      margin-bottom: 24px;
+    }
+    .article-body h2 {
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--ink);
+      margin: 48px 0 16px;
+      line-height: 1.3;
+    }
+    .article-body h2:first-of-type {
+      margin-top: 16px;
+    }
+    .proof-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin: 8px 0 40px;
+    }
+    .proof-card {
+      padding: 24px 20px 22px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      position: relative;
+      overflow: hidden;
+    }
+    .proof-card::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 36px; height: 2px;
+      background: var(--accent);
+    }
+    .proof-num {
+      font-family: var(--font-display);
+      font-size: clamp(28px, 3vw, 38px);
+      font-weight: 580;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      color: var(--ink);
+      margin-bottom: 12px;
+    }
+    .proof-num .unit {
+      font-size: 0.55em;
+      color: var(--ink-dim);
+      margin-left: 4px;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+    }
+    .proof-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--ink-mute);
+      margin-bottom: 10px;
+    }
+    .proof-desc {
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--ink-dim);
+      margin: 0;
+    }
+    @media (max-width: 900px) {
+      .proof-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    .article-pull {
+      background: var(--bg-card);
+      border-left: 4px solid var(--teal);
+      border-radius: 0 8px 8px 0;
+      padding: 22px 26px;
+      margin: 32px 0;
+    }
+    .article-pull p {
+      font-size: 17px;
+      color: var(--ink);
+      margin-bottom: 0;
+      font-style: italic;
+      line-height: 1.6;
+    }
+    .article-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 48px 0;
+    }
+    .article-cta {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px;
+      text-align: center;
+      margin-top: 48px;
+    }
+    .article-cta p {
+      font-size: 16px;
+      color: var(--ink-dim);
+      margin-bottom: 16px;
+    }
+    .article-cta a.cta-link {
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--teal);
+      transition: color 0.2s;
+    }
+    .article-cta a.cta-link:hover {
+      color: var(--teal-2);
+    }
+    .article-bottom-nav {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .article-bottom-nav a {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--teal);
+      transition: color 0.2s;
+    }
+    .article-bottom-nav a:hover {
+      color: var(--teal-2);
+    }
+    .article-patent-line {
+      margin-top: 36px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: .04em;
+      color: var(--ink-mute);
+      text-align: center;
+    }
+    .article-video {
+      display: flex;
+      justify-content: center;
+      margin: 8px 0 32px;
+    }
+    .article-video video {
+      max-width: 360px;
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+    }
+    @media (max-width: 768px) {
+      .article-header { padding: 120px 0 36px; }
+      .article-header h1 { font-size: 28px; }
+      .article-header .deck { font-size: 16px; }
+      .article-body p { font-size: 17px; }
+      .article-body h2 { font-size: 22px; margin-top: 36px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar nav-scrolled" id="navbar">
+    <div class="nav-container">
+      <a href="/" class="nav-logo">
+        <img src="/assets/logo.png" alt="ShipSafe SDK" height="36">
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="/#problem">Problem</a>
+        <a href="/#solution">Solution</a>
+        <a href="/#how-it-works">How It Works</a>
+        <a href="/#gotime">GoTime</a>
+        <a href="/#plans">Plans</a>
+        <a href="/#field-test">Field Test</a>
+        <a href="/blog/">Blog</a>
+      </div>
+      <a href="mailto:kali@shipsafesdk.com?subject=ShipSafe%20SDK%20Demo%20Request" class="btn btn-primary nav-cta">Schedule a Demo</a>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Article Header -->
+  <section class="article-header">
+    <div class="container">
+      <a href="/blog/" class="article-back">&larr; Back to Blog</a>
+      <div class="article-eyebrow">Field Test · Budapest, Hungary</div>
+      <div class="article-date">April 29, 2026 · Walk recorded April 27, 2026</div>
+      <h1>Budapest Field Test: Offline Walking ETAs in a City We'd Never Set Foot In</h1>
+      <p class="deck">A first-time-in-city walk to St. Stephen's Basilica and back to the pier. Airplane mode the whole time. The numbers came out cleaner than we expected.</p>
+    </div>
+  </section>
+
+  <!-- Article Body -->
+  <section class="article-body">
+    <div class="container">
+
+      <!-- Proof-points block -->
+      <div class="proof-grid" aria-label="Headline results from the Budapest field test">
+        <div class="proof-card">
+          <div class="proof-label">Arrival precision</div>
+          <div class="proof-num">5<span class="unit">m</span></div>
+          <p class="proof-desc">We stopped within five meters of the excursion meeting point. Not "the right block." The right doorway.</p>
+        </div>
+        <div class="proof-card">
+          <div class="proof-label">ETA accuracy</div>
+          <div class="proof-num">~96<span class="unit">%</span></div>
+          <p class="proof-desc">The SDK called the walk at 11.52 minutes. The actual time was 12 minutes 13 seconds.</p>
+        </div>
+        <div class="proof-card">
+          <div class="proof-label">Connectivity used</div>
+          <div class="proof-num">0</div>
+          <p class="proof-desc">Airplane mode start to finish. No Wi-Fi, no cellular, no roaming. Phone might as well have been a brick.</p>
+        </div>
+        <div class="proof-card">
+          <div class="proof-label">GPS continuity</div>
+          <div class="proof-num">100<span class="unit">%</span></div>
+          <p class="proof-desc">No dropouts, no "searching for signal," no gaps in the trace. The blue dot held the entire walk.</p>
+        </div>
+      </div>
+
+      <!-- Hook -->
+      <h2>RC shows when. ShipSafe shows whether.</h2>
+
+      <p>Royal Caribbean's countdown timer tells passengers <em>when</em> all-aboard is. That's a real upgrade for the industry. But knowing when you have to be back is only half the problem. The other half — the half that actually causes pier runners and missed excursions — is whether you're going to make it.</p>
+
+      <p>That's the gap ShipSafe is built to close. Budapest is the latest proof that it does.</p>
+
+      <!-- Narrated walkthrough -->
+      <div class="article-video">
+        <!-- TODO: add a Budapest-specific poster frame; using browser default first-frame for now -->
+        <video controls playsinline preload="metadata">
+          <source src="/assets/field-test/budapest_field_test_narrated.mp4" type="video/mp4">
+        </video>
+      </div>
+
+      <!-- Setup -->
+      <h2>The setup</h2>
+
+      <p>I'd never been to Budapest before. That mattered. Most navigation field tests are run by someone who already knows the streets, who already knows that this alley is a shortcut and that one is fenced off. I wanted to walk in cold, the way a cruise passenger does — off the ship, no plan, no muscle memory, no idea which way north is.</p>
+
+      <p>Phone goes into airplane mode at the gangway. Destination: St. Stephen's Basilica, which on this itinerary is the meeting point for a guided walking excursion. Out-and-back loop. Tight return-to-ship window on purpose, because comfortable margins are not where this product gets stress-tested.</p>
+
+      <p>The whole walk runs on GPS only. GPS works without internet — same as on a hiking trail — and the SDK does the rest with port data that's already on the device.</p>
+
+      <!-- Walk narrative: four moments -->
+      <h2>What the SDK actually did during the walk</h2>
+
+      <p><strong>Time-to-ship awareness, no internet required.</strong> From the second I stepped off the gangway, the app was tracking my walking speed, the distance back to the pier, and the time I had left before all-aboard. It does this on the device. There is no "we'll catch up when you reconnect" delay. The countdown was honest the whole time, and when I slowed down to read a sign, it noticed and adjusted.</p>
+
+      <p><strong>Walking-path routing, not driving routing.</strong> Anyone who has tried to use a generic mapping app on foot in a European city knows the problem: it tries to put you on a road built for cars. ShipSafe routed me through pedestrian streets, around the car-only stretches, and across the squares that a driving route would refuse to acknowledge. Because the SDK knows it's planning for a person on foot, not a vehicle, it stays on streets a person can actually walk.</p>
+
+      <p><strong>Live re-routing when I went the wrong way.</strong> I made one wrong turn near Vörösmarty tér — genuinely wrong, not a manufactured one — and the route updated within a few seconds. No spinner. No "no connection" error. Same thing happened later when a faster path opened up after I crossed onto a smaller street: the ETA dropped, the new line drew, and the alert thresholds reset against the new arrival time.</p>
+
+      <p><strong>Essentials nearby, surfaced offline.</strong> Halfway back I needed an ATM. The Navigator tier surfaces nearby essentials — ATMs, pharmacies, restrooms, convenience stores — pulled from on-device port data. No search bar. No "loading." Tap a category, see what's close, walk to it. This is the kind of thing that sounds small until you're standing on a sidewalk in a country whose language you don't read.</p>
+
+      <p>And then the moment that matters most: the return-to-ship escalation alert fired at the correct buffer threshold on the way back. Not too early, where passengers learn to ignore it. Not too late, where it doesn't help. At the threshold the model picked, given my pace and the distance still ahead.</p>
+
+      <div class="article-pull">
+        <p>The SDK called the walk at 11.52 minutes. Actual: 12 minutes 13 seconds. We arrived inside a five-meter circle of the meeting point. In a city neither the tester nor the device had ever seen before.</p>
+      </div>
+
+      <!-- GoTime -->
+      <h2>This walk validated GoTime, too</h2>
+
+      <p>Ocho Rios, the previous field test, validated the back-to-ship layer — the layer that makes sure passengers don't miss the gangway. Budapest validated that <em>and</em> the GoTime excursion-awareness layer in the same walk.</p>
+
+      <p>St. Stephen's wasn't just a generic destination. It was a real shore-excursion meeting point, with a real meet-by time, on a real itinerary. The SDK tracked the walking ETA to that meeting point alongside the walking ETA back to the ship. Two clocks running in parallel, both on-device, both right.</p>
+
+      <p>That is the difference GoTime makes for the passenger experience. The cruise app already knows where the meeting point is. With ShipSafe, the app also knows whether the passenger is actually going to make it there on foot — early enough to do something about it if the answer is no.</p>
+
+      <!-- Two-continent validation -->
+      <h2>Two continents, same result</h2>
+
+      <p>Six weeks ago we ran the same kind of test in <a href="/blog/2026-03-15-field-test-ocho-rios/">Ocho Rios, Jamaica</a>: 17 minutes of walking in airplane mode, then a head-to-head against Google Maps. Caribbean port. Different street network. Different culture. Different climate, frankly. Same outcome — accurate ETA, no connectivity used, full loop back to the pier.</p>
+
+      <p>Budapest is Central Europe. Old streets. Tram lines. A river running through the middle of the route. Nothing about the two cities is the same except that the SDK doesn't need them to be. It works the way it works because the routing happens on the phone, against port data that's already there.</p>
+
+      <p>Two ports. Two continents. Both fully offline. Both successful. That is the bar we wanted to clear before walking into Seatrade conversations with cruise lines, and it's now cleared.</p>
+
+      <!-- Plans / close -->
+      <h2>What this means if you're a cruise line</h2>
+
+      <p>The same SDK runs across three tiers. <strong>Core</strong> handles offline walking ETAs, pace-adjusted timing, compass bearing, and departure alerts — the basics that prevent missed-ship incidents. <strong>Navigator</strong> adds turn-by-turn walking directions, nearby essentials, self-healing GPS, and re-routing. <strong>Navigator Plus</strong> adds multi-route alternatives and the GoTime excursion-awareness layer that Budapest validated.</p>
+
+      <p>Passengers don't download anything separate. There's no settings screen. Boarding times, ship names, and port data are fed into the host app automatically. The SDK activates when guests go ashore and watches the clock so they don't have to.</p>
+
+      <p>If you want to see what this looks like running live on a phone — including the Budapest test data — I'm happy to walk you through it.</p>
+
+      <p>Email me: <a href="mailto:kali@shipsafesdk.com" style="color: var(--teal); font-weight: 500;">kali@shipsafesdk.com</a></p>
+
+      <hr class="article-divider">
+
+      <div class="article-cta">
+        <p>ShipSafe SDK gives cruise line apps accurate offline walking ETAs and escalating alerts to prevent pier runners and missed excursions.</p>
+        <a href="/" class="cta-link">Learn more about ShipSafe SDK &rarr;</a>
+      </div>
+
+      <div class="article-patent-line">
+        ShipSafe SDK is protected by multiple pending U.S. patent applications.
+      </div>
+
+      <div class="article-bottom-nav">
+        <a href="/blog/">&larr; Back to Blog</a>
+        <a href="/blog/2026-03-15-field-test-ocho-rios/">Earlier field test: Ocho Rios &rarr;</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <img src="/assets/logo.png" alt="ShipSafe SDK" height="28" class="footer-logo">
+        </div>
+        <div class="footer-contact">
+          <a href="mailto:kali@shipsafesdk.com">kali@shipsafesdk.com</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 ShipSafe SDK. All rights reserved. &nbsp;|&nbsp; shipsafesdk.com</p>
+        <p class="footer-founder">Founded by <a href="mailto:kali@shipsafesdk.com">Kali McCarthy</a></p>
+        <p class="footer-patent">ShipSafe SDK is protected by multiple pending U.S. patent applications.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Hamburger toggle
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+    if (hamburger) {
+      hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        navLinks.classList.toggle('open');
+      });
+    }
+  </script>
+</body>
+</html>
