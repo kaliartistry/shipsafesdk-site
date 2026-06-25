@@ -68,6 +68,7 @@
   const etaRouteDist = $('#etaRouteDist');
   const etaPace = $('#etaPace');
   const etaUpdated = $('#etaUpdated');
+  const etaMargin = $('#etaMargin');
 
   // Icon set — each state gets a distinct glyph so meaning doesn't rely on color alone (WCAG 1.4.1)
   const ICONS = {
@@ -86,12 +87,12 @@
      the loop retraces itself between pos ≈18% and ≈35%. */
   const SCENARIO = [
     { simTime: '2:00 PM', pos:  0, eta: 15, buffer: 45, state: 'good', pill: 'Monitoring', icon: 'monitor', route: 'Exploring Ocho Rios',           dist: '1.2 km to ship', pace: 'Pace idle' },
-    { simTime: '2:20 PM', pos: 12, eta: 17, buffer: 23, state: 'good', pill: 'On Track',   icon: 'check',   route: 'Browsing the shops',            dist: '1.4 km to ship', pace: 'Pace 3.6 km/h' },
-    { simTime: '2:32 PM', pos: 18, eta: 20, buffer:  8, state: 'warn', pill: 'Leave Soon', icon: 'clock',   route: 'Start heading back now',        dist: '1.5 km to ship', pace: 'Pace idle' },
-    { simTime: '2:40 PM', pos: 38, eta: 15, buffer:  5, state: 'warn', pill: 'Leave Soon', icon: 'clock',   route: 'Head north on Main Street',     dist: '1.1 km to ship', pace: 'Pace 4.8 km/h' },
-    { simTime: '2:48 PM', pos: 62, eta: 10, buffer:  2, state: 'bad',  pill: 'Go Now',     icon: 'warn',    route: 'Keep your pace — ship ahead',   dist: '740 m to ship',  pace: 'Pace 5.3 km/h' },
+    { simTime: '2:20 PM', pos: 12, eta: 17, buffer: 23, state: 'good', pill: 'On Track',   icon: 'check',   route: 'Browsing the shops',            dist: '23 min margin',  pace: 'Pace 3.6 km/h' },
+    { simTime: '2:32 PM', pos: 18, eta: 20, buffer:  8, state: 'warn', pill: 'Leave Soon', icon: 'clock',   route: 'Start heading back now',        dist: '8 min margin',   pace: 'Time to return' },
+    { simTime: '2:40 PM', pos: 38, eta: 15, buffer:  5, state: 'warn', pill: 'Leave Soon', icon: 'clock',   route: 'Head north on Main Street',     dist: '5 min margin',   pace: 'Pace 4.8 km/h' },
+    { simTime: '2:48 PM', pos: 62, eta: 10, buffer:  2, state: 'bad',  pill: 'Go Now',     icon: 'warn',    route: 'Keep pace toward Pier 3',        dist: '2 min margin',   pace: 'Pace 5.3 km/h' },
     { simTime: '2:55 PM', pos: 88, eta:  3, buffer:  2, state: 'bad',  pill: 'Go Now',     icon: 'warn',    route: 'Final approach to Pier 3',      dist: '260 m to ship',  pace: 'Pace 5.6 km/h' },
-    { simTime: '2:59 PM', pos: 99, eta:  0, buffer:  1, state: 'good', pill: 'Arriving',   icon: 'anchor',  route: 'Just in time — welcome aboard', dist: 'At the pier',    pace: 'Boarding now' }
+    { simTime: '2:59 PM', pos: 99, eta:  0, buffer:  1, state: 'good', pill: 'Arriving',   icon: 'anchor',  route: 'Welcome aboard',                dist: 'At the pier',    pace: 'Boarding now' }
   ];
 
   const heroWalker = document.getElementById('heroWalker');
@@ -152,6 +153,7 @@
     etaRouteName.textContent = s.route;
     etaRouteDist.textContent = s.dist;
     etaPace.textContent = s.pace;
+    if (etaMargin) etaMargin.textContent = `${s.buffer} MIN RETURN MARGIN`;
     if (etaClock) etaClock.textContent = s.simTime;
     updateWalker(s.pos);
   };

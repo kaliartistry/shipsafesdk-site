@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ShipSafe SDK at Seatrade 2026: Solving the Pier Runner Problem | ShipSafe SDK</title>
-  <meta name="description" content="ShipSafe SDK is at Seatrade Cruise Global 2026. We're showing cruise line ops and IT teams how offline walking ETAs and smart alerts eliminate pier runners and missed excursions.">
+  <meta name="description" content="ShipSafe SDK is at Seatrade Cruise Global 2026 showing Return-to-Ship Safety, offline walking ETAs, and GoTime excursion navigation for cruise-line apps.">
   <meta property="og:title" content="ShipSafe SDK at Seatrade Cruise Global 2026">
   <meta property="og:description" content="Offline walking ETAs that actually work in port. Smart alerts that escalate before passengers become pier runners. We're at Seatrade — let's talk.">
   <meta property="og:image" content="https://shipsafesdk.com/assets/logo.png">
@@ -22,7 +22,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="/css/styles.css?v=20260625-live-demo-5">
   <style>
     .article-header {
       padding: 140px 0 48px;
@@ -183,7 +183,7 @@
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     "headline": "ShipSafe SDK at Seatrade 2026: Solving the Pier Runner Problem",
-    "description": "ShipSafe SDK is at Seatrade Cruise Global 2026. We're showing cruise line ops and IT teams how offline walking ETAs and smart alerts eliminate pier runners and missed excursions.",
+    "description": "ShipSafe SDK is at Seatrade Cruise Global 2026 showing Return-to-Ship Safety, offline walking ETAs, and GoTime excursion navigation for cruise-line apps.",
     "image": "https://shipsafesdk.com/assets/logo.png",
     "datePublished": "2026-03-20",
     "dateModified": "2026-04-29",
@@ -220,8 +220,8 @@
         <a href="/#problem">Problem</a>
         <a href="/#solution">Solution</a>
         <a href="/#how-it-works">How It Works</a>
-        <a href="/#gotime">GoTime</a>
-        <a href="/#plans">Plans</a>
+        <a href="/gotime/">GoTime</a>
+        <a href="/pilot-program/">Pilot Program</a>
         <a href="/#field-test">Field Test</a>
         <a href="/blog/">Blog</a>
       </div>
@@ -249,7 +249,7 @@
 
       <h2>A Problem Everyone Talks About, Nobody Solves</h2>
 
-      <p>If you work in cruise operations, you already know the pier runner math. A single delayed departure costs upwards of <strong>$8,000</strong> in fuel surcharges, port overage fees, and cascading schedule disruptions. A stranded passenger triggers emergency coordination, rebooking, and duty-of-care obligations in a foreign port. One viral video of someone sprinting down a gangway changes the PR narrative for a quarter.</p>
+      <p>If you work in cruise operations, you already know the pier runner problem creates more than one kind of operational burden: schedule pressure, guest-service escalation, port-team coordination, and brand risk when a late-return moment becomes public.</p>
 
       <p>The industry has tried countdown timers, push notifications, and geofenced reminders. These help — but they all share the same fundamental limitation: <strong>they don't know how long it actually takes to walk back.</strong></p>
 
@@ -257,16 +257,16 @@
         <p>A map pin that looks "5 minutes away" might be a 15-minute walk through winding port streets. Passengers make decisions based on this bad data every single day.</p>
       </div>
 
-      <p>That's the gap ShipSafe SDK closes. And that's why we're at Seatrade this year.</p>
+      <p>That's the Return-to-Ship Safety gap ShipSafe SDK is built to address. And that's why we're at Seatrade this year.</p>
 
       <h2>What ShipSafe SDK Actually Does</h2>
 
       <p>ShipSafe is a drop-in SDK that integrates into your existing passenger app. No new download for passengers, no new app to support. Once embedded, it delivers three capabilities that don't exist anywhere else in the market:</p>
 
       <ul>
-        <li><strong>Offline walking ETAs</strong> — Accurate, route-aware pedestrian guidance that works with zero internet connectivity. Field-tested in Ocho Rios against Google Maps and landed within two minutes — in airplane mode. Validated again in Budapest in April: 5-meter arrival precision and ~96% ETA accuracy on a first-time-in-city walk.</li>
+        <li><strong>Offline walking ETAs</strong> — Route-aware pedestrian guidance designed for port days with unreliable connectivity. Field-tested in Ocho Rios against Google Maps and exercised again in Budapest in airplane mode.</li>
         <li><strong>Escalating smart alerts</strong> — Not a static 30-minute warning. ShipSafe continuously calculates the passenger's walking time back to the pier and escalates through four stages: Green (plenty of time), Yellow (start heading back), Orange (leave now), Red (at risk of missing the ship). The alerts are mathematically derived from real walking distance, not arbitrary timers.</li>
-        <li><strong>GoTime excursion tracking</strong> — The same offline routing pipeline extended to excursion meeting points. Passengers get live ETAs to their booked tours, with smart alerts that escalate before they miss a $150+ experience. Same engine, same accuracy, new dimension of revenue protection.</li>
+        <li><strong>GoTime excursion tracking</strong> — The same offline routing pipeline extended to excursion meeting points. Passengers get ETAs to booked tour meeting points, with smart alerts that escalate before meeting-point risk becomes urgent.</li>
       </ul>
 
       <h2>Why This Matters at Seatrade</h2>
@@ -277,16 +277,16 @@
 
       <div class="stat-inline">
         <div class="stat-inline-item">
-          <span class="num">$8K+</span>
-          <span class="label">Per delayed departure</span>
+          <span class="num">ETA</span>
+          <span class="label">Walking-time context</span>
         </div>
         <div class="stat-inline-item">
-          <span class="num">$150+</span>
-          <span class="label">Per missed excursion</span>
+          <span class="num">GoTime</span>
+          <span class="label">Meeting-point timing</span>
         </div>
         <div class="stat-inline-item">
-          <span class="num">4 Lines</span>
-          <span class="label">To integrate</span>
+          <span class="num">SDK</span>
+          <span class="label">Existing app layer</span>
         </div>
       </div>
 
@@ -294,7 +294,7 @@
 
       <p>ShipSafe SDK isn't a pitch deck. The offline routing engine has been <a href="/blog/2026-03-15-field-test-ocho-rios/" style="color: var(--teal); font-weight: 500;">field-tested in real port conditions</a> — walking 17 minutes through Ocho Rios, Jamaica with no internet, producing ETAs within two minutes of Google Maps' connected result. The core technology is protected by multiple pending U.S. patent applications.</p>
 
-      <p>This is production-ready SDK code, not a prototype. We're talking to cruise lines about pilot deployments now.</p>
+      <p>This is SDK code ready for structured pilot conversations. We're talking to cruise lines about limited deployments that can validate integration, alert behavior, and operating impact with real partner data.</p>
 
       <hr class="article-divider">
 

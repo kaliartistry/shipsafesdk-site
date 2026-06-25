@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Budapest Field Test: Offline Walking ETAs in a City We'd Never Set Foot In | ShipSafe SDK</title>
-  <meta name="description" content="A first-time walk through Budapest in airplane mode — to St. Stephen's Basilica and back to the pier. 5-meter arrival precision, ~96% ETA accuracy, fully offline.">
+  <meta name="description" content="A first-time walk through Budapest in airplane mode — to St. Stephen's Basilica and back to the pier — showing offline ETA and GoTime meeting-point guidance in a field test.">
   <meta property="og:title" content="Budapest Field Test: Offline Walking ETAs in a City We'd Never Set Foot In">
-  <meta property="og:description" content="A first-time walk through Budapest in airplane mode — to St. Stephen's Basilica and back to the pier. 5-meter arrival precision, ~96% ETA accuracy, fully offline.">
+  <meta property="og:description" content="A first-time walk through Budapest in airplane mode — to St. Stephen's Basilica and back to the pier — showing offline ETA and GoTime meeting-point guidance in a field test.">
   <meta property="og:image" content="https://shipsafesdk.com/assets/field-test/budapest_og_basilica.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -16,7 +16,7 @@
   <meta property="article:published_time" content="2026-04-29">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Budapest Field Test: Offline Walking ETAs in a City We'd Never Set Foot In">
-  <meta name="twitter:description" content="A first-time walk through Budapest in airplane mode — to St. Stephen's Basilica and back to the pier. 5-meter arrival precision, ~96% ETA accuracy, fully offline.">
+  <meta name="twitter:description" content="A first-time walk through Budapest in airplane mode — to St. Stephen's Basilica and back to the pier — showing offline ETA and GoTime meeting-point guidance in a field test.">
   <meta name="twitter:image" content="https://shipsafesdk.com/assets/field-test/budapest_og_basilica.png">
   <meta name="twitter:image:alt" content="ShipSafe walking route through Budapest closing in on St. Stephen's Basilica, 5 minutes from the GoTime meeting point.">
   <link rel="canonical" href="https://shipsafesdk.com/blog/2026-04-29-field-test-budapest/">
@@ -30,7 +30,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;560;580;620&family=Inter:wght@400;450;500;550;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="/css/styles.css?v=20260625-live-demo-5">
   <style>
     .article-header {
       padding: 140px 0 48px;
@@ -247,7 +247,7 @@
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     "headline": "Budapest Field Test: Offline Walking ETAs in a City We'd Never Set Foot In",
-    "description": "A first-time walk through Budapest in airplane mode — to St. Stephen's Basilica and back to the pier. 5-meter arrival precision, ~96% ETA accuracy, fully offline.",
+    "description": "A first-time walk through Budapest in airplane mode — to St. Stephen's Basilica and back to the pier — showing offline ETA and GoTime meeting-point guidance in a field test.",
     "image": [
       "https://shipsafesdk.com/assets/field-test/budapest_og_basilica.png",
       "https://shipsafesdk.com/assets/field-test/budapest_og_basilica_1x1.png",
@@ -289,8 +289,8 @@
         <a href="/#problem">Problem</a>
         <a href="/#solution">Solution</a>
         <a href="/#how-it-works">How It Works</a>
-        <a href="/#gotime">GoTime</a>
-        <a href="/#plans">Plans</a>
+        <a href="/gotime/">GoTime</a>
+        <a href="/pilot-program/">Pilot Program</a>
         <a href="/#field-test">Field Test</a>
         <a href="/blog/">Blog</a>
       </div>
@@ -321,14 +321,14 @@
       <!-- Proof-points block -->
       <div class="proof-grid" aria-label="Headline results from the Budapest field test">
         <div class="proof-card">
-          <div class="proof-label">Arrival precision</div>
+          <div class="proof-label">Meeting-point proximity</div>
           <div class="proof-num">5<span class="unit">m</span></div>
-          <p class="proof-desc">We stopped within five meters of the excursion meeting point. Not "the right block." The right doorway.</p>
+          <p class="proof-desc">In this single field test, the tester stopped within five meters of the excursion meeting point.</p>
         </div>
         <div class="proof-card">
-          <div class="proof-label">ETA accuracy</div>
+          <div class="proof-label">ETA comparison</div>
           <div class="proof-num">~96<span class="unit">%</span></div>
-          <p class="proof-desc">The SDK called the walk at 11.52 minutes. The actual time was 12 minutes 13 seconds.</p>
+          <p class="proof-desc">In this walk, the SDK called the route at 11.52 minutes. The actual time was 12 minutes 13 seconds.</p>
         </div>
         <div class="proof-card">
           <div class="proof-label">Connectivity used</div>
@@ -343,11 +343,11 @@
       </div>
 
       <!-- Hook -->
-      <h2>RC shows when. ShipSafe shows whether.</h2>
+      <h2>A timer tells passengers when. ShipSafe shows whether they can still make it back.</h2>
 
-      <p>Royal Caribbean's countdown timer tells passengers <em>when</em> all-aboard is. That's a real upgrade for the industry. But knowing when you have to be back is only half the problem. The other half — the half that actually causes pier runners and missed excursions — is whether you're going to make it.</p>
+      <p>Countdown timers tell passengers <em>when</em> all-aboard is. That's a real upgrade for the industry. But knowing when you have to be back is only half the problem. The other half — the part ShipSafe focuses on — is whether the passenger still has enough walking time to return.</p>
 
-      <p>That's the gap ShipSafe is built to close. Budapest is the latest proof that it does.</p>
+      <p>That's the gap ShipSafe is built to address. Budapest is the latest field test showing that logic working in a real city walk.</p>
 
       <!-- Narrated walkthrough -->
       <div class="article-video">
@@ -380,13 +380,13 @@
       <p>And then the moment that matters most: the return-to-ship escalation alert fired at the correct buffer threshold on the way back. Not too early, where passengers learn to ignore it. Not too late, where it doesn't help. At the threshold the model picked, given my pace and the distance still ahead.</p>
 
       <div class="article-pull">
-        <p>The SDK called the walk at 11.52 minutes. Actual: 12 minutes 13 seconds. We arrived inside a five-meter circle of the meeting point. In a city neither the tester nor the device had ever seen before.</p>
+      <p>For this walk, the SDK called the route at 11.52 minutes. Actual: 12 minutes 13 seconds. The tester arrived inside a five-meter circle of the meeting point in a city neither the tester nor the device had used before.</p>
       </div>
 
       <!-- GoTime -->
       <h2>This walk validated GoTime, too</h2>
 
-      <p>Ocho Rios, the previous field test, validated the back-to-ship layer — the layer that makes sure passengers don't miss the gangway. Budapest validated that <em>and</em> the GoTime excursion-awareness layer in the same walk.</p>
+      <p>Ocho Rios, the previous field test, exercised the back-to-ship layer — the layer that helps passengers understand whether they still have enough time to return. Budapest exercised that <em>and</em> the GoTime excursion-awareness layer in the same walk.</p>
 
       <p>St. Stephen's wasn't just a generic destination. It was a real shore-excursion meeting point, with a real meet-by time, on a real itinerary. The SDK tracked the walking ETA to that meeting point alongside the walking ETA back to the ship. Two clocks running in parallel, both on-device, both right.</p>
 
@@ -395,16 +395,16 @@
       <!-- Two-continent validation -->
       <h2>Two continents, same result</h2>
 
-      <p>Six weeks ago we ran the same kind of test in <a href="/blog/2026-03-15-field-test-ocho-rios/">Ocho Rios, Jamaica</a>: 17 minutes of walking in airplane mode, then a head-to-head against Google Maps. Caribbean port. Different street network. Different culture. Different climate, frankly. Same outcome — accurate ETA, no connectivity used, full loop back to the pier.</p>
+      <p>Six weeks ago we ran the same kind of test in <a href="/blog/2026-03-15-field-test-ocho-rios/">Ocho Rios, Jamaica</a>: 17 minutes of walking in airplane mode, then a head-to-head against Google Maps. Caribbean port. Different street network. Different climate, frankly. Same pattern: useful ETA context, no connectivity used, full loop back to the pier.</p>
 
       <p>Budapest is Central Europe. Old streets. Tram lines. A river running through the middle of the route. Nothing about the two cities is the same except that the SDK doesn't need them to be. It works the way it works because the routing happens on the phone, against port data that's already there.</p>
 
-      <p>Two ports. Two continents. Both fully offline. Both successful. That is the bar we wanted to clear before walking into Seatrade conversations with cruise lines, and it's now cleared.</p>
+      <p>Two ports. Two continents. Both fully offline. That is the evidence base we wanted before walking into Seatrade conversations with cruise lines.</p>
 
       <!-- Plans / close -->
       <h2>What this means if you're a cruise line</h2>
 
-      <p>The same SDK runs across three tiers. <strong>Core</strong> handles offline walking ETAs, pace-adjusted timing, compass bearing, and departure alerts — the basics that prevent missed-ship incidents. <strong>Navigator</strong> adds route-aware walking guidance, nearby essentials, self-healing GPS, and re-routing. <strong>Navigator Plus</strong> adds multi-route alternatives and the GoTime excursion-awareness layer that Budapest validated — offline walking guidance to meeting points alongside the back-to-ship layer.</p>
+      <p>The same SDK runs across three tiers. <strong>Core</strong> handles offline walking ETAs, pace-adjusted timing, compass bearing, and departure alerts — the basics of return-to-ship guidance. <strong>Navigator</strong> adds route-aware walking guidance, nearby essentials, self-healing GPS, and re-routing. <strong>Navigator Plus</strong> adds multi-route alternatives and the GoTime excursion-awareness layer that Budapest exercised — offline walking guidance to meeting points alongside the back-to-ship layer.</p>
 
       <p>Passengers don't download anything separate. There's no settings screen. Boarding times, ship names, and port data are fed into the host app automatically. The SDK activates when guests go ashore and watches the clock so they don't have to.</p>
 
@@ -415,8 +415,8 @@
       <hr class="article-divider">
 
       <div class="article-cta">
-        <p>ShipSafe SDK gives cruise line apps accurate offline walking ETAs and escalating alerts to prevent pier runners and missed excursions.</p>
-        <a href="/" class="cta-link">Learn more about ShipSafe SDK &rarr;</a>
+        <p>ShipSafe SDK gives cruise-line apps offline walking ETAs and escalating alerts to reduce late-return and missed-excursion risk.</p>
+        <a href="/return-to-ship-safety/" class="cta-link">Learn about Return-to-Ship Safety &rarr;</a>
       </div>
 
       <div class="article-patent-line">

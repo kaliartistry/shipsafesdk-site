@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>What Is Return-to-Ship Safety? | ShipSafe SDK</title>
+  <meta name="description" content="Return-to-Ship Safety helps cruise-line passenger apps show whether guests still have enough walking time to get back to the ship, even when connectivity is limited.">
+  <meta property="og:title" content="What Is Return-to-Ship Safety?">
+  <meta property="og:description" content="ShipSafe SDK adds offline walking ETA and smart return-alert intelligence to existing cruise-line passenger apps.">
+  <meta property="og:image" content="https://shipsafesdk.com/assets/logo.png">
+  <meta property="og:url" content="https://shipsafesdk.com/return-to-ship-safety/">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://shipsafesdk.com/return-to-ship-safety/">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#06101f">
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="icon" type="image/png" href="/assets/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;560;580;620&family=Inter:wght@400;450;500;550;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css?v=20260625-live-demo-5">
+  <style>
+    .page-visual {
+      margin-top: 40px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      background: var(--bg-card);
+      box-shadow: var(--shadow-lg);
+    }
+    .page-visual img { width: 100%; }
+    .page-visual figcaption {
+      padding: 16px 18px;
+      color: var(--ink-dim);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+  <header class="nav nav-scrolled" id="navbar">
+    <div class="container nav-inner">
+      <a class="brand" href="/">
+        <img src="/assets/logo.png" alt="ShipSafe SDK">
+        <span>ShipSafe</span><span class="sdk-tag">SDK</span>
+      </a>
+      <nav class="nav-links" id="navLinks">
+        <a href="/return-to-ship-safety/">Return-to-Ship Safety</a>
+        <a href="/#how-it-works">How It Works</a>
+        <a href="/gotime/">GoTime</a>
+        <a href="/#field-test">Field Test</a>
+        <a href="/pilot-program/">Pilot Program</a>
+        <a href="/blog/">Blog</a>
+      </nav>
+      <a class="btn accent nav-cta" href="mailto:info@shipsafesdk.com?subject=ShipSafe%20SDK%20Demo%20Request">Schedule a Demo <span class="arrow">&rarr;</span></a>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <section class="hero" style="min-height:520px;">
+    <div class="hero-bg" aria-hidden="true"><div class="grid"></div></div>
+    <div class="container hero-inner">
+      <div class="hero-copy reveal">
+        <div class="eyebrow">Return-to-Ship Safety</div>
+        <h1 style="margin-top:18px;">What Is Return-to-Ship Safety?</h1>
+        <p class="hero-sub">
+          Return-to-Ship Safety is the missing intelligence layer between a countdown timer and the passenger's real walking route back to the pier.
+        </p>
+        <p class="hero-sub" style="margin-top:14px; font-weight:600;">
+          A timer tells passengers when. ShipSafe shows whether they can still make it back.
+        </p>
+        <div class="hero-cta">
+          <a class="btn accent lg" href="mailto:info@shipsafesdk.com?subject=Return-to-Ship%20Safety%20Demo">Schedule a Demo <span class="arrow">&rarr;</span></a>
+          <a class="btn ghost lg" href="/pilot-program/">Review pilot program</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head reveal">
+        <div>
+          <div class="eyebrow">Category Definition</div>
+          <h2 style="margin-top:18px;">More than an all-aboard countdown.</h2>
+        </div>
+        <p>Return-to-Ship Safety helps a cruise-line passenger app answer a practical port-day question: does this guest still have enough walking time to return with the configured buffer?</p>
+      </div>
+      <div class="features reveal">
+        <div class="feature">
+          <h3>Offline walking ETA</h3>
+          <p>ShipSafe uses on-device port data and walking-route logic so timing guidance can remain available when Wi-Fi, roaming, or cellular data is unreliable.</p>
+        </div>
+        <div class="feature">
+          <h3>Smart return alerts</h3>
+          <p>Alerts escalate as the return margin narrows, moving from early guidance to urgent return prompts based on route, pace, all-aboard time, and configured buffers.</p>
+        </div>
+        <div class="feature">
+          <h3>Existing app integration</h3>
+          <p>ShipSafe is a B2B SDK for existing cruise-line and cruise-platform passenger apps. There is no separate passenger app for guests to download.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0;">
+    <div class="container">
+      <div class="steps reveal">
+        <div class="step">
+          <div class="step-num">01 · INGEST</div>
+          <h3>Load operational context</h3>
+          <p>The host app supplies ship, port, all-aboard, and configured alert-buffer context for the active port call.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">02 · CALCULATE</div>
+          <h3>Estimate walking return time</h3>
+          <p>The SDK calculates offline walking ETA and compares it to the remaining return window.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">03 · ALERT</div>
+          <h3>Guide before risk becomes urgent</h3>
+          <p>Passengers receive earlier, clearer guidance while the app still has time to influence behavior.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">04 · REVIEW</div>
+          <h3>Measure during pilots</h3>
+          <p>Pilot reporting can review alerts, close-call signals, field-test observations, and integration questions without overstating impact.</p>
+        </div>
+      </div>
+      <div class="article-cta" style="margin-top:40px;">
+        <p>Explore the field tests and GoTime excursion layer that extend Return-to-Ship Safety into meeting-point navigation.</p>
+        <a href="/blog/2026-04-29-field-test-budapest/" class="cta-link">Read the Budapest field test &rarr;</a>
+        <a href="/gotime/" class="cta-link" style="margin-left:18px;">See GoTime &rarr;</a>
+      </div>
+      <figure class="page-visual reveal">
+        <img src="/assets/field-test/hero_dashboard.png" alt="ShipSafe SDK dashboard showing walking ETA, compass, speed, and return guidance in Ocho Rios">
+        <figcaption>Field-test dashboard example: offline walking ETA and return guidance shown inside the passenger-app experience.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <span>&copy; 2026 ShipSafe SDK. Return-to-Ship Safety infrastructure for cruise-line passenger apps.</span>
+        <span><a href="/pilot-program/" style="color:var(--ink-dim); text-decoration:underline; text-underline-offset:3px;">Pilot Program</a></span>
+      </div>
+    </div>
+  </footer>
+  <script src="/js/main.js"></script>
+</body>
+</html>

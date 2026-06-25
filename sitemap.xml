@@ -7,10 +7,22 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://shipsafesdk.com/demo/</loc>
-    <lastmod>2026-03-15</lastmod>
+    <loc>https://shipsafesdk.com/return-to-ship-safety/</loc>
+    <lastmod>2026-06-25</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>https://shipsafesdk.com/pilot-program/</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://shipsafesdk.com/gotime/</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://shipsafesdk.com/blog/</loc>
