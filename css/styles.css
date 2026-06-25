@@ -552,7 +552,7 @@ p  { color: var(--ink-dim); }
   vertical-align: middle;
 }
 .hero-chip.c1 { top: 4%; left: -14%; animation: float1 7s ease-in-out infinite; }
-.hero-chip.c2 { bottom: 24%; right: -12%; max-width: 230px; animation: float2 8s ease-in-out infinite; }
+.hero-chip.c2 { bottom: 31%; right: -12%; max-width: 230px; animation: float2 8s ease-in-out infinite; }
 @media (max-width: 960px) {
   .hero-chip { display: none; }
 }
