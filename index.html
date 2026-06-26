@@ -26,8 +26,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;560;580;620&family=Inter:wght@400;450;500;550;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css?v=20260625-live-demo-8">
-  <link rel="preload" as="image" href="assets/hero/ocho-rios-map.webp" type="image/webp">
+  <link rel="stylesheet" href="css/styles.css?v=20260625-light-demo-5">
+  <link rel="preload" as="image" href="assets/hero/ocho-rios-directions-light.webp" type="image/webp">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -103,7 +103,7 @@
           Give Passengers <span class="gradient-word">Earlier Return Guidance.</span>
         </h1>
         <p class="hero-sub">
-          ShipSafe SDK adds offline return-to-ship and excursion timing intelligence to your existing passenger app, helping guests understand whether they still have enough time to return or reach a meeting point. No separate passenger app required.
+          ShipSafe SDK adds offline return-to-ship and excursion timing intelligence to your existing passenger app, helping guests understand whether they still have enough time to return or reach a meeting point.
         </p>
         <p class="hero-sub" style="margin-top:14px; font-weight:600;">
           A timer tells passengers when. ShipSafe shows whether they can still make it back.
@@ -112,7 +112,7 @@
           <a class="btn accent lg" href="mailto:info@shipsafesdk.com?subject=ShipSafe%20SDK%20Demo%20Request">
             Schedule a Demo <span class="arrow">→</span>
           </a>
-          <a class="btn ghost lg" href="/return-to-ship-safety/">What is Return-to-Ship Safety?</a>
+          <a class="btn ghost lg" href="#live-demo">See the live demo <span class="arrow">&rarr;</span></a>
         </div>
         <div class="hero-meta">
           <span class="dot"></span>
@@ -143,20 +143,20 @@
               </div>
             </div>
             <div class="phone-map">
-              <img src="assets/hero/ocho-rios-map.webp" alt="Ocho Rios — Turtle Bay cruise pier" class="phone-map-base" width="480" height="520" loading="eager" decoding="async">
+              <img src="assets/hero/ocho-rios-directions-light.webp" alt="Light map showing the walking route from Ocho Rios Bay to Ocho Rios Cruise Pier" class="phone-map-base" width="960" height="1040" loading="eager" decoding="async">
               <svg class="phone-map-overlay" viewBox="0 0 480 520" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
                 <defs>
                   <linearGradient id="routeGrad" x1="0" y1="1" x2="0" y2="0">
-                    <stop offset="0" stop-color="#2dd4bf"/>
-                    <stop offset="1" stop-color="#84cc16"/>
+                    <stop offset="0" stop-color="#006dff"/>
+                    <stop offset="1" stop-color="#00a6ff"/>
                   </linearGradient>
                   <radialGradient id="walkerPulse">
-                    <stop offset="0" stop-color="var(--halo-color, #2dd4bf)" stop-opacity=".65"/>
-                    <stop offset="1" stop-color="var(--halo-color, #2dd4bf)" stop-opacity="0"/>
+                    <stop offset="0" stop-color="var(--halo-color, #006dff)" stop-opacity=".65"/>
+                    <stop offset="1" stop-color="var(--halo-color, #006dff)" stop-opacity="0"/>
                   </radialGradient>
                 </defs>
-                <!-- pier pin at the ship-dock tip of Ocho Rios Cruise Pier -->
-                <g transform="translate(105 55)">
+                <!-- pier pin at the routed Ocho Rios Cruise Pier / walkway endpoint -->
+                <g transform="translate(99.5 229.7)">
                   <circle r="24" fill="#ff5c3a" fill-opacity=".18">
                     <animate attributeName="r" values="18;28;18" dur="2.4s" repeatCount="indefinite"/>
                     <animate attributeName="fill-opacity" values=".32;.06;.32" dur="2.4s" repeatCount="indefinite"/>
@@ -164,29 +164,27 @@
                   <circle r="11" fill="#ff5c3a"/>
                   <circle r="4" fill="#fff"/>
                 </g>
-                <!-- Combined walker path: wander out (Margaritaville → shopping district apex) + retrace +
-                     return route (Main St → pier). Walker traverses the whole thing; the wander loop
-                     retraces itself so the visible line only reads once. -->
+                <!-- Valhalla pedestrian route over OpenStreetMap data: Ocho Rios Bay to Ocho Rios Cruise Pier. -->
                 <path id="heroRouteFull"
-                      d="M175 390 L220 435 L280 465 L220 435 L175 390 L215 410 L250 410 L250 300 L230 230 L205 175 L160 120 L105 55"
-                      stroke="#2a527a" stroke-width="5.5" fill="none"
-                      stroke-dasharray="7 6" stroke-linecap="round" stroke-linejoin="round"/>
+                      d="M380.5 125.4 L377.2 147.1 L375.4 157.3 L369.3 190.1 L367.9 194.8 L367.2 198.5 L366.5 204.3 L366.2 207.7 L366.7 210.9 L367.8 214.5 L368.7 216.1 L375.3 229.1 L372.7 240.4 L370.8 249.1 L362 276.6 L355.5 289.3 L353.2 293.8 L348.5 303.1 L341.9 315.5 L337.4 324.1 L333.1 332.6 L330.1 337.5 L324.9 342.2 L296 360.6 L287.7 365.6 L277.9 372.4 L266.9 379.1 L256.2 382.8 L252.8 384.1 L247.6 386.7 L239.1 388.5 L224.9 389.7 L213.5 391.6 L201.3 392.9 L184.1 393.4 L174.8 394.1 L165.6 396.3 L142 402.6 L136.7 380.2 L134.8 372 L132 359.4 L125.3 329.8 L120.7 309.6 L118.2 298.2 L116.8 292 L116.5 286.2 L115.9 283.2 L115.6 281.4 L118.1 277.7 L122.1 271.6 L126.8 264.4 L122.1 249.1 L120.3 247.9 L115.9 233.3 L102.5 236.2 L99.5 229.7"
+                      stroke="#09346f" stroke-width="7.5" fill="none"
+                      stroke-opacity=".58" stroke-linecap="round" stroke-linejoin="round"/>
                 <path id="heroRouteWalked"
-                      d="M175 390 L220 435 L280 465 L220 435 L175 390 L215 410 L250 410 L250 300 L230 230 L205 175 L160 120 L105 55"
-                      stroke="url(#routeGrad)" stroke-width="6.5" fill="none"
+                      d="M380.5 125.4 L377.2 147.1 L375.4 157.3 L369.3 190.1 L367.9 194.8 L367.2 198.5 L366.5 204.3 L366.2 207.7 L366.7 210.9 L367.8 214.5 L368.7 216.1 L375.3 229.1 L372.7 240.4 L370.8 249.1 L362 276.6 L355.5 289.3 L353.2 293.8 L348.5 303.1 L341.9 315.5 L337.4 324.1 L333.1 332.6 L330.1 337.5 L324.9 342.2 L296 360.6 L287.7 365.6 L277.9 372.4 L266.9 379.1 L256.2 382.8 L252.8 384.1 L247.6 386.7 L239.1 388.5 L224.9 389.7 L213.5 391.6 L201.3 392.9 L184.1 393.4 L174.8 394.1 L165.6 396.3 L142 402.6 L136.7 380.2 L134.8 372 L132 359.4 L125.3 329.8 L120.7 309.6 L118.2 298.2 L116.8 292 L116.5 286.2 L115.9 283.2 L115.6 281.4 L118.1 277.7 L122.1 271.6 L126.8 264.4 L122.1 249.1 L120.3 247.9 L115.9 233.3 L102.5 236.2 L99.5 229.7"
+                      stroke="url(#routeGrad)" stroke-width="8.5" fill="none"
                       pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1"
                       stroke-linecap="round" stroke-linejoin="round"/>
-                <!-- walker at Margaritaville -->
-                <g id="heroWalker" transform="translate(175 390)">
+                <!-- walker at the mapped road start near Ocho Rios Bay -->
+                <g id="heroWalker" transform="translate(380.5 125.4)">
                   <circle r="24" fill="url(#walkerPulse)">
                     <animate attributeName="r" values="18;28;18" dur="1.8s" repeatCount="indefinite"/>
                   </circle>
-                  <circle r="11" fill="#2dd4bf" stroke="#0a1b33" stroke-width="2.5"/>
+                  <circle r="11" fill="#006dff" stroke="#ffffff" stroke-width="2.5"/>
                   <circle r="4" fill="#fff"/>
                 </g>
               </svg>
-              <a class="map-credit" href="https://www.mapbox.com/about/maps/" target="_blank" rel="noopener">© Mapbox</a>
-              <a class="map-credit right" href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© OpenStreetMap</a>
+              <a class="map-credit" href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© OpenStreetMap</a>
+              <a class="map-credit right" href="https://carto.com/attributions" target="_blank" rel="noopener">© CARTO</a>
             </div>
             <div class="phone-map-summary">
               <div class="eta-mini">
@@ -635,6 +633,6 @@
     </figure>
   </div>
 
-  <script src="js/main.js?v=20260625-live-demo"></script>
+  <script src="js/main.js?v=20260625-light-demo-4"></script>
 </body>
 </html>

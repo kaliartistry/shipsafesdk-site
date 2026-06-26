@@ -51,12 +51,9 @@
 
   /* ========== Hero scenario: Ocho Rios pier-runner ==========
      Real setting: passenger at Island Village, ship departs Turtle Bay
-     Pier at 3:00 PM. Alert state is driven by BUFFER = (departure time
-     − simulated time) − walking ETA. Walker position is decoupled from
-     pill state — in states 1–2 the walker lingers at Island Village
-     while buffer shrinks, so the product's "nudge before you lose track
-     of time" value prop actually lands visually. Each state plays for
-     ~2.8s; full loop ≈ 20s. */
+     Pier at 3:00 PM. Alert state is driven by buffer: departure time
+     minus simulated time, then minus walking ETA. Each state plays for
+     about 2.8s; full loop is about 20s. */
   const phoneScreen = $('.phone-screen');
   const etaValue = $('#etaMinutes');
   const etaPill = $('#etaPill');
@@ -70,7 +67,7 @@
   const etaUpdated = $('#etaUpdated');
   const etaMargin = $('#etaMargin');
 
-  // Icon set — each state gets a distinct glyph so meaning doesn't rely on color alone (WCAG 1.4.1)
+  // Each state gets a distinct glyph so meaning does not rely on color alone.
   const ICONS = {
     monitor: '<circle cx="12" cy="12" r="2"/><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/>',
     check:   '<path d="M5 13l4 4L19 7"/>',
@@ -79,20 +76,17 @@
     anchor:  '<circle cx="12" cy="6" r="2"/><path d="M12 8v12M6 12h12M5 17a8 8 0 0014 0"/>'
   };
 
-  /* SCENARIO: walker wanders AWAY from the ship in states 1–3 (exploring the
-     shopping district), reaches the farthest point at state 3 where the alert
-     fires LEAVE SOON. The alert is the trigger for the direction change — the
-     walker then retraces through Margaritaville and heads up Main Street to
-     the pier. pos values index the combined path (wander loop + main route);
-     the loop retraces itself between pos ≈18% and ≈35%. */
+  /* SCENARIO: the marker follows a Valhalla pedestrian route over
+     OpenStreetMap data from the Ocho Rios Bay side to Main Street, Turtle
+     Beach Road, cruise-pier access, and the final pier walkway. */
   const SCENARIO = [
-    { simTime: '2:00 PM', pos:  0, eta: 15, buffer: 45, state: 'good', pill: 'Monitoring', icon: 'monitor', route: 'Exploring Ocho Rios',           dist: '1.2 km to ship', pace: 'Pace idle' },
-    { simTime: '2:20 PM', pos: 12, eta: 17, buffer: 23, state: 'good', pill: 'On Track',   icon: 'check',   route: 'Browsing the shops',            dist: '23 min margin',  pace: 'Pace 3.6 km/h' },
-    { simTime: '2:32 PM', pos: 18, eta: 20, buffer:  8, state: 'warn', pill: 'Leave Soon', icon: 'clock',   route: 'Start heading back now',        dist: '8 min margin',   pace: 'Time to return' },
-    { simTime: '2:40 PM', pos: 38, eta: 15, buffer:  5, state: 'warn', pill: 'Leave Soon', icon: 'clock',   route: 'Head north on Main Street',     dist: '5 min margin',   pace: 'Pace 4.8 km/h' },
-    { simTime: '2:48 PM', pos: 62, eta: 10, buffer:  2, state: 'bad',  pill: 'Go Now',     icon: 'warn',    route: 'Keep pace toward Pier 3',        dist: '2 min margin',   pace: 'Pace 5.3 km/h' },
-    { simTime: '2:55 PM', pos: 88, eta:  3, buffer:  2, state: 'bad',  pill: 'Go Now',     icon: 'warn',    route: 'Final approach to Pier 3',      dist: '260 m to ship',  pace: 'Pace 5.6 km/h' },
-    { simTime: '2:59 PM', pos: 99, eta:  0, buffer:  1, state: 'good', pill: 'Arriving',   icon: 'anchor',  route: 'Welcome aboard',                dist: 'At the pier',    pace: 'Boarding now' }
+    { simTime: '2:00 PM', pos:  0, eta: 17, buffer: 43, state: 'good', pill: 'Monitoring', icon: 'monitor', route: 'Start from Ocho Rios Bay',    dist: '1.4 km to ship', pace: 'Pace idle' },
+    { simTime: '2:20 PM', pos: 14, eta: 15, buffer: 25, state: 'good', pill: 'On Track',   icon: 'check',   route: 'Walk south to Main Street',   dist: '25 min margin',  pace: 'Pace 3.8 km/h' },
+    { simTime: '2:32 PM', pos: 31, eta: 12, buffer: 16, state: 'good', pill: 'On Track',   icon: 'check',   route: 'Bear right onto Main Street', dist: '16 min margin',  pace: 'Pace 4.3 km/h' },
+    { simTime: '2:40 PM', pos: 56, eta:  9, buffer: 11, state: 'warn', pill: 'Leave Soon', icon: 'clock',   route: 'Turn onto Turtle Beach Rd',   dist: '11 min margin',  pace: 'Keep walking' },
+    { simTime: '2:48 PM', pos: 74, eta:  6, buffer:  6, state: 'bad',  pill: 'Go Now',     icon: 'warn',    route: 'Enter cruise pier access',    dist: '6 min margin',   pace: 'Pace 5.0 km/h' },
+    { simTime: '2:55 PM', pos: 91, eta:  2, buffer:  3, state: 'bad',  pill: 'Go Now',     icon: 'warn',    route: 'Walk the pier to the ship',   dist: '180 m to ship',  pace: 'Pace 5.4 km/h' },
+    { simTime: '2:59 PM', pos: 99, eta:  0, buffer:  1, state: 'good', pill: 'Arriving',   icon: 'anchor',  route: 'Welcome aboard',              dist: 'At the ship',    pace: 'Boarding now' }
   ];
 
   const heroWalker = document.getElementById('heroWalker');
@@ -103,10 +97,9 @@
     try { pathTotalLen = heroRouteFull.getTotalLength(); } catch { pathTotalLen = 0; }
   }
 
-  /* Frame-by-frame animation along the SVG path — CSS transitions would
-     straight-line between waypoints, cutting through buildings when the walker
-     retraces. Sampling getPointAtLength per tick makes the walker actually
-     follow the path's shape including the reversal. */
+  /* Frame-by-frame animation along the SVG path. CSS transitions would
+     straight-line between waypoints, so this samples getPointAtLength
+     on each animation frame. */
   let walkerCurrentPos = 0;
   let walkerAnimFrame = null;
   const applyWalkerAt = (pos) => {
