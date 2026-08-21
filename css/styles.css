@@ -1449,6 +1449,20 @@ body.lightbox-open { overflow: hidden; }
   line-height: 1.5;
   color: var(--ink-dim);
 }
+.field-stat--comparison {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.field-stat-comparison {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(20px, 2vw, 28px);
+  font-weight: 580;
+  letter-spacing: -0.025em;
+  line-height: 1.25;
+  color: var(--ink);
+}
 @media (max-width: 900px) {
   .field-stats-hero { grid-template-columns: repeat(2, 1fr); padding: 22px; gap: 12px; }
 }
